@@ -1,0 +1,19 @@
+Name Of Product : S?a Hà Lan
+Price Of Product : 10000
+Discount Of Product : 4
+Total :40000
+
+--------------------------------------
+Name Of Product : S?a Hà Lan
+Price Of Product : 10000
+Discount Of Product : 4
+Total :40000
+
+--------------------------------------
+Name Of Product : S?a Hà Lan
+Price Of Product : 10000
+Discount Of Product : 4
+Total :40000
+
+--------------------------------------
+
