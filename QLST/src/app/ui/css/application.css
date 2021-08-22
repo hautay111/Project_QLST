@@ -83,12 +83,13 @@
 	-fx-background-radius: 10;
 }
 
+.btnproduct{
+	-fx-background-radius: 10px 10px;
+	-fx-border-radius: 10px 10px;
+}
+
 .btnsale:hover{
 	
     -fx-text-fill: #5A8F99;
     -fx-background-color:#91B4BB;
-}
-/*-----------------------------Inventory---------------------------- */
-.Inventory_css{
-	-fx-background-image: url("../../image/Bau-troi-hong-cute.jpg");
 }

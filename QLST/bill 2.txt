@@ -1,19 +1,4 @@
-Name Of Product : bánh
-Price Of Product : 2000
-Discount Of Product : 1
-Total :2000
+----------------------SuperMarket------------------------
+Name                Price                Amount              Total
 
---------------------------------------
-Name Of Product : bánh
-Price Of Product : 2000
-Discount Of Product : 3
-Total :6000
-
---------------------------------------
-Name Of Product : Sửa Hà Lan
-Price Of Product : 10000
-Discount Of Product : 4
-Total :40000
-
---------------------------------------
 

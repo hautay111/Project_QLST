@@ -43,7 +43,7 @@
             </HBox>
             <Label fx:id="id" text="id" />
             <Pane maxHeight="-Infinity" prefHeight="2.0" prefWidth="292.0" style="-fx-background-color: #fff;" styleClass="line-color" HBox.hgrow="ALWAYS" />
-            <Label alignment="CENTER" prefHeight="61.0" prefWidth="343.0" styleClass="shadow" text="Manage" textFill="WHITE">
+            <Label alignment="CENTER" onMouseClicked="#home" prefHeight="61.0" prefWidth="343.0" styleClass="shadow" text="Manage" textFill="WHITE">
                <font>
                   <Font name="Bernard MT Condensed" size="35.0" />
                </font>
@@ -106,7 +106,28 @@
                      </cursor>
                   </VBox>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#product_manage" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
+                     <children>
+                        <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@../../image/icons8-product-48.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Product" textFill="WHITE">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </VBox>
+                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
+                  <VBox alignment="CENTER" onMouseClicked="#category_brand" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -116,7 +137,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Sale Manager" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Category" textFill="WHITE">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Brand" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
@@ -138,7 +164,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="243.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#account" prefHeight="200.0" prefWidth="243.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -169,7 +195,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="34.0" prefWidth="209.0" styleClass="shadow" text="Settings" textFill="WHITE">
+                        <Label alignment="CENTER" onMouseClicked="#toAcc" prefHeight="34.0" prefWidth="209.0" styleClass="shadow" text="Settings" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>

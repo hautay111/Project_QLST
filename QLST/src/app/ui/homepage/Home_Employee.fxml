@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1049.0" styleClass="gradient-background" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.homepage.Home_Employee">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1380.0" styleClass="gradient-background" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.homepage.Home_Employee">
    <top>
       <HBox alignment="CENTER" prefHeight="84.0" prefWidth="1380.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
@@ -43,7 +43,7 @@
             </HBox>
             <Label fx:id="id" text="id" />
             <Pane maxHeight="-Infinity" prefHeight="2.0" prefWidth="292.0" style="-fx-background-color: #fff;" styleClass="line-color" HBox.hgrow="ALWAYS" />
-            <Label alignment="CENTER" prefHeight="61.0" prefWidth="343.0" styleClass="shadow" text="Employee" textFill="#f50000">
+            <Label alignment="CENTER" onMouseClicked="#home" prefHeight="61.0" prefWidth="343.0" styleClass="shadow" text="Employee" textFill="#f50000">
                <font>
                   <Font name="Bernard MT Condensed" size="35.0" />
                </font>
@@ -80,9 +80,9 @@
             <Insets />
          </opaqueInsets>
          <children>
-            <HBox alignment="CENTER" prefHeight="204.0" prefWidth="1380.0" spacing="100.0">
+            <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <VBox alignment="CENTER" onMouseClicked="#bill_employee" prefHeight="204.0" prefWidth="232.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#bill_employee" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -103,9 +103,9 @@
                      </cursor>
                   </VBox>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
-                  <VBox alignment="CENTER" onMouseClicked="#inventory_employee" prefHeight="204.0" prefWidth="245.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#inventory_employee" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
                      <children>
-                        <ImageView fitHeight="92.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                        <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
                               <Image url="@../../image/icons8-product-48.png" />
                            </image>
@@ -113,7 +113,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="54.0" prefWidth="212.0" styleClass="shadow" text="Inventory" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Inventory" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
@@ -123,6 +123,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </VBox>
+                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
                </children>
                <VBox.margin>
                   <Insets top="31.0" />
@@ -135,7 +136,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="235.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="233.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -145,7 +146,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="130.0" prefWidth="243.0" styleClass="shadow" text="Change Shift" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Label alignment="CENTER" prefHeight="60.0" prefWidth="249.0" styleClass="shadow" text="Chnage Shift" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
@@ -155,8 +156,8 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </VBox>
-                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: #fff;" styleClass="line-color" />
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="248.0" styleClass="btnhome">
+                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -166,7 +167,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="34.0" prefWidth="209.0" styleClass="shadow" text="Settings" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Setting" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
@@ -176,6 +177,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </VBox>
+                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
                </children>
             </HBox>
          </children>

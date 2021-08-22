@@ -1,34 +1,117 @@
 package app.controller.homepage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
+import app.controller.employee_controller.Bill_employee;
 import app.dao.connectDB;
+import app.model.Bill;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Home_Employee {
+public class Home_Employee implements Initializable{
 	
-	Connection conn =null;
+	
+	
+    @FXML
+    private Label text_code;
+
+    @FXML
+    private Label text_name;
+
+    @FXML
+    private TextField text_amount;
+
+    @FXML
+    private Label text_type;
+
+    @FXML
+    private Label text_price;
+
+    @FXML
+    private Label text_total;
+
+    @FXML
+    private TableColumn<Bill,String> col_name;
+
+    @FXML
+    private TableColumn<Bill,String> col_barcode;
+    @FXML
+    private TableColumn<Bill,String> col_type;
+
+    @FXML
+    private TableColumn<Bill,String> col_price;
+
+    @FXML
+    private TableView<Bill> table_bill;
+    
+    @FXML
+    private TextArea bill;
+    
+    @FXML
+    private TextField search_bill;
+    
+
+    @FXML
+    private Label ltotal;
+    
+    int index = -1;
+    
+    Connection conn =null;
     ResultSet rs = null;
     PreparedStatement pst = null;
+    ObservableList<Bill> listM;
+    ObservableList<Bill> dataList;
+	
+    
+    @FXML
+    private BorderPane mainPane;
    
 	@FXML
     private Label id;
+	
+    @FXML
+    private Label menu;
+
+    @FXML
+    private Label menucolse;
+
+    @FXML
+    private VBox slider;
 	
 	@FXML
     private Label user;
@@ -42,9 +125,30 @@ public class Home_Employee {
     @FXML
     private Pane pane2;
     
-	@FXML
-	void home(MouseEvent event) {
 
+    @FXML
+    private VBox home_lider;
+    
+    public void initialize(URL url, ResourceBundle rb) {
+    	
+
+        // Code Source in description
+    } 
+    
+    
+    
+    
+    
+    @FXML
+	void home(MouseEvent event) throws IOException {
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		FXMLLoader loader=new FXMLLoader();
+		loader.setLocation(getClass().getResource("../../ui/homepage/Home_Employee.fxml"));							
+		Parent parent=loader.load();
+        Home_Employee home=loader.getController();
+        home.getId(a1,a2,a3);
+		Scene scene=new Scene(parent);				
+		stage.setScene(scene);
 	}
 	
 	@FXML
@@ -84,6 +188,7 @@ public class Home_Employee {
 
     }
 	
+	
     @FXML
     void inventory_employee(MouseEvent event) {
         try {
@@ -102,37 +207,46 @@ public class Home_Employee {
         }
 
     }
+    
+    
 	
 	
-	
+    private static String emp_id, name,phone,email,username,title_name,date;
 	@FXML
-    void toInformation(MouseEvent event) throws IOException, SQLException {	
-//		Connection conn=connectDB.ConnectDb();
-//		pst = conn.prepareStatement("select * from employee where employee_name = ? and employee_position=?");	
-//		pst.setString(1, a2);
-//		pst.setString(2, a3);
-//		ResultSet rs = pst.executeQuery();
-//					
-//		
-//		if (rs.next()) {
-//				System.out.println("kiem tra thanh cong");
-//				FXMLLoader loader=new FXMLLoader();
-//				loader.setLocation(getClass().getResource("../view/Info_Employee.fxml"));
-//				id=rs.getString("employee_id");
-//				name=rs.getString("employee_name");
-//				position=rs.getString("employee_position");
-//				rank_1=rs.getString("employee_rank");
-//				email=rs.getString("employee_email");
-//				phone=rs.getString("employee_phone");
-//				username=rs.getString("employee_username");
-//				Parent parent=loader.load();	
-//				Info_Employee info=loader.getController();
-//				info.getInfo(name, position, id, rank_1,email,phone,username);
-//				mainPane.setCenter(parent);
-//			}else{
-//        		JOptionPane.showMessageDialog(null, "Ko do dc.");	
-//        	}
-//			conn.close();
+    void toInformation(MouseEvent event) throws IOException, SQLException {
+		
+		Connection conn=connectDB.ConnectDb();
+		pst = conn.prepareStatement("select * from employee where emp_id=?");	
+		pst.setString(1, a1);
+		ResultSet rs = pst.executeQuery();
+					
+		
+		if (rs.next()==true) {
+				System.out.println("kiem tra thanh cong");
+				FXMLLoader loader=new FXMLLoader();
+				loader.setLocation(getClass().getResource("../../ui/homepage/Info_Employee.fxml"));
+				Parent parent=loader.load();
+				emp_id=rs.getString("emp_id");
+				name=rs.getString("emp_name");
+				phone=rs.getString("emp_phone");
+				email=rs.getString("emp_email");
+				username=rs.getString("emp_user");
+				date=rs.getString("emp_birthday");
+				int title_id=rs.getInt("title_id");
+				pst = conn.prepareStatement("select * from title where title_id=?");	
+				pst.setLong(1, title_id);
+				ResultSet rs1 = pst.executeQuery();
+				if (rs1.next()) {
+					title_name=rs1.getString("title_name");
+					System.out.println(title_name);
+				}
+				Info_Employee info=loader.getController();
+				info.getInfo(emp_id, name, title_name, phone, email, username,date);
+				mainPane.setCenter(parent);
+			}else{
+        		JOptionPane.showMessageDialog(null, "Ko do dc.");	
+        	}
+			conn.close();
 	}
 	
 	
@@ -162,4 +276,32 @@ public class Home_Employee {
 		System.out.println(a1+" / "+a2+" / "+a3);
 	}
 
+	
+	
+
+	    
+
+	    
+	    
+		
+//			@FXML
+//		void exit(MouseEvent event) {
+//			try {
+//				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//				FXMLLoader loader = new FXMLLoader();
+//				loader.setLocation(getClass().getResource("../../ui/homepage/Home_Employee.fxml"));
+//				Parent parent;
+//
+//				parent = loader.load();
+//
+//				Scene scene = new Scene(parent);
+//				stage.setScene(scene);
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+		
+		
+	
 }
