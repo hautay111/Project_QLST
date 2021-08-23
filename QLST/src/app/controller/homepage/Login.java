@@ -65,7 +65,8 @@ public class Login {
             return txt_pass.getText();
         }
     }
-    private static String id,title_id,user,status;
+    private static String id,title_name,user;
+    private static Integer title_id,status;
     @FXML
     void btn_login(ActionEvent event) throws SQLException, IOException, InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, BadPaddingException, IllegalBlockSizeException {
     	
@@ -86,25 +87,17 @@ public class Login {
 		if (rs.next()) {
 				System.out.println("dang nhap thanh cong");
 				id=rs.getString("emp_id");	
-				title_id=rs.getString("title_id");
+				title_id=rs.getInt("title_id");
 				user=rs.getString("emp_name");
-				status=rs.getString("emp_status");
-				if(status.equals("1")) {
+				status=rs.getInt("emp_status");
+				if(status==1) {
 					JOptionPane.showMessageDialog(null, "Tai Khoan Dang Dang Nhap Tren May Khac.");	
 				}else {
-					if (title_id.equals("1")) {
-						Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
-						FXMLLoader loader=new FXMLLoader();
-						loader.setLocation(getClass().getResource("../../ui/homepage/Home_Manage.fxml"));								
-						Parent parent=loader.load();
-						String sql = "update employee set emp_status=1 where emp_id='"+id+"' ";
-			            pst= conn.prepareStatement(sql);
-			            pst.execute();
-			            Home_Manage home=loader.getController();
-			            home.getId(id,user,title_id);
-						Scene scene=new Scene(parent);				
-						stage.setScene(scene);
-					}else if (title_id.equals("2")) {
+					String sql1="Select * from title where title_id= '"+title_id+"' and title_name like '%emp%'";				
+					ResultSet rs1 = pst.executeQuery(sql1);
+					if (rs1.next()) {
+						title_name=rs1.getString("title_name");
+						System.out.println(title_name);
 						Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
 						FXMLLoader loader=new FXMLLoader();
 						loader.setLocation(getClass().getResource("../../ui/homepage/Home_Employee.fxml"));							
@@ -113,7 +106,24 @@ public class Login {
 			            pst= conn.prepareStatement(sql);
 			            pst.execute();
 			            Home_Employee home=loader.getController();
-			            home.getId(id,user,title_id);
+			            home.getId(id,user,title_name);
+						Scene scene=new Scene(parent);				
+						stage.setScene(scene);
+					}
+					String sql2="Select * from title where title_id= '"+title_id+"' and title_name not like '%emp%'";				
+					ResultSet rs2 = pst.executeQuery(sql2);
+					if (rs2.next()) {
+						title_name=rs2.getString("title_name");
+						System.out.println(title_name);
+						Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+						FXMLLoader loader=new FXMLLoader();
+						loader.setLocation(getClass().getResource("../../ui/homepage/Home_Manage.fxml"));								
+						Parent parent=loader.load();
+						String sql = "update employee set emp_status=1 where emp_id='"+id+"' ";
+			            pst= conn.prepareStatement(sql);
+			            pst.execute();
+			            Home_Manage home=loader.getController();
+			            home.getId(id,user,title_name);
 						Scene scene=new Scene(parent);				
 						stage.setScene(scene);
 					}

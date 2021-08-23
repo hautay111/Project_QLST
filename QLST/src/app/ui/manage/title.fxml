@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.title">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1310.0" styleClass="container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.title">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -36,7 +36,7 @@
       </VBox>
    </center>
    <left>
-      <VBox prefHeight="619.0" prefWidth="447.0" spacing="10.0" style="-fx-background-color: #f2c84b;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="619.0" prefWidth="447.0" spacing="10.0" style="-fx-background-color: #f2c84b; -fx-background-radius: 15;" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" prefHeight="36.0" prefWidth="287.0">
                <children>

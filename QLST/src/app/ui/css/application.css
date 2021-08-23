@@ -64,13 +64,18 @@
 }
 .btnhome:focused{
 	-fx-background-color: rgba(255,255,255,0.2);
-	-fx-background-radius: 10;
+	-fx-background-radius: 10;	
+	-fx-border-color: #6747CD;
+	-fx-border-radius: 10;	
+	-fx-text-fill: #6747CD;
+	-fx-border-width: 1px;
 }
 .btnhome:pressed{
 	-fx-background-color: #57989B;
     -fx-scale-y: 1.05;
     -fx-scale-x: 1.05;
     -fx-text-fill: #6747CD;
+    
 }
 .btnhome:hover{
 	/* 
@@ -81,6 +86,11 @@
     */
 	-fx-background-color: rgba(255,255,255,0.2);
 	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-text-fill: #6747CD;
+	-fx-border-color: #6747CD;
+	-fx-border-width: 1px;
+	-fx-border-style: solid;
 }
 
 .btnproduct{

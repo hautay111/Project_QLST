@@ -42,6 +42,7 @@
                </cursor>
             </HBox>
             <Label fx:id="id" text="id" />
+            <Label fx:id="title_id" text="title_id" />
             <Pane maxHeight="-Infinity" prefHeight="2.0" prefWidth="292.0" style="-fx-background-color: #fff;" styleClass="line-color" HBox.hgrow="ALWAYS" />
             <Label alignment="CENTER" onMouseClicked="#home" prefHeight="61.0" prefWidth="343.0" styleClass="shadow" text="Manage" textFill="WHITE">
                <font>
@@ -75,7 +76,7 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="container" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container" BorderPane.alignment="CENTER">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -127,13 +128,6 @@
                      </cursor>
                   </VBox>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
-               </children>
-               <VBox.margin>
-                  <Insets top="31.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="1350.0" spacing="100.0">
-               <children>
                   <VBox alignment="CENTER" onMouseClicked="#category_brand" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
@@ -150,6 +144,38 @@
                            </font>
                         </Label>
                         <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Brand" textFill="WHITE">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="31.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="1350.0" spacing="100.0">
+               <children>
+                  <VBox alignment="CENTER" onMouseClicked="#account" prefHeight="200.0" prefWidth="243.0" styleClass="btnhome">
+                     <children>
+                        <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@../../image/icons8-management-96.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" prefHeight="130.0" prefWidth="243.0" styleClass="shadow" text="Employee" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="130.0" prefWidth="243.0" styleClass="shadow" text="Manager" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
@@ -180,9 +206,30 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </VBox>
+                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
+                  <VBox alignment="CENTER" onMouseClicked="#toInformation" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
+                     <children>
+                        <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@../../image/icons8-settings-96.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" onMouseClicked="#toAcc" prefHeight="34.0" prefWidth="209.0" styleClass="shadow" text="Settings" textFill="WHITE">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="100.0">
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="1340.0" spacing="100.0">
                <children>
                   <VBox alignment="CENTER" onMouseClicked="#account" prefHeight="200.0" prefWidth="243.0" styleClass="btnhome">
                      <children>
@@ -194,7 +241,12 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="130.0" prefWidth="243.0" styleClass="shadow" text="Employee Manager" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                        <Label alignment="CENTER" prefHeight="130.0" prefWidth="243.0" styleClass="shadow" text="Employee" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="130.0" prefWidth="243.0" styleClass="shadow" text="Manager" textAlignment="CENTER" textFill="WHITE" wrapText="true">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
@@ -204,8 +256,29 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </VBox>
-                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: #fff;" styleClass="line-color" />
-                  <VBox alignment="CENTER" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
+                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
+                  <VBox alignment="CENTER" onMouseClicked="#title" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
+                     <children>
+                        <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@../../image/icons8-buying-96.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Title" textFill="WHITE">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </VBox>
+                  <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
+                  <VBox alignment="CENTER" onMouseClicked="#toInformation" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -229,4 +302,69 @@
             </HBox>
          </children></VBox>
    </center>
+   <left>
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="619.0" prefWidth="40.0" spacing="10.0" style="-fx-background-color: #CEE3F6; -fx-background-radius: 6;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#home" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/icons8-small-business-100.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/icons8-dashboard-layout-96.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#product_manage" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/icons8-product-48.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#category_brand" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/icons8-buying-96.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#account" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/icons8-management-96.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#title" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/icons8-buying-96.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#toInformation" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/icons8-settings-96.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </VBox>
+   </left>
 </BorderPane>

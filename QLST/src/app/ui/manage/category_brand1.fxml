@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1350.0" style="-fx-background-color: #cccc; -fx-background-radius: 20;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.category_brand1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1310.0" styleClass="container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.category_brand1">
    <left>
-      <VBox alignment="TOP_CENTER" prefHeight="619.0" prefWidth="670.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="619.0" prefWidth="650.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="200.0" prefWidth="675.0" spacing="10.0" style="-fx-background-color: #D0FA58; -fx-background-radius: 20 20 0 0;">
                <children>
@@ -61,7 +61,7 @@
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="619.0" prefWidth="670.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="619.0" prefWidth="650.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="200.0" prefWidth="327.0" spacing="10.0" style="-fx-background-color: #f2c84b; -fx-background-radius: 20 20 0 0;">
                <children>
@@ -97,7 +97,7 @@
                   <Insets bottom="10.0" left="170.0" right="170.0" top="20.0" />
                </padding>
             </VBox>
-            <TableView fx:id="table_brand" onMouseClicked="#getSelected_brand" prefHeight="419.0" prefWidth="200.0" style="-fx-background-radius: 20;">
+            <TableView fx:id="table_brand" onMouseClicked="#getSelected_brand" prefHeight="419.0" prefWidth="0.0" style="-fx-background-radius: 20;">
               <columns>
                   <TableColumn fx:id="col_no_brand" prefWidth="68.0" text="No." />
                 <TableColumn fx:id="col_brand_id" prefWidth="75.0" text="ID" visible="false" />

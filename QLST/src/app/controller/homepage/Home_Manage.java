@@ -37,6 +37,9 @@ public class Home_Manage {
     private Label title;
     
     @FXML
+    private Label title_id;
+    
+    @FXML
     void home(MouseEvent event) throws SQLException, IOException {
     	Connection conn=connectDB.ConnectDb();
 		pst = conn.prepareStatement("select * from employee where emp_id=?");
@@ -166,16 +169,24 @@ public class Home_Manage {
     void title(MouseEvent event) {
 		loadUI("title");
     }
-	
+	private static Integer a4;
 	private static String a1,a2,a3;
-	public void getId(String id1,String user1,String title1) {
+	public void getId(String id1,String user1,String title1) throws SQLException {
+		conn=connectDB.ConnectDb();
 		id.setText(id1);
 		user.setText(user1);
 		title.setText(title1);
 		a1=id.getText();
 		a2=user.getText();
 		a3=title.getText();
-		System.out.println(a1+" / "+a2+" / "+a3);
+		String sql="select * from employee where emp_id='"+a1+"'";
+		pst= conn.prepareStatement(sql);
+		rs=pst.executeQuery(sql);
+		if(rs.next()) {
+			title_id.setText(rs.getString("title_id"));
+			a4 = Integer.parseInt(title_id.getText());
+		}
+		System.out.println(a1+" / "+a2+" / "+a3+" / "+a4);
 	}
 	private void loadUI(String ui) {
     	Parent root=null;

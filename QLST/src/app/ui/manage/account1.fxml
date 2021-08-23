@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1350.0" style="-fx-background-color: pink;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.account1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1310.0" style="-fx-background-color: pink; -fx-background-radius: 10;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.account1">
    <left>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -69,11 +69,11 @@
                   <TableColumn fx:id="col_email" prefWidth="175.0" text="Email" />
                   <TableColumn fx:id="col_phone" prefWidth="129.0" text="Phone" />
                   <TableColumn fx:id="col_address" prefWidth="133.33331298828125" text="Address" />
-                  <TableColumn fx:id="col_gender" prefWidth="111.3333740234375" text="Gender" />
-                  <TableColumn fx:id="col_title" prefWidth="122.66668701171875" text="Title" />
-                  <TableColumn fx:id="col_user" prefWidth="132.3333740234375" text="Username" />
+                  <TableColumn fx:id="col_gender" prefWidth="88.0" text="Gender" />
+                  <TableColumn fx:id="col_title" prefWidth="99.3333740234375" text="Title" />
+                  <TableColumn fx:id="col_user" prefWidth="130.0" text="Username" />
                   <TableColumn fx:id="col_pass" minWidth="0.0" prefWidth="0.0" text="Password" />
-                  <TableColumn fx:id="col_status" prefWidth="104.0" text="Status" />
+                  <TableColumn fx:id="col_status" prefWidth="106.0" text="Status" />
                </columns>
             </TableView>
          </children>
