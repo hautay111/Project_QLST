@@ -33,6 +33,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -185,13 +186,25 @@ public class account1 implements Initializable {
 				});
 
 				try {
+					System.out.println("Sending.");					
 					Message message = new MimeMessage(session);
 					message.setFrom(new InternetAddress(myAccountEmail));
 					message.setRecipient(Message.RecipientType.TO, new InternetAddress(email.getText()));
-					message.setSubject("Account: ");
-					String htmlCode = "<h2> username:<i> <u>" + user.getText()
-							+ "</u> </i> </h2> <br/> <h2><b>Password:<i> <u>" + pass.getText() + "</u> </i> </b></h2>";
-					message.setContent(htmlCode, "text/html");
+					message.setSubject("Account:");
+					String htmlCode = "<h2>"
+							+ "			Super market group send to <i> <u>" + name.getText()+ "</u> </i> . <br> "
+							+ "        Information Account."
+							+ "    </h2>"
+							+ "    <h3>Title: <i> <u>" + title.getValue()+ "</u> </i> <br/> "
+							+ "        Start work on: <i> <u>" + date_start.getEditor().getText()+ " at 7h00 am</u> </i> <br>"
+							+ "        username:<i> <u>" + user.getText()+ "</u> </i> <br/> "
+							+ "        Password:<i> <u>" + pass.getText() + "</u> </i> "
+							+ "    </h3>"
+							+ "    <p>"
+							+ "        If you have any questions, please contact: 0252112002 . <br>"
+							+ "        wish you good day."
+							+ "    </p>";
+					message.setContent(htmlCode, "text/html; charset=utf-8");
 					Transport.send(message);
 					JOptionPane.showMessageDialog(null, "Add  And Send Successfully");
 					System.out.println("Message sent successfully");

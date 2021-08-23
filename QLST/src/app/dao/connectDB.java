@@ -8,7 +8,7 @@ import app.model.Account1;
 import app.model.Bill;
 
 import app.model.Product;
-
+import app.model.Title;
 import app.model.Brand1;
 import app.model.Category1;
 import javafx.collections.FXCollections;
@@ -138,6 +138,29 @@ public class connectDB {
                 		Integer.parseInt(rs.getString("brand_id")),
                 		rs.getRow(),
                 		rs.getString("brand_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	}
+    
+    public static ObservableList<Title> getDataTitle() {
+        Connection conn = ConnectDb();
+        ObservableList<Title> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM title");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Title(
+                		Integer.parseInt(rs.getString("title_id")),
+                		rs.getRow(), 
+                		rs.getString("title_name"), 
+                		rs.getString("description")
                 	));    
                 
             }

@@ -127,6 +127,13 @@
                      </cursor>
                   </VBox>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
+               </children>
+               <VBox.margin>
+                  <Insets top="31.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="1350.0" spacing="100.0">
+               <children>
                   <VBox alignment="CENTER" onMouseClicked="#category_brand" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
@@ -152,14 +159,27 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </VBox>
-               </children>
-               <VBox.margin>
-                  <Insets top="31.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="1350.0" spacing="100.0">
-               <children>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
+                  <VBox alignment="CENTER" onMouseClicked="#title" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
+                     <children>
+                        <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@../../image/icons8-buying-96.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Title" textFill="WHITE">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </VBox>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="100.0">

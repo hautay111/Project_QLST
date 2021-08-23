@@ -162,6 +162,11 @@ public class Home_Manage {
 		loadUI("category_brand1");
     }
 	
+	@FXML
+    void title(MouseEvent event) {
+		loadUI("title");
+    }
+	
 	private static String a1,a2,a3;
 	public void getId(String id1,String user1,String title1) {
 		id.setText(id1);
