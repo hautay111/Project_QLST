@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
-import app.controller.manage_controller.product;
+import app.controller.manage_controller.Product_controller.product;
 import app.dao.connectDB;
 import app.model.Category1;
 
@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 public class product_add implements Initializable{
@@ -51,6 +52,9 @@ public class product_add implements Initializable{
 
 	    
 	    int index = -1;
+	    
+	    @FXML
+	    private DatePicker date;
 	    
 	    Connection conn =null;
 	    ResultSet rs = null;
@@ -187,7 +191,7 @@ public class product_add implements Initializable{
 	            pst.setString(1, text_product_barcode.getText());
 	            pst.setString(2, text_product_name.getText());
 	            pst.setString(3, text_product_price.getText());
-	            pst.setString(4, text_product_expiry.getText());
+	            pst.setString(4, date.getValue().toString());
 	            String value = combobox_product.getSelectionModel().getSelectedItem().toString();
 	            String value1 = combobox_product_brand.getSelectionModel().getSelectedItem().toString();
 	            String value2 = combobox_product_category.getSelectionModel().getSelectedItem().toString();

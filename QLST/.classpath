@@ -14,5 +14,9 @@
 	<classpathentry kind="lib" path="src/app/dist/lib/mysql-connector-java-8.0.25.jar"/>
 	<classpathentry kind="lib" path="src/app/dist/lib/rs2xml.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx16"/>
+	<classpathentry kind="lib" path="C:/Users/hau/git/QLST/src/app/dist/lib/dom4j.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hau/git/QLST/src/app/dist/lib/jxl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hau/git/QLST/src/app/dist/lib/poi-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hau/git/QLST/src/app/dist/lib/poi-ooxml-4.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

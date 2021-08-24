@@ -1,4 +1,0 @@
-----------------------SuperMarket------------------------
-Name                Price                Amount              Total
-
-

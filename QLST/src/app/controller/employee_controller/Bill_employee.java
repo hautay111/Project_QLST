@@ -1,6 +1,9 @@
 package app.controller.employee_controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -13,7 +16,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import app.dao.connectDB;
 import app.model.Bill;
@@ -21,12 +27,15 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -76,8 +85,6 @@ public class Bill_employee implements Initializable{
     @FXML
     private TableColumn<Bill, Integer> col_no;
     
-    @FXML
-    private TextArea bill;
     
     @FXML
     private TextField search_bill;
@@ -99,8 +106,8 @@ public class Bill_employee implements Initializable{
     UpdateTable_bill();
     search_user_bill();
     num=0;
-    bill.setText("----------------------SuperMarket------------------------"+"\n"+
-    "Name                Price                Amount              Total"+"\n"+"\n");
+    bill.setText("---------------------------SuperMarket------------------------"+"\n"+"\n"+"Nhân viên: Hậu Kar"+"\n"+
+    "Name                                Price               Amount                       Total"+"\n"+"\n");
 
          
 
@@ -111,6 +118,10 @@ public class Bill_employee implements Initializable{
     
     // Code Source in description
     } 
+    
+    
+    
+
     
     
     
@@ -128,7 +139,7 @@ public class Bill_employee implements Initializable{
         	JOptionPane.showMessageDialog(null, "Please choose a product or amount");
     	}
     	p++;
-    	
+    	int c=0;
     	double money =	Double.parseDouble(text_price.getText());
         int y = Integer.parseInt(text_amount.getText());
         double total=(money*y);
@@ -140,35 +151,69 @@ public class Bill_employee implements Initializable{
         ltotal.setText(""+p);
     	    	
         String s=bill.getText();
-        
-        bill.setText(s+text_name.getText()+"                "+text_price.getText()+"                 "+
-        text_amount.getText()+"                    "+moneyString+" vnđ"+"\n"+"---------------------------------------------------------------\n"
-        );
-        
         System.out.println(p);
+        c++;
+        
+        bill.setText(s+String.valueOf(c)+"  "+text_name.getText()+"                              "+text_price.getText()+"              "+
+        text_amount.getText()+"                    "+moneyString+" vnđ"+"\n"+"------------------------------------------------------------------------------\n"
+        		
+       
+        );
         
 
 
     }
 
     int num =0;
-    public void Print() {
+//    public void Print() {
+//        
+//        try {
+//            num++;
+//             PrintWriter f = new PrintWriter("bill "+String.valueOf(num)+".txt");
+//             f.println(bill.getText());
+//            f.close();
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println(ex);
+//        }
+//                 
+//        bill.setText("----------------------SuperMarket------------------------"+"\n"+
+//        	    "Name                           Price             Amount              Total"+"\n"+"\n");
+//        
+//  
+//  }
+    @FXML
+    private Button print;
+    @FXML
+    private TextArea bill;
+    
+    @FXML
+    private void Print() {
+    	print.setVisible(false);
+        print(bill);
         
-        try {
-            num++;
-             PrintWriter f = new PrintWriter("bill "+String.valueOf(num)+".txt");
-             f.println(bill.getText());
-            f.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex);
+		      try {
+		      num++;
+		       PrintWriter f = new PrintWriter("bill "+String.valueOf(num)+".txt");
+		       f.println(bill.getText());
+		      f.close();
+			  } catch (FileNotFoundException ex) {
+			      Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
+			      System.out.println(ex);
+			  }
+    }
+         
+    
+    private void print(Node node) {
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if (job != null && job.showPrintDialog(node.getScene().getWindow())){
+            boolean success = job.printPage(node);
+            if (success) {
+                job.endJob();
+            }
         }
-                 
-        bill.setText("----------------------SuperMarket------------------------"+"\n"+
-        	    "Name                Price                Amount              Total"+"\n"+"\n");
-        
-  
-  }
+        print.setVisible(true);
+    }
     
     
     public void UpdateTable_bill(){

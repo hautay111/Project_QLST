@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="389.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.product_crud.product_add">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.product_crud.product_add">
    <children>
-      <Pane prefHeight="389.0" prefWidth="678.0" style="-fx-background-color: #5A8F6D;">
+      <Pane prefHeight="553.0" prefWidth="937.0" style="-fx-background-color: #5A8F6D;">
          <children>
             <TextField fx:id="text_product_id" layoutX="14.0" layoutY="8.0" promptText="ID" />
             <VBox layoutX="22.0" layoutY="349.0" prefHeight="44.0" prefWidth="157.0" spacing="33.0" />
@@ -59,7 +60,7 @@
                   </VBox>
                   <VBox prefHeight="167.0" prefWidth="184.0" spacing="34.0">
                      <children>
-                        <TextField fx:id="text_product_expiry" promptText="Expiry" />
+                        <DatePicker fx:id="date" prefHeight="25.0" prefWidth="193.0" />
                         <ComboBox fx:id="combobox_product" prefHeight="25.0" prefWidth="185.0" promptText="Unit" />
                         <ComboBox fx:id="combobox_product_brand" prefHeight="25.0" prefWidth="188.0" promptText="Brand" />
                      </children>

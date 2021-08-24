@@ -1,20 +1,32 @@
-package app.controller.manage_controller;
+package app.controller.manage_controller.Product_controller;
 
+import java.awt.Desktop;
+import org.apache.poi.ss.usermodel.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.ModuleLayer.Controller;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
 
+import app.Main;
+import app.controller.employee_controller.Bill_employee;
 import app.controller.homepage.Home_Manage;
+import app.controller.manage_controller.Product_controller.Barcode_Create.Barcode_Image;
 import app.controller.manage_controller.product_crud.*;
 import javax.swing.JOptionPane;
 
+import com.mysql.cj.result.Row;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Object;
 
 import app.dao.connectDB;
@@ -37,7 +49,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.DatePicker;
+//import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -45,11 +58,54 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import app.dao.connectDB;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import jxl.Workbook; 
+import jxl.write.*;
 
 public class product implements Initializable{
     @FXML
@@ -112,12 +168,17 @@ public class product implements Initializable{
 
     @FXML
     private TextField text_product_category;
-    
+
+    @FXML
+    private BorderPane main;
 
     @FXML
     private Label label_amount;
     
 
+    @FXML
+    private DatePicker date1;
+    
     @FXML
     private TextField test;
     
@@ -135,7 +196,7 @@ public class product implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
 //    UpdateTable_product();
     search_user_product();
-    showamount();
+//    showamount();
 
     
     // Code Source in description
@@ -175,22 +236,22 @@ public class product implements Initializable{
 //    }
     
     
-   void showamount() {
-	   conn = connectDB.ConnectDb();
-        try {
-        String sql ="SELECT COUNT(*) FROM product WHERE pro_id > 1";
-        ResultSet rs = conn.createStatement().executeQuery(sql); 
-			if (rs.next()) {
-				int i = rs.getInt(1); // access first column in result
-				    System.out.println(i);
-				    label_amount.setText("Total Product: "+i);
-				}
-		} catch (SQLException e) {
-			System.out.println(e);
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-   }
+//   void showamount() {
+//	   conn = connectDB.ConnectDb();
+//        try {
+//        String sql ="SELECT COUNT(*) FROM product WHERE pro_id > 1";
+//        ResultSet rs = conn.createStatement().executeQuery(sql); 
+//			if (rs.next()) {
+//				int i = rs.getInt(1); // access first column in result
+//				    System.out.println(i);
+//				    label_amount.setText("Total Product: "+i);
+//				}
+//		} catch (SQLException e) {
+//			System.out.println(e);
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//   }
     
     
     @FXML
@@ -302,13 +363,13 @@ public class product implements Initializable{
     @FXML
     void product_add(MouseEvent event) {
 	    try {
-	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/manage/product/crud_product.fxml"));
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../../ui/manage/product/crud_product.fxml"));
 	                Parent root = (Parent) fxmlLoader.load();
 	                Stage stage = new Stage();
 	                stage.setScene(new Scene(root));  
 	                stage.show();             
 	                UpdateTable_product();
-	                showamount();
+//	                showamount();
 	                search_user_product();
 	                
 	        } catch(Exception e) {
@@ -329,7 +390,7 @@ public class product implements Initializable{
                 UpdateTable_product();
                 search_user_product();
                 btn_product_reset();
-                showamount();
+//                showamount();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e);
             }
@@ -353,16 +414,17 @@ public class product implements Initializable{
             String value5 = text_product_unit.getText();
             String value6 = text_product_brand.getText();
             String value7 = text_product_category.getText();
+            String value8 = text_product_barcode.getText();
 
             String sql = "update product set pro_name= '"+value2+"',pro_sale_price= '"+
-            		value3+"',pro_expiry= '"+value4+"',pro_unit= '"+value5+"',pro_brand= '"+value6+"',pro_category= '"+value7+"' where pro_id = '"+value1+"' ";
+            		value3+"',pro_expiry= '"+value4+"',pro_unit= '"+value5+"',pro_brand= '"+value6+"',pro_category= '"+value7+"',barcode= '"+value8+"' where pro_id = '"+value1+"' ";
             pst= conn.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Update");
 //            UpdateTable_product();
             search_user_product();
             btn_product_reset();
-            showamount();
+//            showamount();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -381,10 +443,184 @@ public class product implements Initializable{
     	text_product_barcode.setText("");
     	text_product_category.setText("");
     	
-		Connection conn=connectDB.ConnectDb();
-		ResultSet rs = pst.executeQuery();		
-		rs.next();
     }
+
+    
+    @FXML
+    void create_barcode(ActionEvent event) {
+	 	PreparedStatement ps=null;
+		Connection connection=null;
+		connectDB obj_DBConnection=new connectDB();
+		connection=obj_DBConnection.ConnectDb();
+		ResultSet rs=null;
+	try { 
+		String query="select * from product";
+		ps = connection.prepareStatement(query);
+		rs=ps.executeQuery();
+		while(rs.next()){
+			Barcode_Image.createImage(rs.getString("barcode")+".png", rs.getString("barcode"));
+//			Barcode_PDF.createPDF(rs.getString("barcode")+".pdf", rs.getString("barcode"));
+			
+			System.out.println("Creating Barcode for "+rs.getString("pro_name")+" :"+rs.getString("barcode"));
+		}
+		
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally{
+		if(connection!=null){
+			try {
+					connection.close();
+				}
+			 catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		if(ps!=null){
+			try {
+				ps.close();
+				}
+			 catch (Exception e2) {
+				 e2.printStackTrace();
+			}
+		}
+		
+	}
+    }
+
+    @FXML
+    void export_product(ActionEvent event)  throws InterruptedException{
+    	WritableWorkbook wworkbook;
+        try {
+
+       	wworkbook = Workbook.createWorkbook(new File("C:\\Users\\hau\\git\\Project_QLST\\QLST\\src\\app\\view\\Export_product\\Product_Export.xls"));
+       	
+			connectDB obj_DBConnection_LMC=new connectDB();
+			Connection connection=obj_DBConnection_LMC.ConnectDb();
+			PreparedStatement ps=null;
+			
+			ResultSet rs=null;
+			 
+		 
+ 			String query="select * from product ";
+// 			where date like '%oct-2015%'
+			ps=connection.prepareStatement(query);
+			System.out.println(ps);
+			rs=ps.executeQuery();
+			 WritableSheet wsheet = wworkbook.createSheet("First Sheet", 0);
+			 Label label = new Label(0, 2, "A label record");
+			  wsheet.addCell(label);
+	          int i=0;
+			 
+	           
+	           int j=1;
+			while(rs.next()){
+				
+				i=0;
+				
+				 label = new Label(i++, j, j+"");
+				  wsheet.addCell(label);					  
+				  label = new Label(i++, j, rs.getString("barcode"));
+				  wsheet.addCell(label);
+				 label = new Label(i++, j, rs.getString("pro_name"));
+				  wsheet.addCell(label);
+				  label = new Label(i++, j, rs.getString("pro_sale_price"));
+				  wsheet.addCell(label);
+				  label = new Label(i++, j, rs.getString("pro_expiry"));
+				  wsheet.addCell(label);
+				  label = new Label(i++, j, rs.getString("pro_unit"));
+				  wsheet.addCell(label);
+				  label = new Label(i++, j, rs.getString("pro_brand"));
+				  wsheet.addCell(label);
+				  label = new Label(i++, j, rs.getString("pro_category"));
+				  wsheet.addCell(label);
+
+				j++;
+			}
+        wworkbook.write();
+        wworkbook.close();
+        System.out.println("fineshed");
+        JOptionPane.showMessageDialog(null, "successfully exported the product file!");
+        
+        
+        } catch (Exception e) {
+        System.out.println(e);
+        JOptionPane.showMessageDialog(null, "The process cannot access the file because it is being used by another process");
+		}
+    }
+    
+
+    @FXML
+    void import_product(ActionEvent event) {
+        try {
+
+            String query = "Insert into UserDatabase(ID, FirstName, LastName, Email) values (?,?,?,?)";
+
+            pst = conn.prepareStatement(query);
+
+           
+
+            FileInputStream fileIn = new FileInputStream(new File("C:\\Users\\hau\\git\\Project_QLST\\QLST\\src\\app\\view\\Export_product\\Product_import.xls"));
+
+           
+
+            XSSFWorkbook wb = new XSSFWorkbook(fileIn);
+
+            XSSFSheet sheet = wb.getSheetAt(0);
+
+            XSSFRow row;
+
+            for(int i=1; i<=sheet.getLastRowNum(); i++){
+
+                row = sheet.getRow(i);
+
+                pst.setInt(1, (int) row.getCell(0).getNumericCellValue());
+
+                pst.setString(2, row.getCell(1).getStringCellValue());
+
+                pst.setString(3, row.getCell(2).getStringCellValue());
+
+                pst.setString(4, row.getCell(3).getStringCellValue());
+
+                pst.execute();
+
+            }
+
+            Alert alert = new Alert(AlertType.INFORMATION);
+
+            alert.setTitle("Information Dialog");
+
+            alert.setHeaderText(null);
+
+            alert.setContentText("User Details Imported From Excel Sheet To Database.");
+
+            alert.showAndWait();
+
+           
+
+            wb.close();
+
+            fileIn.close();
+
+            pst.close();
+
+            rs.close();
+
+        } catch (SQLException | FileNotFoundException ex) {
+
+            Logger.getLogger(product.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (IOException ex) {
+
+            Logger.getLogger(product.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+
+
+
+    }
+
 
      
 }
