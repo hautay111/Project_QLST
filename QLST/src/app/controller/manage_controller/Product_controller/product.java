@@ -1,6 +1,9 @@
 package app.controller.manage_controller.Product_controller;
 
 import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+
 import org.apache.poi.ss.usermodel.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,6 +21,8 @@ import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import app.Main;
 import app.controller.employee_controller.Bill_employee;
@@ -26,6 +31,16 @@ import app.controller.manage_controller.Product_controller.Barcode_Create.Barcod
 import app.controller.manage_controller.product_crud.*;
 import javax.swing.JOptionPane;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
 import com.mysql.cj.result.Row;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Object;
 
@@ -106,6 +121,23 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import jxl.Workbook; 
 import jxl.write.*;
+
+
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 public class product implements Initializable{
     @FXML
@@ -621,6 +653,4 @@ public class product implements Initializable{
 
     }
 
-
-     
 }

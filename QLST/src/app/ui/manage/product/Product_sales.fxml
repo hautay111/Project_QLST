@@ -120,6 +120,7 @@
             <Button layoutX="1040.0" layoutY="75.0" mnemonicParsing="false" onAction="#create_barcode" prefHeight="25.0" prefWidth="106.0" text="Create Barcode" />
             <Button layoutX="1040.0" layoutY="117.0" mnemonicParsing="false" onAction="#export_product" prefHeight="25.0" prefWidth="107.0" text="Export" />
             <Button layoutX="1040.0" layoutY="161.0" mnemonicParsing="false" onAction="#import_product" prefHeight="25.0" prefWidth="107.0" text="Import" />
+            <Button layoutX="893.0" layoutY="130.0" mnemonicParsing="false" onAction="#barcode_product" text="Button" />
          </children>
       </Pane>
    </top>

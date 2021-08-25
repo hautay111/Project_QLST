@@ -1,5 +1,7 @@
 package app.controller.employee_controller;
 
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,10 +19,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+
+import app.controller.homepage.Info_Employee;
 import app.dao.connectDB;
 import app.model.Bill;
 import javafx.collections.ObservableList;
@@ -44,6 +59,33 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 public class Bill_employee implements Initializable{
 
@@ -101,7 +143,7 @@ public class Bill_employee implements Initializable{
     ObservableList<Bill> listM;
     ObservableList<Bill> dataList;
 
-    
+    private static String code_bar;
     public void initialize(URL url, ResourceBundle rb) {
     UpdateTable_bill();
     search_user_bill();
@@ -115,6 +157,8 @@ public class Bill_employee implements Initializable{
     double b = 200.2000;
     double c = a * b;
     System.out.println(c);
+
+    
     
     // Code Source in description
     } 
@@ -304,7 +348,6 @@ public class Bill_employee implements Initializable{
 			Parent parent;
 
 			parent = loader.load();
-
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);
 		} catch (IOException e) {
@@ -314,5 +357,27 @@ public class Bill_employee implements Initializable{
 	}
 	
 	
-	
+		
+	private static String a;
+	void showcode(String text) {
+				
+			search_bill.setText(text);
+			a=search_bill.getText();
+			System.out.println(a);
+	}
+		//---------------------------------------------
+		
+	    @FXML
+	    void quet(ActionEvent event) {
+	    	WebcamQRCodeExample code = new WebcamQRCodeExample();	
+	    	code.setVisible(true);
+	    	search_bill.setText(a);
+	    	
+	    }
+	    
+	    
+	    
+	    
+	    
+		
 }
