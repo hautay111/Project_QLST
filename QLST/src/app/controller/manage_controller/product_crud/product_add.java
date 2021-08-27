@@ -15,6 +15,8 @@ import app.dao.connectDB;
 import app.model.Category1;
 
 import app.model.Product;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +24,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 
 public class product_add implements Initializable{
 
@@ -95,6 +99,7 @@ public class product_add implements Initializable{
 	        @FXML
 	        private ComboBox<String> combobox_product_brand;
 	        
+	        
 	        public void product_combobox() {
 	          ObservableList<String> list1 = FXCollections.observableArrayList("cat_name");
 //	        	
@@ -138,15 +143,41 @@ public class product_add implements Initializable{
 	            while (stnRS.next()) {
 	
 //	            	combobox_product.getItems().add(stnRS.getString("cat_name"));
-	
+
 	                stationsList1.add(stnRS.getString("brand_name"));
+	                
 	                combobox_product_brand.setItems(stationsList1);
+	                
+	                
+	                
 	            }
 	            	
 	            } catch (SQLException ex) {
 	                System.err.println("ERR" + ex);
 	            }
 	  } 
+	      
+
+	  	private static Integer brand_id;
+	      @FXML
+	      void box_brand(ActionEvent event) {
+	  		try {
+				Connection con = connectDB.ConnectDb();
+				String title_name = combobox_product_brand.getValue();
+				String sql = "select * from brand where brand_name='" + title_name + "' ";
+				PreparedStatement statement;
+				statement = con.prepareStatement(sql);
+				ResultSet set = statement.executeQuery();
+				if (set.next()) {
+					brand_id = set.getInt("brand_id");
+					System.out.println(brand_id);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	      }
+	      
 	    
 	      public void product_combobox_category() {
 //		      ObservableList<String> list1 = FXCollections.observableArrayList("cat_name");
@@ -165,6 +196,7 @@ public class product_add implements Initializable{
 		
 		                stationsList2.add(stnRS.getString("cat_name"));
 		                combobox_product_category.setItems(stationsList2);
+
 		            }
 		            	
 		            } catch (SQLException ex) {
@@ -172,12 +204,33 @@ public class product_add implements Initializable{
 		            }
 		  } 
 	      
+	      
+		  	private static Integer category_id;
+		      @FXML
+		      void box_category(ActionEvent event) {
+		  		try {
+					Connection con = connectDB.ConnectDb();
+					String category_name = combobox_product_category.getValue();
+					String sql = "select * from category where cat_name='" + category_name + "' ";
+					PreparedStatement statement;
+					statement = con.prepareStatement(sql);
+					ResultSet set = statement.executeQuery();
+					if (set.next()) {
+						category_id = set.getInt("cat_id");
+						System.out.println(category_id);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		      }
+	      
 
 	    
 	    @FXML
 	    void btn_product_add(ActionEvent event) {
 	        conn = connectDB.ConnectDb();
-	        String sql = "insert into product (barcode,pro_name,pro_sale_price,pro_expiry,pro_unit,pro_brand,pro_category)values(?,?,?,?,?,?,?)";
+	        String sql = "insert into product (barcode,pro_name,pro_sale_price,pro_expiry,pro_unit,brand_id,pro_category,pro_brand,cat_id)values(?,?,?,?,?,?,?,?,?)";
 	        try {
 	        	
 //	            DecimalFormat formatter = new DecimalFormat("###,###,###");
@@ -187,6 +240,14 @@ public class product_add implements Initializable{
 //	            String moneyString = formatter.format(money);
 //	            System.out.println(moneyString);
 //	        	
+//                combobox_product_brand.getSelectionModel().selectedItemProperty()
+//                .addListener(new ChangeListener<String>() {
+//                    public void changed(ObservableValue<? extends String> observable,
+//                                        String oldValue, String newValue) {
+//                        System.out.println("Value is: "+newValue+oldValue);
+//                    }
+//                });
+	        	
 	            pst = conn.prepareStatement(sql);
 	            pst.setString(1, text_product_barcode.getText());
 	            pst.setString(2, text_product_name.getText());
@@ -195,9 +256,12 @@ public class product_add implements Initializable{
 	            String value = combobox_product.getSelectionModel().getSelectedItem().toString();
 	            String value1 = combobox_product_brand.getSelectionModel().getSelectedItem().toString();
 	            String value2 = combobox_product_category.getSelectionModel().getSelectedItem().toString();
+	            
 	            pst.setString(5, value);
-	            pst.setString(6, value1);
+	            pst.setInt(6, brand_id);
 	            pst.setString(7, value2);
+	            pst.setString(8, value1);
+	            pst.setInt(9, category_id);
 	            pst.execute();
 	            JOptionPane.showMessageDialog(null, "Users Add succes");
 	            

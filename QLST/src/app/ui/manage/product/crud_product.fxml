@@ -48,7 +48,7 @@
                         <TextField fx:id="text_product_barcode" prefHeight="25.0" prefWidth="129.0" promptText="Barcode" />
                         <TextField fx:id="text_product_name" promptText="Product Name" />
                         <TextField fx:id="text_product_price" promptText="Price" />
-                        <ComboBox fx:id="combobox_product_category" prefHeight="25.0" prefWidth="188.0" promptText="Category" />
+                        <ComboBox fx:id="combobox_product_category" onAction="#box_category" prefHeight="25.0" prefWidth="188.0" promptText="Category" />
                      </children>
                   </VBox>
                   <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="76.0" spacing="26.0">
@@ -62,7 +62,7 @@
                      <children>
                         <DatePicker fx:id="date" prefHeight="25.0" prefWidth="193.0" />
                         <ComboBox fx:id="combobox_product" prefHeight="25.0" prefWidth="185.0" promptText="Unit" />
-                        <ComboBox fx:id="combobox_product_brand" prefHeight="25.0" prefWidth="188.0" promptText="Brand" />
+                        <ComboBox fx:id="combobox_product_brand" onAction="#box_brand" prefHeight="25.0" prefWidth="188.0" promptText="Brand" />
                      </children>
                   </VBox>
                </children>

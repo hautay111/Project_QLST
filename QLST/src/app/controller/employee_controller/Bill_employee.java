@@ -369,9 +369,10 @@ public class Bill_employee implements Initializable{
 		
 	    @FXML
 	    void quet(ActionEvent event) {
-	    	WebcamQRCodeExample code = new WebcamQRCodeExample();	
+	    	Barcode_Scanner code = new Barcode_Scanner();	
 	    	code.setVisible(true);
-	    	search_bill.setText(a);
+	    	search_bill.setText("");
+	    	
 	    	
 	    }
 	    
