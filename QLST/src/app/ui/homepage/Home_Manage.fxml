@@ -86,7 +86,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <VBox alignment="CENTER" onMouseClicked="#dashboard" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>

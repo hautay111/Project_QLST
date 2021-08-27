@@ -291,7 +291,7 @@ public class product implements Initializable{
     	
 //    	DecimalFormat formatter = new DecimalFormat("###,###,###");
 //    	int a = 123;
-//    	System.out.println(formatter.format(a)+" VNĐ");
+//    	System.out.println(formatter.format(a)+" VNÄ�");
     	
     	col_product_number.setCellValueFactory(new PropertyValueFactory<Product,Integer>("no"));
     	col_product_id.setCellValueFactory(new PropertyValueFactory<Product,Integer>("id"));
@@ -477,6 +477,10 @@ public class product implements Initializable{
     	
     }
 
+    @FXML
+    void barcode_product(ActionEvent event) {
+
+    }
     
     @FXML
     void create_barcode(ActionEvent event) {
