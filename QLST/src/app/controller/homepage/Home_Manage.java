@@ -199,9 +199,5 @@ public class Home_Manage {
     	mainPane.setCenter(root);
     		
     }
-	
-	@FXML
-    void dashboard(MouseEvent event) {
-		loadUI("dashboard");
-    }
+
 }
