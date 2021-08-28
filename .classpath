@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="QLST/src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx16">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
@@ -36,5 +31,6 @@
 	<classpathentry kind="lib" path="QLST/src/app/dist/lib/slf4j-api-1.6.2.jar"/>
 	<classpathentry kind="lib" path="QLST/src/app/dist/lib/slf4j-log4j12-1.6.2.jar"/>
 	<classpathentry kind="lib" path="QLST/src/app/dist/lib/webcam-capture-0.3.12.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javafx16"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
