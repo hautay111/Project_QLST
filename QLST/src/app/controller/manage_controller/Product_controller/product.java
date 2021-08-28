@@ -586,7 +586,7 @@ public class product implements Initializable{
     void import_product(ActionEvent event) {
         try {
 
-            String query = "Insert into UserDatabase(ID, FirstName, LastName, Email) values (?,?,?,?)";
+            String query = "Insert into ware_house (pro_id,pro_name,amount_stock,amount_input,price_input) values (?,?,?,?,?)";
 
             pst = conn.prepareStatement(query);
 
@@ -610,9 +610,11 @@ public class product implements Initializable{
 
                 pst.setString(2, row.getCell(1).getStringCellValue());
 
-                pst.setString(3, row.getCell(2).getStringCellValue());
+                pst.setInt(3, (int) row.getCell(2).getNumericCellValue());
 
-                pst.setString(4, row.getCell(3).getStringCellValue());
+                pst.setInt(4, (int) row.getCell(3).getNumericCellValue());
+                
+                pst.setInt(5, (int) row.getCell(4).getNumericCellValue());
 
                 pst.execute();
 
@@ -641,10 +643,12 @@ public class product implements Initializable{
         } catch (SQLException | FileNotFoundException ex) {
 
             Logger.getLogger(product.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
 
         } catch (IOException ex) {
 
             Logger.getLogger(product.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
 
         }
 

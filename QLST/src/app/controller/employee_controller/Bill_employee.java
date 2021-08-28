@@ -12,7 +12,10 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -38,6 +41,7 @@ import com.google.zxing.common.HybridBinarizer;
 import app.controller.homepage.Info_Employee;
 import app.dao.connectDB;
 import app.model.Bill;
+import app.model.Order_Detail;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -51,6 +55,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -58,6 +63,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
@@ -129,12 +135,43 @@ public class Bill_employee implements Initializable{
     
     
     @FXML
-    private TextField search_bill;
+    private TableView<Order_Detail> table_order;
+
+    @FXML
+    private TableColumn<Order_Detail, Integer> col_bill_no;
     
+    @FXML
+    private TableColumn<Order_Detail, String> col_bill_name;
+
+    @FXML
+    private TableColumn<Order_Detail, Integer> col_bill_price;
+
+    @FXML
+    private TableColumn<Order_Detail, Integer> col_bill_amount;
+
+    @FXML
+    private TableColumn<Order_Detail, String> col_bill_total;
+    
+    
+    @FXML
+    private TextField search_bill;
+
+    
+    @FXML
+    private TextField id_order;
 
     @FXML
     private Label ltotal;
     
+    @FXML
+    private Label order_id1;
+
+	@FXML
+    private Label emp_id;
+    
+    @FXML
+    private Label total_bill_order;
+	
     int index = -1;
     
     Connection conn =null;
@@ -143,16 +180,22 @@ public class Bill_employee implements Initializable{
     ObservableList<Bill> listM;
     ObservableList<Bill> dataList;
 
+    ObservableList<Order_Detail> listM1;
+    ObservableList<Order_Detail> dataList1;
+
+    @FXML
+    private TextField id_product;
+    
     private static String code_bar;
     public void initialize(URL url, ResourceBundle rb) {
     UpdateTable_bill();
     search_user_bill();
+    UpdateTable_Order_detail();
+    search_user_bill_order();
+    showdate();
+    
+    id_order.setText("  ");
     num=0;
-    bill.setText("---------------------------SuperMarket------------------------"+"\n"+"\n"+"Nhân viên: Hậu Kar"+"\n"+
-    "Name                                Price               Amount                       Total"+"\n"+"\n");
-
-         
-
     int a = 2;
     double b = 200.2000;
     double c = a * b;
@@ -163,22 +206,67 @@ public class Bill_employee implements Initializable{
     // Code Source in description
     } 
     
+    @FXML
+    private TextField date_text;
     
-    
+    public static  String DateFormat = "yyyy-MM-dd";
+    public void showdate()
+    {
+      Calendar cal= Calendar.getInstance();
+      SimpleDateFormat format = new SimpleDateFormat(DateFormat);
+      date_text.setText(format.format(cal.getTime()));
 
-    
+        
+    }
+    @FXML
+    void new_orders(ActionEvent event) {
+    	try {
+	    	conn=connectDB.ConnectDb();
+	    	String query= "insert into orders (emp_id) VALUES (?)";
+			pst = conn.prepareStatement(query);
+			pst.setString(1, emp_id.getText());
+			pst.execute();
+			System.out.println("tao new orders thanh cong");
+			search_user_bill_order();
+		    try {
+		        conn=connectDB.ConnectDb();
+		        String query1="SELECT orders.*,employee.emp_name FROM orders,employee WHERE orders.emp_id=employee.emp_id ORDER BY orders.order_id DESC LIMIT 1 ";
+				pst= conn.prepareStatement(query1);
+			    rs=pst.executeQuery();
+			    if(rs.next()) {
+//			    	 id_order.setText(rs.getString("order_id"));
+			    	 order_id1.setText(rs.getString("order_id"));
+			    	 id_order.setText("   ");
+			    }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		    
+		    
+		    
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    public void totalCalculation (){
+
+    	   Integer TotalPrice = 0;
+    	    TotalPrice = table_order.getItems().stream().map(
+    	            (item) -> item.getTotal()).reduce(TotalPrice, (accumulator, _item) -> accumulator + _item);
+
+    	    total_bill_order.setText(String.valueOf(TotalPrice));
+    	}
     
     
     int p = 0;
     @FXML
     void pay(ActionEvent event) {    
         DecimalFormat formatter = new DecimalFormat("###,###,###");           
-//        
-//        String moneyString = formatter.format(text_price.getText());
-//        double money =	Double.parseDouble(moneyString); 
-//        System.out.println(moneyString);
-    	
-    	
+
+        	
     	if (text_amount.getText().trim().equals("")||text_name.getText().trim().equals("")) {
         	JOptionPane.showMessageDialog(null, "Please choose a product or amount");
     	}
@@ -186,28 +274,106 @@ public class Bill_employee implements Initializable{
     	int c=0;
     	double money =	Double.parseDouble(text_price.getText());
         int y = Integer.parseInt(text_amount.getText());
-        double total=(money*y);
-        
+        double total=(money*y);      
         String moneyString = formatter.format(total);
-        
-        System.out.println(total);
-        
-        ltotal.setText(""+p);
-    	    	
-        String s=bill.getText();
-        System.out.println(p);
+        System.out.println(total);      
         c++;
         
-        bill.setText(s+String.valueOf(c)+"  "+text_name.getText()+"                              "+text_price.getText()+"              "+
-        text_amount.getText()+"                    "+moneyString+" vnđ"+"\n"+"------------------------------------------------------------------------------\n"
-        		
-       
-        );
+        //--------------------		
+        conn = connectDB.ConnectDb();
+        String sql = "insert into orders_detail (name,quantity,price,total,order_id)values(?,?,?,?,?)";
+        try {
+        	id_order.setText("");
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, text_name.getText());
+            pst.setString(2, text_amount.getText());
+//            pst.setString(4, date_text.getText());           
+            pst.setString(3, text_price.getText());
+            pst.setDouble(4, total);
+            pst.setString(5, order_id1.getText());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Users Add succes");
+            search_user_bill_order();
+
+		    try {
+		        conn=connectDB.ConnectDb();
+		        String query1="SELECT orders.*,employee.emp_name FROM orders,employee WHERE orders.emp_id=employee.emp_id ORDER BY orders.order_id DESC LIMIT 1 ";
+				pst= conn.prepareStatement(query1);
+			    rs=pst.executeQuery();
+			    while(rs.next()) {
+			    	 id_order.setText(rs.getString("order_id"));
+			    	 
+			    }		   
+			    
+//			    try {
+//			        conn=connectDB.ConnectDb();
+//			        String query11="select product.pro_id,orders_detail.order_id from orders_detail INNER JOIN product ON orders_detail.pro_id = product.pro_id ";
+//					pst= conn.prepareStatement(query11);
+//				    rs=pst.executeQuery();
+//
+//				    if (rs.next()) {
+//					String ID4 = id_product.getText();
+//				    String ID1=id_product.getText();
+//				    String ID2=rs.getString("pro_id");
+//				    String ID3 = rs.getString("order_id");	
+//					
+//				    if(ID1.equals(ID2) && ID4.equals(ID3))
+//				    {
+//				    	
+//				    	System.out.println("ok");
+//				      //ID matched...
+//				      // Do whatever you want...
+//				    }
+//				    else
+//				    {
+//				      //ID do not match...
+//				      // Throw error message...
+//				    }
+//			    }
+//					} catch (SQLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+            
+	        } catch (Exception e) {
+	        	System.out.println(e);
+	        	
+	            JOptionPane.showMessageDialog(null,e);
+	        }
+        } catch (Exception e) {
+        	System.out.println(e);
+        	
+            JOptionPane.showMessageDialog(null,e);
+        }
         
-
-
     }
 
+    public void getEmp_id(String id_emp) {
+    	emp_id.setText(id_emp);
+    	emp_id.getText();
+    	System.out.println("emp_id bill employee: "+ emp_id.getText());
+    }
+    
+    public void UpdateTable_Order_detail(){
+
+        
+    	
+    	
+    	col_bill_no.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("no"));
+    	col_bill_name.setCellValueFactory(new PropertyValueFactory<Order_Detail,String>("name"));
+    	col_bill_amount.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("quantity"));
+    	col_bill_price.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("price"));
+    	col_bill_total.setCellValueFactory(new PropertyValueFactory<Order_Detail,String>("total"));
+    	
+    	
+
+
+        listM1 = connectDB.getDataOrder_detail();
+        table_order.setItems(listM1);
+    }
+    
+    
+    
     int num =0;
 //    public void Print() {
 //        
@@ -233,13 +399,38 @@ public class Bill_employee implements Initializable{
     
     @FXML
     private void Print() {
+    	
+        try {
+        	
+//          DecimalFormat formatter = new DecimalFormat("###,###,###");           
+//          double money = Double.parseDouble(text_product_price.getText());            
+//          String moneyString = formatter.format(money);
+//          System.out.println(moneyString);
+     	   Integer TotalPrice = 0;
+     	   TotalPrice = table_order.getItems().stream().map(
+   	        (item) -> item.getTotal()).reduce(TotalPrice, (accumulator, _item) -> accumulator + _item);
+     	  total_bill_order.setText(String.valueOf(TotalPrice));
+     	   
+      	
+          conn = connectDB.ConnectDb();
+          String value1 = order_id1.getText();
+          String value2 = total_bill_order.getText();
+          String sql = "update orders set total_price= '"+value2+"', order_id = '"+value1+"' ";
+          pst= conn.prepareStatement(sql);
+          pst.execute();
+          JOptionPane.showMessageDialog(null, "Update");
+	      } catch (Exception e) {
+	          JOptionPane.showMessageDialog(null, e);
+	      }
+    	
+    	
     	print.setVisible(false);
-        print(bill);
-        
+        print(table_order);
+        totalCalculation();
 		      try {
 		      num++;
 		       PrintWriter f = new PrintWriter("bill "+String.valueOf(num)+".txt");
-		       f.println(bill.getText());
+		       f.println(table_order.getSelectionModel());
 		      f.close();
 			  } catch (FileNotFoundException ex) {
 			      Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
@@ -249,6 +440,7 @@ public class Bill_employee implements Initializable{
          
     
     private void print(Node node) {
+    	
         PrinterJob job = PrinterJob.createPrinterJob();
         if (job != null && job.showPrintDialog(node.getScene().getWindow())){
             boolean success = job.printPage(node);
@@ -260,8 +452,14 @@ public class Bill_employee implements Initializable{
     }
     
     
+    
+    
+    
     public void UpdateTable_bill(){
 
+    	
+   
+    	
 
     	col_no.setCellValueFactory(new PropertyValueFactory<Bill,Integer>("no"));
     	col_name.setCellValueFactory(new PropertyValueFactory<Bill,String>("name"));
@@ -294,6 +492,41 @@ public class Bill_employee implements Initializable{
         text_price.setText(col_price.getCellData(index).toString());
  
     }
+    
+    
+    @FXML
+   public void search_user_bill_order(){
+    	col_bill_no.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("no"));
+    	col_bill_name.setCellValueFactory(new PropertyValueFactory<Order_Detail,String>("name"));
+    	col_bill_amount.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("quantity"));
+    	col_bill_price.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("price"));
+    	col_bill_total.setCellValueFactory(new PropertyValueFactory<Order_Detail,String>("total"));
+    			
+	           dataList1 = connectDB.getDataOrder_detail();
+	           table_order.setItems(dataList1);
+	           FilteredList<Order_Detail> filteredData = new FilteredList<>(dataList1, b -> true);  
+	           id_order.textProperty().addListener((observable, oldValue, newValue) -> {
+	    filteredData.setPredicate(person -> {
+	       if (newValue == null || newValue.isEmpty()) {
+	        return true;
+	       }    
+	       String lowerCaseFilter = newValue.toLowerCase();
+	       
+	       if (person.getName().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+	        return true; // Filter matches name
+	       }else if (String.valueOf(person.getId()).indexOf(lowerCaseFilter)!=-1)
+	            return true;// Filter matches username
+	                                   
+	            else  
+	             return false; // Does not match.
+	      });
+	     });  
+	     SortedList<Order_Detail> sortedData = new SortedList<>(filteredData);  
+	     sortedData.comparatorProperty().bind(table_order.comparatorProperty());  
+	     table_order.setItems(sortedData);      
+	       
+    }
+    
     
     
 

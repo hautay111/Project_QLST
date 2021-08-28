@@ -22,6 +22,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.SingleSelectionModel;
@@ -267,7 +268,8 @@ public class product_add implements Initializable{
 	            
 	        } catch (Exception e) {
 	        	System.out.println(e);
-	            JOptionPane.showMessageDialog(null, e);
+	        	
+	            JOptionPane.showMessageDialog(null, "Please double check, you are entering missing Data or Barcode already exists!");
 	        }
 	    }
 

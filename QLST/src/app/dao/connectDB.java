@@ -11,6 +11,7 @@ import app.model.Product;
 import app.model.Title;
 import app.model.Brand1;
 import app.model.Category1;
+import app.model.Order_Detail;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;;
 
@@ -189,7 +190,22 @@ public class connectDB {
     }
 
 
-
+    public static ObservableList<Order_Detail> getDataOrder_detail(){
+        Connection conn = ConnectDb();
+        ObservableList<Order_Detail> list = FXCollections.observableArrayList();
+        try {
+//            PreparedStatement ps = conn.prepareStatement("select product.pro_id, product.pro_name,product.pro_expiry,product.pro_unit,product.pro_category,product.pro_brand ,product.pro_sale_price,product.barcode from product INNER JOIN brand ON product.brand_id = brand.brand_id");
+        	PreparedStatement ps = conn.prepareStatement("select * from orders_detail where order_id = order_id");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Order_Detail(rs.getRow(),Integer.parseInt(rs.getString("order_id")),Integer.parseInt(rs.getString("quantity")),Integer.parseInt(rs.getString("price")),rs.getString("name"),Integer.parseInt(rs.getString("total"))));       
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+    }
  
 
     

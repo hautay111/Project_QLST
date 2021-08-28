@@ -1,4 +1,1 @@
-----------------------SuperMarket------------------------
-Name                Price                Amount              Total
-
-
+javafx.scene.control.TableView$TableViewArrayListSelectionModel@7c3aac3f
