@@ -1,10 +1,11 @@
 package app.model;
 
 public class Bill {
-	int no;
+	int no, pro_id;
 	String name,brand,price,code,category;
-	public Bill(int no, String name, String brand, String price, String code, String category) {
+	public Bill(int no,int pro_id, String name, String brand, String price, String code, String category) {
 		this.no = no;
+		this.pro_id = pro_id;
 		this.name = name;
 		this.brand = brand;
 		this.price = price;
@@ -12,6 +13,20 @@ public class Bill {
 		this.category = category;
 
 	}
+	
+	
+
+	public int getPro_id() {
+		return pro_id;
+	}
+
+
+
+	public void setPro_id(int pro_id) {
+		this.pro_id = pro_id;
+	}
+
+
 
 	public int getNo() {
 		return no;

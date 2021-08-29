@@ -60,7 +60,7 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 		executor.execute(this);
 	}
 
-	@Override
+	
 	public void run() {
 
 		do {
@@ -91,15 +91,18 @@ public class WebcamQRCodeExample extends JFrame implements Runnable, ThreadFacto
 			}
 
 			if (result != null) {
-				textarea.setText(result.getText());
-				
-				Bill_employee bill=new Bill_employee();
-				bill.showcode(result.getText());
+				textarea.setText(result.getText());	
+				 a = result.getText();
+				System.out.println(a);
 			}
 
 		} while (true);
 	}
-
+	String a;
+    public String getStr(){
+        return a;
+    } 
+	
 	@Override
 	public Thread newThread(Runnable r) {
 		Thread t = new Thread(r, "example-runner");

@@ -48,7 +48,7 @@ public class connectDB {
             
             while (rs.next()){   
 
-                list.add(new Bill(rs.getRow(),rs.getString("pro_name"),rs.getString("pro_brand"),rs.getString("pro_sale_price"),rs.getString("barcode"),rs.getString("pro_category")));       
+                list.add(new Bill(rs.getRow(),Integer.parseInt(rs.getString("pro_id")),rs.getString("pro_name"),rs.getString("pro_brand"),rs.getString("pro_sale_price"),rs.getString("barcode"),rs.getString("pro_category")));       
 
 
             }
