@@ -66,12 +66,12 @@ public class dashboard implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		try {
-//			barChart1();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			barChart1();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		try {
 			conn = connectDB.ConnectDb();
@@ -152,7 +152,7 @@ public class dashboard implements Initializable {
 			series.getData().add(new XYChart.Data(rs.getString("pro_name"), rs.getInt("amount")));
 		
 			barChart.getData().addAll(series);
-//			barChart.getData().addAll(series);
+			barChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
 		}
 		
 		
@@ -257,7 +257,8 @@ public class dashboard implements Initializable {
 		line1.getData().add(new XYChart.Data("Nov",order11));
 		line1.getData().add(new XYChart.Data("Dec",order12));
 		
-		lineChart.getData().addAll(line1);			
+		lineChart.getData().addAll(line1);
+		lineChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
 	}
 	
 	
@@ -292,30 +293,24 @@ public class dashboard implements Initializable {
 	
 	
 	
-//    private void barChart1() throws SQLException {
-//
-//		conn = connectDB.ConnectDb();
-////		String sql1 = "select count(order_id) from orders";
-////		pst = conn.prepareStatement(sql1);
-////		rs = pst.executeQuery();
-////		if (rs.next()) {
-////			orders = rs.getInt(1);
-////			System.out.println("=================" + orders);
-////		}
-//		
-//		String sql2="SELECT product.pro_name,Sum(orders_detail.quantity) AS 'amount' FROM orders_detail,product WHERE orders_detail.pro_id=product.pro_id GROUP BY orders_detail.pro_id ORDER BY Sum(orders_detail.quantity) DESC LIMIT 10";
-//		pst = conn.prepareStatement(sql2);
-//		rs = pst.executeQuery();
-//		while(rs.next()) {
-//			System.out.println("Hang ban chay: "+rs.getString("pro_name")+" - So luong da ban: "+rs.getInt("amount"));
-//			
-//			XYChart.Series series = new XYChart.Series();
-//			series.getData().add(new XYChart.Data(rs.getString("pro_name"), rs.getInt("amount")));
-//		
-//			
-//			barChart1.getData().addAll(series);
-//		}
-//    }
+    private void barChart1() throws SQLException {
+
+		conn = connectDB.ConnectDb();
+		
+		String sql2="SELECT customer.* FROM customer ORDER BY customer.cus_point DESC LIMIT 5";
+		pst = conn.prepareStatement(sql2);
+		rs = pst.executeQuery();
+		while(rs.next()) {
+			System.out.println("ten: "+rs.getString("cus_name")+" - Point: "+rs.getInt("cus_point"));
+			
+			XYChart.Series series = new XYChart.Series();
+			series.getData().add(new XYChart.Data(rs.getString("cus_name"), rs.getInt("cus_point")));
+		
+			
+			barChart1.getData().addAll(series);
+			barChart1.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
+		}
+    }
 	
 	
 	

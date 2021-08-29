@@ -106,3 +106,11 @@
     -fx-text-fill: #5A8F99;
     -fx-background-color:#91B4BB;
 }
+
+.axis{
+	-fx-stroke: #fff;
+	-fx-fill:#fff;
+	-fx-font-size:25;
+	-fx-tick-label-fill: #fff;
+	-fx-tick-label-font-size: 13;
+}
