@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import app.model.Account1;
 import app.model.Bill;
-import app.model.Inventory;
-import app.model.ChangeShift;
 
 import app.model.Product;
 import app.model.Title;
@@ -59,64 +57,7 @@ public class connectDB {
 	}
     
     
-    //---------------------Inventory_employee-------------------------------
-    public static ObservableList<Inventory> getDataInventory() {
-        Connection conn = ConnectDb();
-        ObservableList<Inventory> list = FXCollections.observableArrayList();
-        try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.* FROM ware_house");
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()){   
-                list.add(new Inventory(
-                		Integer.parseInt(rs.getString("wh_id")),
-                		Integer.parseInt(rs.getString("pro_id")),
-                		Integer.parseInt(rs.getString("amount_stock")),
-                		Integer.parseInt(rs.getString("amount_input")),
-                		Integer.parseInt(rs.getString("price_input")),
-                		rs.getRow(),
-                		rs.getString("pro_name"), 
-                		rs.getString("date_input")
-                	));    
-                
-            }
-        } catch (Exception e) {
-        	System.out.println(e);
-        }
-        return list;
-
-        
-	} 
     
-    
-  //---------------------Change_shift-------------------------------
-    public static ObservableList<ChangeShift> getDataChangeShift() {
-        Connection conn = ConnectDb();
-        ObservableList<ChangeShift> list = FXCollections.observableArrayList();
-        try {
-            PreparedStatement ps = conn.prepareStatement("SELECT change_shift.* FROM change_shift");
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()){   
-                list.add(new ChangeShift(
-                		Integer.parseInt(rs.getString("shift_id")),
-                		rs.getRow(),
-                		rs.getString("main_shift"), 
-                		rs.getString("switch_shift"),
-                		rs.getString("date_switch"), 
-                		rs.getString("shift_change_date"),
-                		rs.getString("emp_name"), 
-                		rs.getString("emp_email")
-                	));    
-                
-            }
-        } catch (Exception e) {
-        	System.out.println(e);
-        }
-        return list;
-
-        
-	} 
     
 //    public static ObservableList<Bill> getDatausers_bill() {
 //        Connection conn = ConnectDb();

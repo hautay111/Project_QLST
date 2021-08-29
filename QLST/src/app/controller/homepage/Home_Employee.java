@@ -17,8 +17,6 @@ import javax.swing.JOptionPane;
 import app.controller.employee_controller.Bill_employee;
 import app.dao.connectDB;
 import app.model.Bill;
-import app.model.ChangeShift;
-import app.model.Inventory;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
@@ -87,60 +85,7 @@ public class Home_Employee implements Initializable{
     @FXML
     private TextField search_bill;
     
-    @FXML
-    private TableColumn<Inventory,String> col_pro_name;
 
-    @FXML
-    private TableColumn<Inventory,String> col_date_input;
-
-    @FXML
-    private TableView<Inventory> table_inventory;
-    
-    @FXML
-    private TableColumn<Inventory, Integer> col_wh_id;
-    
-    @FXML
-    private TableColumn<Inventory, Integer> col_pro_id;
-    
-    @FXML
-    private TableColumn<Inventory, Integer> col_amount_stock;
-    
-    @FXML
-    private TableColumn<Inventory, Integer> col_amount_input;
-    
-    @FXML
-    private TableColumn<Inventory, Integer> col_price_input;
-    
-    
-    @FXML
-    private TextField search_inventory;
-    
-	
-    @FXML
-	private TableColumn<ChangeShift,String> col_emp_name;
-
-	@FXML
-	private TableColumn<ChangeShift,String> col_emp_email;
-
-	@FXML
-	private TableColumn<ChangeShift,String> col_main_shift;
-
-	@FXML
-	private TableColumn<ChangeShift,String> col_switch_shift;
-
-	@FXML
-	private TableColumn<ChangeShift,String> col_date_switch;
-
-	@FXML
-	private TableColumn<ChangeShift,String> col_shift_change_date;
-
-	@FXML
-	private TableView<ChangeShift> table_changeshift;
-	    
-	@FXML
-	private TableColumn<ChangeShift, Integer> col_no_shift_id;
-	    
-	        
     @FXML
     private Label ltotal;
     
@@ -274,27 +219,6 @@ public class Home_Employee implements Initializable{
     }
     
     
-    @FXML
-    void change_shift_employee(MouseEvent event) {
-        try {
-            //add you loading or delays - ;-)
-           Node node = (Node) event.getSource();
-           Stage stage = (Stage) node.getScene().getWindow();                  
-           stage.close();
-           
-           Parent root = FXMLLoader.load(getClass().getResource("/app/ui/employee/change_shift.fxml"));       
-           Scene scene = new Scene(root);       
-           stage.setScene(scene);
-           stage.show();
-
-        } catch (Exception ex) {
-            System.out.println("y"+ex.getMessage());
-        }
-
-    }
-    
-    
-	
 	
 	
     private static String emp_id, name,phone,email,username,title_name,date;
