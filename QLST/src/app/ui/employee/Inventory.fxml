@@ -110,12 +110,12 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <Button layoutX="365.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#Inventory_import" prefHeight="28.0" prefWidth="132.0" style="-fx-background-color: #FFE3FC; -fx-background-radius: 1em;" text="Import goods" textFill="#fc6b6b">
+      <Button layoutX="365.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#Inventory_import" prefHeight="28.0" prefWidth="132.0" style="-fx-background-color: #FFE3FC;" text="Import goods" textFill="#fc6b6b">
          <font>
             <Font name="Consolas" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="147.0" layoutY="161.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="132.0" style="-fx-background-color: #FFE3FC; -fx-background-radius: 1em;" text="Delivery bill" textFill="#fc6b6b">
+      <Button layoutX="147.0" layoutY="161.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="132.0" style="-fx-background-color: #FFE3FC;" text="Delivery bill" textFill="#fc6b6b">
          <font>
             <Font name="Consolas" size="15.0" />
          </font>
