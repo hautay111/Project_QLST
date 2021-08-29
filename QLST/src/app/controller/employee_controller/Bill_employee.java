@@ -93,7 +93,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
-public class Bill_employee implements Initializable{
+public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 
 	
     @FXML
@@ -117,6 +117,9 @@ public class Bill_employee implements Initializable{
     @FXML
     private TableColumn<Bill,String> col_name;
 
+    @FXML
+    private TableColumn<Bill,Integer> col_id;
+    
     @FXML
     private TableColumn<Bill,String> col_barcode;
     @FXML
@@ -160,6 +163,10 @@ public class Bill_employee implements Initializable{
     @FXML
     private TextField id_order;
 
+
+    @FXML
+    private TextField text_id;
+    
     @FXML
     private Label ltotal;
     
@@ -171,6 +178,10 @@ public class Bill_employee implements Initializable{
     
     @FXML
     private Label total_bill_order;
+    
+
+    @FXML
+    private TextField text_discount;
 	
     int index = -1;
     
@@ -193,7 +204,8 @@ public class Bill_employee implements Initializable{
     UpdateTable_Order_detail();
     search_user_bill_order();
     showdate();
-    
+   
+    text_discount.setText("0");
     id_order.setText("  ");
     num=0;
     int a = 2;
@@ -206,8 +218,9 @@ public class Bill_employee implements Initializable{
     // Code Source in description
     } 
     
+
     @FXML
-    private TextField date_text;
+    private Label date_text;
     
     public static  String DateFormat = "yyyy-MM-dd";
     public void showdate()
@@ -234,9 +247,9 @@ public class Bill_employee implements Initializable{
 				pst= conn.prepareStatement(query1);
 			    rs=pst.executeQuery();
 			    if(rs.next()) {
-//			    	 id_order.setText(rs.getString("order_id"));
+			    	 id_order.setText(rs.getString("order_id"));
 			    	 order_id1.setText(rs.getString("order_id"));
-			    	 id_order.setText("   ");
+			    	 
 			    }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -270,6 +283,9 @@ public class Bill_employee implements Initializable{
     	if (text_amount.getText().trim().equals("")||text_name.getText().trim().equals("")) {
         	JOptionPane.showMessageDialog(null, "Please choose a product or amount");
     	}
+    	
+    	
+    	
     	p++;
     	int c=0;
     	double money =	Double.parseDouble(text_price.getText());
@@ -277,11 +293,20 @@ public class Bill_employee implements Initializable{
         double total=(money*y);      
         String moneyString = formatter.format(total);
         System.out.println(total);      
+
+       double z = 0;
+       double q = 0;
+       double discount = 0;
+       
+       	z = Integer.parseInt(text_discount.getText());
+		q = 100 - z;      
+		discount = (total*(q/100));
+		System.out.println(discount);        
         c++;
         
         //--------------------		
         conn = connectDB.ConnectDb();
-        String sql = "insert into orders_detail (name,quantity,price,total,order_id)values(?,?,?,?,?)";
+        String sql = "insert into orders_detail (name,quantity,price,total,order_id,pro_id)values(?,?,?,?,?,?)";
         try {
         	id_order.setText("");
             pst = conn.prepareStatement(sql);
@@ -289,8 +314,9 @@ public class Bill_employee implements Initializable{
             pst.setString(2, text_amount.getText());
 //            pst.setString(4, date_text.getText());           
             pst.setString(3, text_price.getText());
-            pst.setDouble(4, total);
+            pst.setDouble(4, discount);      
             pst.setString(5, order_id1.getText());
+            pst.setString(6, text_id.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Users Add succes");
             search_user_bill_order();
@@ -415,7 +441,7 @@ public class Bill_employee implements Initializable{
           conn = connectDB.ConnectDb();
           String value1 = order_id1.getText();
           String value2 = total_bill_order.getText();
-          String sql = "update orders set total_price= '"+value2+"', order_id = '"+value1+"' ";
+          String sql = "update orders set total_price= '"+value2+"' where order_id = '"+value1+"' ";
           pst= conn.prepareStatement(sql);
           pst.execute();
           JOptionPane.showMessageDialog(null, "Update");
@@ -467,7 +493,7 @@ public class Bill_employee implements Initializable{
     	col_price.setCellValueFactory(new PropertyValueFactory<Bill,String>("price"));
     	col_barcode.setCellValueFactory(new PropertyValueFactory<Bill,String>("code"));
     	col_category.setCellValueFactory(new PropertyValueFactory<Bill,String>("category"));
-    	col_no.setCellValueFactory(new PropertyValueFactory<Bill,Integer>("no"));
+    	col_id.setCellValueFactory(new PropertyValueFactory<Bill,Integer>("pro_id"));
     	
     	
 
@@ -486,7 +512,7 @@ public class Bill_employee implements Initializable{
         }
         
         
-         
+        text_id.setText(col_id.getCellData(index).toString());
         text_name.setText(col_name.getCellData(index).toString());
         text_code.setText(col_barcode.getCellData(index).toString());
         text_price.setText(col_price.getCellData(index).toString());
@@ -602,15 +628,62 @@ public class Bill_employee implements Initializable{
 		
 	    @FXML
 	    void quet(ActionEvent event) {
-	    	Barcode_Scanner code = new Barcode_Scanner();	
-	    	code.setVisible(true);
-	    	search_bill.setText("");
+	    	
+	    	WebcamQRCodeExample code = new WebcamQRCodeExample();	
+	    	code.setVisible(true);	    	
+	    	System.out.println(code.getStr());
+	    	String ab = code.getStr();
+	    	search_bill.setText(ab);
+	    	
 	    	
 	    	
 	    }
+		private Webcam webcam = null;
+		private WebcamPanel panel = null;
 	    
-	    
-	    
+		public void run() {
+
+			do {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				Result result = null;
+				BufferedImage image = null;
+
+				if (webcam.isOpen()) {
+
+					if ((image = webcam.getImage()) == null) {
+						continue;
+					}
+
+					LuminanceSource source = new BufferedImageLuminanceSource(image);
+					BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+					try {
+						
+						result = new MultiFormatReader().decode(bitmap);
+					} catch (NotFoundException e) {
+						// fall thru, it means there is no QR code in image
+					}
+				}
+
+				if (result != null) {
+					search_bill.setText(result.getText());	
+					 a = result.getText();
+					System.out.println(a);
+				}
+
+			} while (true);
+		}
+		@Override
+		public Thread newThread(Runnable r) {
+			Thread t = new Thread(r, "example-runner");
+			t.setDaemon(true);
+			return t;
+		}
 	    
 	    
 		
