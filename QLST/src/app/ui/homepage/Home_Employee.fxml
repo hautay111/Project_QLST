@@ -136,7 +136,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="233.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#change_shift_employee" prefHeight="200.0" prefWidth="233.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -146,7 +146,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="60.0" prefWidth="249.0" styleClass="shadow" text="Chnage Shift" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="60.0" prefWidth="249.0" styleClass="shadow" text="Change Shift" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
