@@ -313,7 +313,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView fitHeight="80.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#dashboard" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                <image>
                   <Image url="@../../image/icons8-dashboard-layout-96.png" />
                </image>

@@ -157,7 +157,7 @@
                      </cursor>
                   </VBox>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#customer" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
@@ -167,7 +167,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Setting" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Customer" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
