@@ -11,6 +11,7 @@ import app.model.Product;
 import app.model.Title;
 import app.model.Brand1;
 import app.model.Category1;
+import app.model.Dashboard;
 import app.model.Order_Detail;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;;
@@ -207,7 +208,30 @@ public class connectDB {
         return list;
     }
  
-
+    //----------------------RUN OUT--------------------
+    public static ObservableList<Dashboard> getDataRunOut() {
+        Connection conn = ConnectDb();
+        ObservableList<Dashboard> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id"
+            		+ "");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Dashboard(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
     
     
 }
