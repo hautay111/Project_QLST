@@ -13,25 +13,31 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1380.0" styleClass="login_css" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.homepage.Login">
    <children>
-      <Label layoutX="580.0" layoutY="179.0" prefHeight="45.0" prefWidth="192.0" text="Login Form" textFill="#ff5555">
+      <Label layoutX="580.0" layoutY="179.0" prefHeight="45.0" prefWidth="192.0" text="Login Form" textFill="#00ffd0">
          <font>
             <Font name="Book Antiqua" size="35.0" />
          </font>
       </Label>
-      <Label layoutX="481.0" layoutY="297.0" text="Username: ">
+      <Label layoutX="481.0" layoutY="297.0" text="Username: " textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="481.0" layoutY="334.0" text="Password: ">
+      <Label layoutX="481.0" layoutY="334.0" text="Password: " textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="txt_username" layoutX="586.0" layoutY="300.0" prefHeight="25.0" prefWidth="268.0" promptText="Username" />
+      <TextField fx:id="txt_username" layoutX="586.0" layoutY="300.0" prefHeight="25.0" prefWidth="268.0" promptText="Username">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></TextField>
       <TextField fx:id="txt_passhiden" layoutX="586.0" layoutY="337.0" prefHeight="25.0" prefWidth="268.0" promptText="Password" visible="false" />
-      <PasswordField fx:id="txt_pass" layoutX="586.0" layoutY="337.0" prefHeight="25.0" prefWidth="268.0" promptText="Password" />
-      <Button layoutX="676.0" layoutY="436.0" mnemonicParsing="false" onAction="#btn_login" text="Login" textFill="#ff4e4e">
+      <PasswordField fx:id="txt_pass" layoutX="586.0" layoutY="337.0" prefHeight="25.0" prefWidth="268.0" promptText="Password">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></PasswordField>
+      <Button layoutX="676.0" layoutY="436.0" mnemonicParsing="false" onAction="#btn_login" text="Login" textFill="#ff0090">
          <font>
             <Font name="Book Antiqua" size="18.0" />
          </font>
@@ -39,7 +45,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <CheckBox fx:id="btn_showpass" layoutX="538.0" layoutY="423.0" mnemonicParsing="false" onAction="#show_pass" text="Show Password" />
+      <CheckBox fx:id="btn_showpass" layoutX="586.0" layoutY="387.0" mnemonicParsing="false" onAction="#show_pass" text="Show Password" textFill="WHITE" />
       <ImageView fitHeight="30.0" fitWidth="65.0" layoutX="1318.0" layoutY="28.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../image/icons8-delete-30.png" />
