@@ -25,12 +25,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class Change_shift_email implements Initializable{
 
 	Connection conn = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
+	
+	@FXML
+    private AnchorPane main;
 	
     @FXML
     private TextField name;
@@ -103,6 +108,10 @@ public class Change_shift_email implements Initializable{
 					message.setContent(htmlCode, "text/html; charset=utf-8");
 					Transport.send(message);
 					JOptionPane.showMessageDialog(null, "Send Successfully");
+					Stage stage = (Stage) main.getScene().getWindow();
+				    // do what you have to do
+				    stage.close();
+
 				} catch (Exception ex) {
 					// TODO: handle exception
 					ex.printStackTrace();

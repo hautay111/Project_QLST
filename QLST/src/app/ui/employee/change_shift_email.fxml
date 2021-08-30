@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="547.0" prefWidth="616.0" style="-fx-background-color: linear-gradient( #ffce3f, yellow);" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Change_shift_email">
+<AnchorPane fx:id="main" prefHeight="547.0" prefWidth="616.0" style="-fx-background-color: linear-gradient( #ffce3f, yellow);" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Change_shift_email">
    <children>
       <Label alignment="CENTER" layoutX="170.0" layoutY="25.0" prefHeight="62.0" prefWidth="246.0" text="Email">
          <font>
