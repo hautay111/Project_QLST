@@ -54,7 +54,7 @@
             <Pane maxHeight="-Infinity" prefHeight="2.0" prefWidth="292.0" style="-fx-background-color: #fff;" styleClass="line-color" />
             <ImageView fitHeight="40.0" fitWidth="38.0" onMouseClicked="#toInformation" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../image/icons8-settings-50.png" />
+                  <Image url="@../../image/settings.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -62,7 +62,7 @@
             </ImageView>
             <ImageView fitHeight="52.0" fitWidth="36.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../image/icons8-shutdown-30.png" />
+                  <Image url="@../../image/logout.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
