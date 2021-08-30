@@ -166,15 +166,14 @@ public class Inventory_employee implements Initializable{
 	    
 	    
 	    @FXML
-	    void Inventory_import(MouseEvent event) {
+	    void Inventory_bill(MouseEvent event) {
 		    try {
-		        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/Inventory_import.fxml"));
+		        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/Inventory_bill.fxml"));
 		                Parent root = (Parent) fxmlLoader.load();
 		                Stage stage = new Stage();
 		                stage.setScene(new Scene(root));  
 		                stage.show();             
 		                UpdateTable_inventory();
-//		                showamount();
 		                search_user_inventory();
 		                
 		        } catch(Exception e) {

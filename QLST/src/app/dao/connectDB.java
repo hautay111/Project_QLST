@@ -66,7 +66,7 @@ public class connectDB {
         ObservableList<Inventory> list = FXCollections.observableArrayList();
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT ware_house.* FROM ware_house");
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();					
             
             while (rs.next()){   
                 list.add(new Inventory(
@@ -85,8 +85,8 @@ public class connectDB {
         	System.out.println(e);
         }
         return list;
-
-        
+        //SELECT ware_house.*,product.* FROM ware_house,product WHERE ware_house.pro_name=product.pro_name
+        //SELECT ware_house.pro_name, product.pro_name FROM ware_house INNER JOIN product ON ware_house.pro_name = product.pro_name
 	} 
     
     
