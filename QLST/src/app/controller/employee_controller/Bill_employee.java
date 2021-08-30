@@ -118,6 +118,9 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     private Label label_cus_poit;
     
     @FXML
+    private AnchorPane root;
+    
+    @FXML
     private Label label_cus_name;
     
     @FXML
@@ -267,7 +270,8 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 	                Parent root = (Parent) fxmlLoader.load();
 	                Stage stage = new Stage();
 	                stage.setScene(new Scene(root));  
-	                stage.show();             	                
+	                stage.show();             	  
+	               
 	        } catch(Exception e) {
 	        	
 	           e.printStackTrace();
@@ -300,6 +304,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 			    	 label_cus_name.setText("");
 			    	 text_cus_code.setText("");
 			    	 btn_create_order.setDisable(true);
+			    	 text_discount.setText("");
 			    	 
 			    }
 			} catch (SQLException e) {
@@ -575,7 +580,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
           
 
           
-          p = Integer.parseInt(label_cus_poit.getText());	
+          p = Integer.parseInt(label_cus_point_end.getText());	
 
           if (discount < a) {
         	   point = p + 50;
@@ -583,7 +588,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
         	   label_tien.setText((String.valueOf(point)));
 			}else if(discount >= a && discount <= b ) {
 	      	   		point = (p + 100);
-				System.out.println(point);
+	      	   		System.out.println(point);
 				label_tien.setText((String.valueOf(point)));
 	          }else if (discount > b && discount <= c) {
 	          	   point = (p + 200);
@@ -855,8 +860,13 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 					lable_message_sale.setText("You get 30% discount!!!");
 					
 				}else if (cus_point < 1000) {
+					
+					
+					
+					label_cus_point_end.setText(String.valueOf(cus_point));
+					label_cus_poit.setText(String.valueOf(cus_point));
 					lable_message_sale.setText("You get "+ text_discount.getText() + " discount!!!");
-					label_cus_point_end.setText("0");
+					text_discount.setText("0");
 				}
                 
 //                double diem = (cus_point/10);

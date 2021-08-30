@@ -371,8 +371,8 @@ public class Home_Employee implements Initializable{
 
 	    
 	    
-	@FXML
-    void customer(MouseEvent event) {
+//	@FXML
+//    void customer(MouseEvent event) {
 //		 try {
 //				Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
 //				FXMLLoader loader=new FXMLLoader();
@@ -386,7 +386,7 @@ public class Home_Employee implements Initializable{
 //	        } catch (Exception ex) {
 //	            System.out.println("y"+ex.getMessage());
 //	        }
-    }
+//    }
 		
 		
 	

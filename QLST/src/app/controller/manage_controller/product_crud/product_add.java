@@ -27,6 +27,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 public class product_add implements Initializable{
@@ -54,6 +56,9 @@ public class product_add implements Initializable{
 
 	    @FXML
 	    private TextField text_product_barcode;
+	    
+	    @FXML
+	    private AnchorPane root;
 
 	    
 	    int index = -1;
@@ -265,6 +270,9 @@ public class product_add implements Initializable{
 	            pst.setInt(9, category_id);
 	            pst.execute();
 	            JOptionPane.showMessageDialog(null, "Users Add succes");
+	            Stage stage = (Stage) root.getScene().getWindow();
+	            // do what you have to do
+	            stage.close();
 	            
 	        } catch (Exception e) {
 	        	System.out.println(e);
