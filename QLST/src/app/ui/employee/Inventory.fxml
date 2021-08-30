@@ -63,6 +63,7 @@
             <Pane prefHeight="100.0" prefWidth="438.0">
                <children>
                   <ColorPicker layoutX="219.0" layoutY="37.0" prefHeight="28.0" prefWidth="125.0" promptText="ds" />
+                  <Button layoutX="28.0" layoutY="38.0" mnemonicParsing="false" onAction="#Delete_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" text="Delete" />
                </children>
             </Pane>
          </children>
@@ -120,5 +121,10 @@
             <Image url="@../../image/icons8-go-back-48.png" />
          </image>
       </ImageView>
+      <Button layoutX="367.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#Inventory_import" prefHeight="28.0" prefWidth="132.0" style="-fx-background-color: #FFE3FC; -fx-background-radius: 1em;" text="Import goods" textFill="#fc6b6b">
+         <font>
+            <Font name="Consolas" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -10,18 +10,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="-Infinity" prefHeight="714.0" prefWidth="1352.0" style="-fx-background-color: #FFFFFF;" styleClass="Changeshift_css" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Change_shift_employee">
    <children>
-      <HBox prefHeight="107.0" prefWidth="1352.0" style="-fx-background-color: #99FFFF;">
+      <HBox prefHeight="107.0" prefWidth="1352.0" style="-fx-background-color: linear-gradient(to right, #6E90FF , #8EB4F5);">
          <children>
             <Pane prefHeight="107.0" prefWidth="351.0">
                <children>
-                  <Label alignment="CENTER" layoutX="61.0" layoutY="10.0" prefHeight="88.0" prefWidth="230.0" text="Change Shift" textFill="#ff7c7c">
+                  <Label alignment="CENTER" layoutX="61.0" layoutY="10.0" prefHeight="88.0" prefWidth="230.0" text="Change Shift">
                      <font>
                         <Font name="Consolas Bold" size="33.0" />
                      </font>
+                     <textFill>
+                        <RadialGradient centerX="0.4866666581895617" centerY="0.6946565103894882" cycleMethod="REPEAT" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.3001949191093445" green="0.46757635474205017" blue="0.7368420958518982" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.09707602113485336" green="0.12038986384868622" blue="0.15789473056793213" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
                   </Label>
                </children>
             </Pane>
@@ -41,6 +60,11 @@
                         <Image url="@../../image/icons8-go-back-48.png" />
                      </image>
                   </ImageView>
+                  <Button layoutX="96.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#Changeshift_email" prefHeight="31.0" prefWidth="110.0" style="-fx-background-color: #00BFFF; -fx-background-radius: 1em;" text="Change" textFill="#202020">
+                     <font>
+                        <Font name="Consolas" size="14.0" />
+                     </font>
+                  </Button>
                </children>
             </Pane>
          </children>

@@ -43,7 +43,7 @@ import com.google.zxing.Result;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 
-import app.controller.employee_controller.Change_shift_email;
+//import app.controller.employee_controller.Change_shift_email;
 import app.controller.homepage.Info_Employee;
 import app.dao.connectDB;
 import app.model.ChangeShift;
@@ -97,17 +97,17 @@ public class Change_shift_employee implements Initializable{
 	    @FXML
 	    private TableColumn<ChangeShift, Integer> col_no_shift_id;
 	    
-		@FXML
-	    private AnchorPane View_email;
-
-	    @FXML
-	    private TextField email_name;
-
-	    @FXML
-	    private TextField email_email;
-
-	    @FXML
-	    private TextArea email_content;
+//		@FXML
+//	    private AnchorPane View_email;
+//
+//	    @FXML
+//	    private TextField email_name;
+//
+//	    @FXML
+//	    private TextField email_email;
+//
+//	    @FXML
+//	    private TextArea email_content;
 
 	    @FXML
 	    private Label ltotal;
@@ -141,17 +141,22 @@ public class Change_shift_employee implements Initializable{
 	    
 //	    @FXML
 //		void Sent(ActionEvent event) throws Exception {
-////			conn = connectDB.ConnectDb();
 //			try {
 //				if (email.getText().trim().equals("")) {
 //					JOptionPane.showMessageDialog(null, "Email cannot be blank!!");
 //					System.out.println("trong r");
 //				} else {
-//					String input_text = email.getText();
-//					String encryptedString = null;
-//					encryptedString = encryptorAES.encrypt(input_text);
-//
-//					pst = conn.prepareStatement(sql);
+//					date_switch.getEditor().getText().trim().equals("")) {
+//						JOptionPane.showMessageDialog(null, "Date switch cannot be blank!!");
+//						System.out.println("trong r");
+//				} else {
+//			    	  shift_change_date.getEditor().getText().trim().equals("")) {
+//							JOptionPane.showMessageDialog(null, "Date change cannot be blank!!");
+//							System.out.println("trong r");
+//						}
+//					}
+//				String a1,a2,a3,a4,a5,a6;
+//				a1=name.getText()
 //					pst.setString(1, name.getText());
 //					pst.setString(2, email.getText());
 //					pst.setString(3, title.getText());
@@ -159,14 +164,14 @@ public class Change_shift_employee implements Initializable{
 //					pst.setString(5, date_switch.getEditor().getText());
 //					pst.setString(6, shift_change_date.getEditor().getText());
 //					pst.setString(7, content.getText());
-//					pst.setString(8, encryptedString);
 //					pst.execute();
 ////					--------------------------------------------------
 //					// Your gmail address
-//					String myAccountEmail = "crmgroupapp@gmail.com";
+//					String myEmail = "crmgroupapp@gmail.com";
+//					
 //					// Your gmail password
 //					String password = "crmapp0123123";
-//
+//					
 //					Properties properties = new Properties();
 //
 //					properties.put("mail.smtp.auth", "true");
@@ -175,15 +180,14 @@ public class Change_shift_employee implements Initializable{
 //					properties.put("mail.smtp.port", "587");
 //
 //					Session session = Session.getInstance(properties, new Authenticator() {
-//						@Override
-//						protected PasswordAuthentication getPasswordAuthentication() {
-//							return new PasswordAuthentication(myAccountEmail, password);
+//						protected PasswordAuthentication getChangeshiftAuthentication() {
+//							return new PasswordAuthentication(myEmail,password);
 //						}
 //					});
 //	    try {
 //			System.out.println("Sending.");					
 //			Message message = new MimeMessage(session);
-//			message.setFrom(new InternetAddress(myAccountEmail));
+//			message.setFrom(new InternetAddress(myEmail));
 //			message.setRecipient(Message.RecipientType.TO, new InternetAddress(email.getText()));
 //			message.setSubject("Change Shift:");
 //			String htmlCode = "<h2>"
@@ -209,19 +213,35 @@ public class Change_shift_employee implements Initializable{
 //			ex.printStackTrace();
 //
 //	    }
-	    
-	    private static String E_name,E_email;
+//	    
+//	    private static String E_name,E_email;
+//	    @FXML
+//	    void Changeshift_email(MouseEvent event) {
+//		    try {
+//		        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/change_shift_email.fxml"));
+//						E_name=email_name.getText();
+//						E_email=email_email.getText();
+//		                Parent root = (Parent) fxmlLoader.load();
+//		                System.out.println(E_name+E_email);
+//		                Stage stage = new Stage();
+//		            	Change_shift_email email=fxmlLoader.getController();
+//		            	email.getInformation(E_name, E_email);
+//		                stage.setScene(new Scene(root));  
+//		                stage.show();             
+//		                UpdateTable_changeshift();
+//		                
+//		        } catch(Exception e) {
+//		        	
+//		           e.printStackTrace();
+//		          }
+//	    }
+
 	    @FXML
 	    void Changeshift_email(MouseEvent event) {
 		    try {
 		        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/change_shift_email.fxml"));
-						E_name=email_name.getText();
-						E_email=email_email.getText();
 		                Parent root = (Parent) fxmlLoader.load();
-		                System.out.println(E_name+E_email);
 		                Stage stage = new Stage();
-		            	Change_shift_email email=fxmlLoader.getController();
-		            	email.getInformation(E_name, E_email);
 		                stage.setScene(new Scene(root));  
 		                stage.show();             
 		                UpdateTable_changeshift();
@@ -230,10 +250,8 @@ public class Change_shift_employee implements Initializable{
 		        	
 		           e.printStackTrace();
 		          }
+	    
 	    }
-
-	    
-	    
 		@FXML
 		void exit(MouseEvent event) {
 			try {
