@@ -65,6 +65,10 @@ public class Change_shift_email implements Initializable{
 			if (email.getText().equals("")) {
 				JOptionPane.showMessageDialog(null, "Email cannot be blank!!");
 				System.out.println("trong r");
+				Stage stage = (Stage) main.getScene().getWindow();
+			    // do what you have to do
+			    stage.close();
+
 			} else {
 //				--------------------------------------------------
 				// Your gmail address
@@ -115,6 +119,10 @@ public class Change_shift_email implements Initializable{
 				} catch (Exception ex) {
 					// TODO: handle exception
 					ex.printStackTrace();
+					Stage stage = (Stage) main.getScene().getWindow();
+				    // do what you have to do
+				    stage.close();
+
 				}
 			}
 
