@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -20,6 +21,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class Create_Customer implements Initializable {
 
@@ -40,6 +43,9 @@ public class Create_Customer implements Initializable {
     
     @FXML
     private Label text_date;
+    
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private ComboBox<String> combobox_male_female;
@@ -91,11 +97,14 @@ public class Create_Customer implements Initializable {
             pst.setString(4, text_date.getText());
             String value = combobox_product_category.getValue();
             System.out.println(value);
-            pst.setString(5, text_date.getText());
+            pst.setString(5, value);
             pst.setString(6, text_date.getText());
             pst.setInt(7, a);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Users Add succes");
+            Stage stage = (Stage) root.getScene().getWindow();
+            // do what you have to do
+            stage.close();
             
         } catch (Exception e) {
         	System.out.println(e);

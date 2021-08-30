@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Create_Customer">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Create_Customer">
    <children>
       <Pane prefHeight="430.0" prefWidth="937.0" style="-fx-background-color: #3EA6FF;">
          <children>
-            <TextField fx:id="text_cus_id" layoutX="14.0" layoutY="8.0" promptText="ID" />
+            <TextField fx:id="text_cus_id" layoutX="14.0" layoutY="8.0" promptText="ID" visible="false" />
             <VBox layoutX="22.0" layoutY="349.0" prefHeight="44.0" prefWidth="157.0" spacing="33.0" />
             <HBox layoutX="163.0" layoutY="85.0" prefHeight="167.0" prefWidth="640.0" spacing="44.0">
                <children>

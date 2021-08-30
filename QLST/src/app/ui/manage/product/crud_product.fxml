@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.product_crud.product_add">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="869.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.product_crud.product_add">
    <children>
-      <Pane prefHeight="553.0" prefWidth="937.0" style="-fx-background-color: #5A8F6D;">
+      <Pane prefHeight="403.0" prefWidth="869.0" style="-fx-background-color: #3EA6FF;">
          <children>
             <TextField fx:id="text_product_id" layoutX="14.0" layoutY="8.0" promptText="ID" visible="false" />
             <VBox layoutX="22.0" layoutY="349.0" prefHeight="44.0" prefWidth="157.0" spacing="33.0" />
-            <HBox layoutX="22.0" layoutY="76.0" prefHeight="167.0" prefWidth="640.0" spacing="44.0">
+            <HBox layoutX="134.0" layoutY="59.0" prefHeight="205.0" prefWidth="683.0" spacing="44.0">
                <children>
                   <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="76.0" spacing="27.0">
                      <children>
@@ -67,7 +67,12 @@
                   </VBox>
                </children>
             </HBox>
-            <Button layoutX="437.0" layoutY="307.0" mnemonicParsing="false" onAction="#btn_product_add" prefHeight="25.0" prefWidth="161.0" text="Add" />
+            <Button layoutX="573.0" layoutY="324.0" mnemonicParsing="false" onAction="#btn_product_add" prefHeight="25.0" prefWidth="161.0" text="Add" />
+            <Label layoutX="365.0" layoutY="6.0" prefHeight="30.0" prefWidth="161.0" text="Add Customer">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

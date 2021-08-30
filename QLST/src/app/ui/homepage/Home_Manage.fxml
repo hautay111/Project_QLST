@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1380.0" styleClass="gradient-background" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.homepage.Home_Manage">
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="748.0" prefWidth="1380.0" styleClass="gradient-background" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.homepage.Home_Manage">
    <top>
       <HBox alignment="CENTER" prefHeight="61.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
@@ -76,7 +76,7 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" styleClass="container" BorderPane.alignment="CENTER">
+      <VBox prefHeight="644.0" prefWidth="1310.0" spacing="20.0" styleClass="container" BorderPane.alignment="CENTER">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -229,7 +229,7 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="60.0" prefWidth="1340.0" spacing="100.0">
+            <HBox alignment="CENTER" prefHeight="157.0" prefWidth="1310.0" spacing="100.0" visible="false">
                <children>
                   <VBox alignment="CENTER" onMouseClicked="#account" prefHeight="200.0" prefWidth="243.0" styleClass="btnhome">
                      <children>
