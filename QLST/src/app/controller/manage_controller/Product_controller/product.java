@@ -74,6 +74,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -227,7 +228,7 @@ public class product implements Initializable{
     
     public void initialize(URL url, ResourceBundle rb) {
 //    UpdateTable_product();
-    search_user_product();
+    	search_user_product();
 //    showamount();
 
     
@@ -519,7 +520,6 @@ public class product implements Initializable{
 		
 	}
     }
-
     @FXML
     void export_product(ActionEvent event)  throws InterruptedException{
     	WritableWorkbook wworkbook;
@@ -534,7 +534,9 @@ public class product implements Initializable{
 			ResultSet rs=null;
 			 
 		 
- 			String query="select * from product ";
+ 			String query="select * from product";
+// 			pst.setString(1, btn_date.getText());
+ 			
 // 			where date like '%oct-2015%'
 			ps=connection.prepareStatement(query);
 			System.out.println(ps);
@@ -582,79 +584,75 @@ public class product implements Initializable{
     }
     
 
-    @FXML
-    void import_product(ActionEvent event) {
-        try {
+//    @FXML
+//    void import_product(ActionEvent event) {
+//        try {
+//
+//            String query = "Insert into ware_house (pro_name,pro_sale_price,pro_expiry,barcode) values (?,?,?,?)";
+//
+//            pst = conn.prepareStatement(query);
+//
+//           
+//
+//            FileInputStream fileIn = new FileInputStream(new File("C:\\Users\\hau\\git\\Project_QLST\\QLST\\src\\app\\view\\Export_product\\Product_import.xls"));
+//
+//           
+//
+//            XSSFWorkbook wb = new XSSFWorkbook(fileIn);
+//
+//            XSSFSheet sheet = wb.getSheetAt(0);
+//
+//            XSSFRow row;
+//
+//            for(int i=1; i<=sheet.getLastRowNum(); i++){
+//
+//                row = sheet.getRow(i);
+//                pst.setString(1, row.getCell(0).getStringCellValue());
+//                
+//                pst.setInt(2, (int) row.getCell(1).getNumericCellValue());
+//
+//                pst.setInt(3, (int) row.getCell(2).getNumericCellValue());
+//
+//                pst.setString(4, row.getCell(3).getStringCellValue());
+//                
+//                pst.setString(5, row.getCell(4).getStringCellValue());
+//
+//                pst.execute();
+//
+//            }
+//
+//            Alert alert = new Alert(AlertType.INFORMATION);
+//
+//            alert.setTitle("Information Dialog");
+//
+//            alert.setHeaderText(null);
+//
+//            alert.setContentText("User Details Imported From Excel Sheet To Database.");
+//
+//            alert.showAndWait();
+//
+//           
+//
+//            wb.close();
+//
+//            fileIn.close();
+//
+//            pst.close();
+//
+//            rs.close();
+//
+//        } catch (SQLException | FileNotFoundException ex) {
+//
+//            Logger.getLogger(product.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println(ex);
+//
+//        } catch (IOException ex) {
+//
+//            Logger.getLogger(product.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.println(ex);
+//
+//        }
 
-            String query = "Insert into ware_house (pro_id,pro_name,amount_stock,amount_input,price_input) values (?,?,?,?,?)";
-
-            pst = conn.prepareStatement(query);
-
-           
-
-            FileInputStream fileIn = new FileInputStream(new File("C:\\Users\\hau\\git\\Project_QLST\\QLST\\src\\app\\view\\Export_product\\Product_import.xls"));
-
-           
-
-            XSSFWorkbook wb = new XSSFWorkbook(fileIn);
-
-            XSSFSheet sheet = wb.getSheetAt(0);
-
-            XSSFRow row;
-
-            for(int i=1; i<=sheet.getLastRowNum(); i++){
-
-                row = sheet.getRow(i);
-
-                pst.setInt(1, (int) row.getCell(0).getNumericCellValue());
-
-                pst.setString(2, row.getCell(1).getStringCellValue());
-
-                pst.setInt(3, (int) row.getCell(2).getNumericCellValue());
-
-                pst.setInt(4, (int) row.getCell(3).getNumericCellValue());
-                
-                pst.setInt(5, (int) row.getCell(4).getNumericCellValue());
-
-                pst.execute();
-
-            }
-
-            Alert alert = new Alert(AlertType.INFORMATION);
-
-            alert.setTitle("Information Dialog");
-
-            alert.setHeaderText(null);
-
-            alert.setContentText("User Details Imported From Excel Sheet To Database.");
-
-            alert.showAndWait();
-
-           
-
-            wb.close();
-
-            fileIn.close();
-
-            pst.close();
-
-            rs.close();
-
-        } catch (SQLException | FileNotFoundException ex) {
-
-            Logger.getLogger(product.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex);
-
-        } catch (IOException ex) {
-
-            Logger.getLogger(product.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex);
-
-        }
-
-
-
-
-    }
+//    }
 
 }

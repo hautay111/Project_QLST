@@ -15,7 +15,7 @@
    <children>
       <Pane prefHeight="553.0" prefWidth="937.0" style="-fx-background-color: #5A8F6D;">
          <children>
-            <TextField fx:id="text_product_id" layoutX="14.0" layoutY="8.0" promptText="ID" />
+            <TextField fx:id="text_product_id" layoutX="14.0" layoutY="8.0" promptText="ID" visible="false" />
             <VBox layoutX="22.0" layoutY="349.0" prefHeight="44.0" prefWidth="157.0" spacing="33.0" />
             <HBox layoutX="22.0" layoutY="76.0" prefHeight="167.0" prefWidth="640.0" spacing="44.0">
                <children>

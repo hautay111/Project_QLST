@@ -254,6 +254,8 @@ public class Home_Employee implements Initializable{
     }
 	
 	
+	
+	
     @FXML
     void inventory_employee(MouseEvent event) {
         try {
@@ -369,24 +371,22 @@ public class Home_Employee implements Initializable{
 
 	    
 	    
-		
-//			@FXML
-//		void exit(MouseEvent event) {
-//			try {
-//				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//				FXMLLoader loader = new FXMLLoader();
-//				loader.setLocation(getClass().getResource("../../ui/homepage/Home_Employee.fxml"));
-//				Parent parent;
-//
-//				parent = loader.load();
-//
-//				Scene scene = new Scene(parent);
+	@FXML
+    void customer(MouseEvent event) {
+//		 try {
+//				Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+//				FXMLLoader loader=new FXMLLoader();
+//				loader.setLocation(getClass().getResource("../../ui/employee/customer.fxml"));							
+//				Parent parent=loader.load();
+//	            Bill_employee id_emp=  loader.getController();
+//	            id_emp.getEmp_id(a1);
+//				Scene scene=new Scene(parent);				
 //				stage.setScene(scene);
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
+//				stage.show();
+//	        } catch (Exception ex) {
+//	            System.out.println("y"+ex.getMessage());
+//	        }
+    }
 		
 		
 	
