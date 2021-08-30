@@ -62,10 +62,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
@@ -114,6 +114,34 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     @FXML
     private Label text_total;
 
+    @FXML
+    private Label label_cus_poit;
+    
+    @FXML
+    private Label label_cus_name;
+    
+    @FXML
+    private Label label_error_cus;
+    
+    @FXML
+    private Label label_error_cus1;
+    
+    @FXML
+    private Label total_bill_pay;
+    
+    @FXML
+    private Label label_cus_point_end;
+    
+    @FXML
+    private Label lable_message_sale;
+    
+    @FXML
+    private Label label_show;
+    
+
+    @FXML
+    private Button btn_create_order;
+    
     @FXML
     private TableColumn<Bill,String> col_name;
 
@@ -179,6 +207,11 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     @FXML
     private Label total_bill_order;
     
+    @FXML
+    private TextField text_cus_code;
+
+    @FXML
+    private TextField text_cus_id;
 
     @FXML
     private TextField text_discount;
@@ -192,11 +225,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     ObservableList<Bill> dataList;
 
     ObservableList<Order_Detail> listM1;
-    ObservableList<Order_Detail> dataList1;
-
-    @FXML
-    private TextField id_product;
-    
+    ObservableList<Order_Detail> dataList1;    
     private static String code_bar;
     public void initialize(URL url, ResourceBundle rb) {
     UpdateTable_bill();
@@ -204,7 +233,6 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     UpdateTable_Order_detail();
     search_user_bill_order();
     showdate();
-   
     text_discount.setText("0");
     id_order.setText("  ");
     num=0;
@@ -231,6 +259,21 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 
         
     }
+    
+    @FXML
+    void add_cus(ActionEvent event) {
+	    try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/Customer.fxml"));
+	                Parent root = (Parent) fxmlLoader.load();
+	                Stage stage = new Stage();
+	                stage.setScene(new Scene(root));  
+	                stage.show();             	                
+	        } catch(Exception e) {
+	        	
+	           e.printStackTrace();
+	          }
+    }
+    
     @FXML
     void new_orders(ActionEvent event) {
     	try {
@@ -249,13 +292,20 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 			    if(rs.next()) {
 			    	 id_order.setText(rs.getString("order_id"));
 			    	 order_id1.setText(rs.getString("order_id"));
+			    	 label_show.setVisible(true);
+			    	 total_bill_pay.setText("");
+			    	 total_bill_order.setText("");
+			    	 label_cus_point_end.setText("");
+			    	 label_cus_poit.setText("");
+			    	 label_cus_name.setText("");
+			    	 text_cus_code.setText("");
+			    	 btn_create_order.setDisable(true);
 			    	 
 			    }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		    
 		    
 		    
 		} catch (SQLException e) {
@@ -303,6 +353,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 		discount = (total*(q/100));
 		System.out.println(discount);        
         c++;
+        search_bill.setText("");
         
         //--------------------		
         conn = connectDB.ConnectDb();
@@ -314,11 +365,12 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
             pst.setString(2, text_amount.getText());
 //            pst.setString(4, date_text.getText());           
             pst.setString(3, text_price.getText());
-            pst.setDouble(4, discount);      
+            pst.setDouble(4, total);      
             pst.setString(5, order_id1.getText());
             pst.setString(6, text_id.getText());
             pst.execute();
-            JOptionPane.showMessageDialog(null, "Users Add succes");
+            label_show.setVisible(true);
+            label_show.setText("Add "+ "'' "+ text_name.getText() +" ''" + " Successfully");
             search_user_bill_order();
 
 		    try {
@@ -333,22 +385,27 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 			    
 //			    try {
 //			        conn=connectDB.ConnectDb();
-//			        String query11="select product.pro_id,orders_detail.order_id from orders_detail INNER JOIN product ON orders_detail.pro_id = product.pro_id ";
+//			        String query11="select * from orders_detail ";
 //					pst= conn.prepareStatement(query11);
 //				    rs=pst.executeQuery();
 //
 //				    if (rs.next()) {
-//					String ID4 = id_product.getText();
+//					String ID4 = order_id1.getText();
 //				    String ID1=id_product.getText();
 //				    String ID2=rs.getString("pro_id");
 //				    String ID3 = rs.getString("order_id");	
 //					
 //				    if(ID1.equals(ID2) && ID4.equals(ID3))
 //				    {
+//				          conn = connectDB.ConnectDb();
+//				          String amo = text_amount.getText();
+//				          String value1 = id_order_detail.getText();
+//				          String value2 = rs.getString("quantity");
+//				          String value3 = value2 + amo;
+//				          String sql11 = "update orders_detail set quantity= '"+value3+"' where order_detail_id = '"+value1+"' ";
+//				          pst= conn.prepareStatement(sql11);
+//				          pst.execute();
 //				    	
-//				    	System.out.println("ok");
-//				      //ID matched...
-//				      // Do whatever you want...
 //				    }
 //				    else
 //				    {
@@ -371,6 +428,12 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
         	
             JOptionPane.showMessageDialog(null,e);
         }
+        text_price.setText("");
+        text_amount.setText("");
+        text_code.setText("");
+        text_name.setText("");
+        
+        
         
     }
 
@@ -418,16 +481,47 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 //        
 //  
 //  }
+    
+    public void load_clear() {
+        text_id.setText("");
+        text_name.setText("");
+        text_code.setText("");
+        text_price.setText("");
+    	order_id1.setText("");
+    	id_order.setText("");
+    	search_bill.setText("");
+    	text_cus_code.setText("");
+    	ltotal.setText("");
+    	total_bill_order.setText("");
+    	text_cus_id.setText("");
+    	text_code.setText("");
+    	text_discount.setText("0");
+    	text_name.setText("");
+    	text_type.setText("");
+    	text_amount.setText("");
+    	text_price.setText("");
+    	text_total.setText("");
+    }
+    
+    
     @FXML
     private Button print;
     @FXML
     private TextArea bill;
     
     @FXML
+    private Label label_tien;
+    
+    @FXML
+    private Label label_show1;
+    
+    @FXML
     private void Print() {
+    	
     	
         try {
         	
+        	label_show1.setText("Let's add points for customers !!!");
 //          DecimalFormat formatter = new DecimalFormat("###,###,###");           
 //          double money = Double.parseDouble(text_product_price.getText());            
 //          String moneyString = formatter.format(money);
@@ -435,20 +529,102 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
      	   Integer TotalPrice = 0;
      	   TotalPrice = table_order.getItems().stream().map(
    	        (item) -> item.getTotal()).reduce(TotalPrice, (accumulator, _item) -> accumulator + _item);
-     	  total_bill_order.setText(String.valueOf(TotalPrice));
+     	   total_bill_order.setText((String.valueOf(TotalPrice))+" vnđ");
      	   
-      	
+     	  	double z = 0;
+     	  	double q = 0;	     	  	
+     	  	z = Integer.parseInt(text_discount.getText());	
+     	  	q = 100 - z;   
+   
+     	  	double discount = (TotalPrice*(q/100));
+     	  	total_bill_pay.setText(String.valueOf(discount)+" vnđ");
           conn = connectDB.ConnectDb();
           String value1 = order_id1.getText();
           String value2 = total_bill_order.getText();
-          String sql = "update orders set total_price= '"+value2+"' where order_id = '"+value1+"' ";
+          String value3 = text_cus_id.getText();
+          String sql = "update orders set total_price= '"+discount+"',cus_id= '"+value3+"' where order_id = '"+value1+"' ";
           pst= conn.prepareStatement(sql);
           pst.execute();
-          JOptionPane.showMessageDialog(null, "Update");
 	      } catch (Exception e) {
 	          JOptionPane.showMessageDialog(null, e);
 	      }
     	
+        
+        try {
+        	
+     	   Integer TotalPrice = 0;
+     	   TotalPrice = table_order.getItems().stream().map(
+   	        (item) -> item.getTotal()).reduce(TotalPrice, (accumulator, _item) -> accumulator + _item);
+     	   total_bill_order.setText((String.valueOf(TotalPrice))+" vnđ");
+     	   
+     	  	double z = 0;
+     	  	double q = 0;	     	  	
+     	  	z = Integer.parseInt(text_discount.getText());	
+     	  	q = 100 - z;   
+   
+     	  	double discount = (TotalPrice*(q/100));
+     	  	total_bill_pay.setText(String.valueOf(discount)+" vnđ");
+     	  	double point;
+     	  	
+     	  double a = 100000;
+          double b = 200000;
+          double c = 300000;
+          double d = 500000;
+          double e = 1000000;
+          double f = 2000000;
+          
+
+          
+          p = Integer.parseInt(label_cus_poit.getText());	
+
+          if (discount < a) {
+        	   point = p + 50;
+        	   System.out.println(point);
+        	   label_tien.setText((String.valueOf(point)));
+			}else if(discount >= a && discount <= b ) {
+	      	   		point = (p + 100);
+				System.out.println(point);
+				label_tien.setText((String.valueOf(point)));
+	          }else if (discount > b && discount <= c) {
+	          	   point = (p + 200);
+	          	 label_tien.setText((String.valueOf(point)));
+	  			System.out.println(point);
+			}else if (discount > c && discount <= d) {
+		      	   point = (p + 300);
+		      	 label_tien.setText((String.valueOf(point)));
+					System.out.println(point);
+			}else if (discount > d && discount <= e) {
+		      	   point = (p + 500);
+		      	 label_tien.setText((String.valueOf(point)));
+					System.out.println(point);
+			}else if (discount > e && discount <= f) {
+		      	   point = (p + 1000);
+		      	 label_tien.setText((String.valueOf(point)));
+					System.out.println(point);
+			}          
+          
+	      } catch (Exception e) {
+	          JOptionPane.showMessageDialog(null, e);
+	      }
+        
+        
+        try {
+     	  	int z = 0;
+     	  	z = Integer.parseInt(label_cus_poit.getText());	
+            int t = Integer.parseInt(label_cus_poit.getText());
+            int id_cus = Integer.parseInt(text_cus_id.getText());
+            int point = t - z;
+            
+            
+            
+          conn = connectDB.ConnectDb();
+          String sql = "update customer set cus_point= '"+point+"', last_purchase_date = '"+date_text.getText()+"' where cus_id = '"+id_cus+"' ";
+          pst= conn.prepareStatement(sql);
+          pst.execute();
+          label_show.setVisible(false);
+	      } catch (Exception e) {
+	          JOptionPane.showMessageDialog(null, e);
+	      }
     	
     	print.setVisible(false);
         print(table_order);
@@ -626,6 +802,113 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 	}
 		//---------------------------------------------
 		
+    @FXML
+    private void handleScanCustomer(KeyEvent event) throws SQLException {
+    	scannBarcode();
+    	
+        
+    }
+	
+    private void scannBarcode(){
+        
+
+    	
+        try {
+                            
+	    	conn=connectDB.ConnectDb();
+	    	String query= "Select * from customer where cus_code = ? ";
+			pst = conn.prepareStatement(query);
+			pst.setString(1, text_cus_code.getText());
+			pst.execute();
+			rs=pst.executeQuery();
+            
+            if(rs.next()){
+            	
+                int cus_id,cus_code,cus_point;
+                String cus_name;
+                cus_id = rs.getInt(1);
+                cus_name = rs.getString(2); 
+                cus_code = rs.getInt(4);
+                cus_point = rs.getInt(8);
+
+                text_cus_id.setText(String.valueOf(cus_id));
+                label_cus_poit.setText(String.valueOf(cus_point));
+                label_cus_name.setText(cus_name);
+                label_error_cus.setVisible(false);
+
+                if (cus_point>=1000 && cus_point<=30000) {
+                	
+                  int diem = (cus_point/1000);
+                  text_discount.setText(Integer.toString(diem));
+                  label_cus_point_end.setText("0");
+                  lable_message_sale.setText("You get "+ diem +" discount!!!");
+                }else if (cus_point > 30000 ) {
+                	int x = 0;
+                               	
+                	int point = (30000/1000);            	
+                    int diem = (cus_point-30000);
+                    
+                    text_discount.setText(Integer.toString(point));
+                    label_cus_point_end.setText(String.valueOf(diem));
+					System.out.println(point);
+					System.out.println(diem);
+					lable_message_sale.setText("You get 30% discount!!!");
+					
+				}else if (cus_point < 1000) {
+					lable_message_sale.setText("You get "+ text_discount.getText() + " discount!!!");
+					label_cus_point_end.setText("0");
+				}
+                
+//                double diem = (cus_point/10);
+//                text_discount.setText(String.valueOf(diem));
+//                System.out.println(cus_point);
+//                System.out.println(diem);
+                
+                
+            }
+             if (text_cus_code.getText().trim().equals("")) {
+            	 	label_error_cus.setVisible(true);
+                   label_cus_poit.setText(".  .  .");
+                   label_cus_name.setText(".  .  .");
+                   lable_message_sale.setText("");
+        	}
+             
+             
+             if (label_cus_poit.getText().trim().equals("") || label_cus_name.getText().trim().equals("")) {
+         	 	label_error_cus.setVisible(true);
+
+             }
+            
+            rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
+            }
+    }
+    
+    @FXML
+    void btn_add_point(ActionEvent event) {
+    	try {
+    	conn = connectDB.ConnectDb();
+        String value1 = text_cus_id.getText();
+        String value2 = label_tien.getText();
+        System.out.println(value2);
+        String sql = "update customer set cus_point= '"+value2+"' where cus_id = '"+value1+"' ";
+        pst= conn.prepareStatement(sql);
+        pst.execute();
+        
+        label_cus_point_end.setText("");
+        label_cus_poit.setText("");
+        label_cus_name.setText("");
+        label_error_cus1.setVisible(true);
+        btn_create_order.setDisable(false);
+        label_show1.setText("");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+    }
+	
 	    @FXML
 	    void quet(ActionEvent event) {
 	    	
