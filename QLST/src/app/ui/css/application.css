@@ -46,6 +46,9 @@
 .Inventory_css{
 	-fx-background-image: url("../../image/Bau-troi-hong-cute.jpg");
 }
+.Changeshift_css{
+	-fx-background-image: url("../../image/Sky.png");
+}
 .line-color{
 	-fx-background-color: #F3ABB5;
 }
