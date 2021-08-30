@@ -6,6 +6,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -20,11 +21,16 @@
          <children>
             <VBox prefWidth="100.0">
                <children>
-                  <Label text="Sale Dashboard" textFill="WHITE">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="200.0" spacing="1080.0">
+                     <children>
+                        <Label text="Sale Dashboard" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onAction="#Search" text="Search" />
+                     </children>
+                  </HBox>
                   <HBox prefHeight="250.0" prefWidth="200.0">
                      <children>
                         <VBox prefHeight="220.0" prefWidth="1000.0">
@@ -116,7 +122,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="500.0" styleClass="container">
+                  <VBox onMouseClicked="#RunOut" prefHeight="200.0" prefWidth="500.0" styleClass="container">
                      <children>
                         <Label text="Run Out: " textFill="#f2f2f2">
                            <font>

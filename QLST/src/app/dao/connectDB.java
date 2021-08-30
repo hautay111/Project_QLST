@@ -139,7 +139,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Account1> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT employee.*,title.* FROM employee,title WHERE employee.title_id=title.title_id");
+            PreparedStatement ps = conn.prepareStatement("SELECT employee.*,title.* FROM employee,title WHERE employee.title_id=title.title_id ORDER BY employee.emp_id DESC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
