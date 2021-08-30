@@ -35,13 +35,16 @@
 /*--------------Home Page--------------------- */
 .gradient-background{
 	-fx-background-color: #61D8DE;
-	 -fx-background-image: url("../../image/photo-1475275083424-b4ff81625b60.jpg");
+	 -fx-background-image: url("../../image/z2721980639768_be7ea9636357f5d2535f5a6d82c278d5.jpg");
 	
 	
 }
 
 .login_css{
-	-fx-background-image: url("../../image/photo-1475275083424-b4ff81625b60.jpg");
+	-fx-background-image: url("../../image/z2721980639768_be7ea9636357f5d2535f5a6d82c278d5.jpg");
+}
+.image_bill{
+	-fx-background-image: url("../../image/1vMd32b.jpg");
 }
 .Inventory_css{
 	-fx-background-image: url("../../image/Bau-troi-hong-cute.jpg");
