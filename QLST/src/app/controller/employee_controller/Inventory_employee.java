@@ -166,6 +166,90 @@ public class Inventory_employee implements Initializable{
 	    
 	    
 	    @FXML
+		void getSelected(MouseEvent event) {
+			index = table_inventory.getSelectionModel().getSelectedIndex();
+			if (index <= -1) {
+
+				return;
+			}
+			wh_id.setText(col_wh_id.getCellData(index).toString());
+			pro_id.setText(col_pro_id.getCellData(index).toString());
+			amount_stock.setText(col_amount_stock.getCellData(index).toString());
+			amount_input.setText(col_amount_input.getCellData(index).toString());
+			price_input.setText(col_price_input.getCellData(index).toString());
+			pro_name.setValue(col_pro_name.getCellData(index).toString());
+			date_input.setValue(col_date_input.getCellData(index).toString());
+//	        pass.setText(col_pass.getCellData(index).toString());
+		}
+	    
+	    
+		@FXML
+		void Update(ActionEvent event) {
+			try {
+				if (id.getText().trim().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please select the data you want to delete!");
+				} else {
+					conn = connectDB.ConnectDb();
+					String value1 = id.getText();
+					String value2 = name.getText();
+					String value3 = email.getText();
+					String value4 = phone.getText();
+					String value5 = address.getText();
+					String value6 = gender.getValue();
+					Integer value7 = title_id;
+					String value8 = user.getText();
+					String sql = "update employee set emp_name= '" + value2 + "',emp_email= '" + value3 + "',emp_phone= '"
+							+ value4 + "',emp_address= '" + value5 + "',emp_gender= '" + value6 + "',title_id='" + value7
+							+ "',emp_user= '" + value8 + "' where emp_id= '" + value1 + "' ";
+					pst = conn.prepareStatement(sql);
+					pst.execute();
+					JOptionPane.showMessageDialog(null, "Update");
+//					UpdateTable1();
+					search_user_inventory();
+				}
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e);
+			}
+		}
+		
+		
+		@FXML
+		void Delete_inventory(ActionEvent event) {
+			conn = connectDB.ConnectDb();
+			String sql = "delete from ware_house where wh_id = ?";
+			try {
+				pst = conn.prepareStatement(sql);
+				pst.setString(1, id.getText());
+				pst.execute();
+				JOptionPane.showMessageDialog(null, "Delete");
+//				UpdateTable1();
+				search_user_inventory();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e);
+			}
+		}
+
+	    
+	    @FXML
+	    void Inventory_import(MouseEvent event) {
+		    try {
+		        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/Inventory_import.fxml"));
+		                Parent root = (Parent) fxmlLoader.load();
+		                Stage stage = new Stage();
+		                stage.setScene(new Scene(root));  
+		                stage.show();             
+		                UpdateTable_inventory();
+		                search_user_inventory();
+		                
+		        } catch(Exception e) {
+		        	
+		           e.printStackTrace();
+		          }
+	    }
+	    
+	    
+	    @FXML
 	    void Inventory_bill(MouseEvent event) {
 		    try {
 		        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/Inventory_bill.fxml"));
