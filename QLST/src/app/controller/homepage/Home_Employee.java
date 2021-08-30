@@ -260,14 +260,21 @@ public class Home_Employee implements Initializable{
     void inventory_employee(MouseEvent event) {
         try {
             //add you loading or delays - ;-)
-           Node node = (Node) event.getSource();
-           Stage stage = (Stage) node.getScene().getWindow();                  
-           stage.close();
-           
-           Parent root = FXMLLoader.load(getClass().getResource("/app/ui/employee/inventory.fxml"));       
-           Scene scene = new Scene(root);       
-           stage.setScene(scene);
-           stage.show();
+        	Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+			FXMLLoader loader=new FXMLLoader();
+			loader.setLocation(getClass().getResource("../../ui/employee/inventory.fxml"));							
+			Parent parent=loader.load();
+			Scene scene=new Scene(parent);				
+			stage.setScene(scene);
+			stage.show();
+//           Node node = (Node) event.getSource();
+//           Stage stage = (Stage) node.getScene().getWindow();                  
+//           stage.close();
+//           
+//           Parent root = FXMLLoader.load(getClass().getResource("/app/ui/employee/inventory.fxml"));       
+//           Scene scene = new Scene(root);       
+//           stage.setScene(scene);
+//           stage.show();
 
         } catch (Exception ex) {
             System.out.println("y"+ex.getMessage());
@@ -280,14 +287,21 @@ public class Home_Employee implements Initializable{
     void change_shift_employee(MouseEvent event) {
         try {
             //add you loading or delays - ;-)
-           Node node = (Node) event.getSource();
-           Stage stage = (Stage) node.getScene().getWindow();                  
-           stage.close();
-           
-           Parent root = FXMLLoader.load(getClass().getResource("/app/ui/employee/change_shift.fxml"));       
-           Scene scene = new Scene(root);       
-           stage.setScene(scene);
-           stage.show();
+        	Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+			FXMLLoader loader=new FXMLLoader();
+			loader.setLocation(getClass().getResource("../../ui/employee/change_shift.fxml"));							
+			Parent parent=loader.load();
+			Scene scene=new Scene(parent);				
+			stage.setScene(scene);
+			stage.show();
+//           Node node = (Node) event.getSource();
+//           Stage stage = (Stage) node.getScene().getWindow();                  
+//           stage.close();
+//           
+//           Parent root = FXMLLoader.load(getClass().getResource("/app/ui/employee/change_shift.fxml"));       
+//           Scene scene = new Scene(root);       
+//           stage.setScene(scene);
+//           stage.show();
 
         } catch (Exception ex) {
             System.out.println("y"+ex.getMessage());
