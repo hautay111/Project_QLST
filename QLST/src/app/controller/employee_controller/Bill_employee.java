@@ -247,13 +247,17 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     ObservableList<Order_Detail> dataList1;    
     private static String code_bar;
     public void initialize(URL url, ResourceBundle rb) {
-//    UpdateTable_bill();
-//    search_user_bill();
+    UpdateTable_bill();
+    search_user_bill();
 //    UpdateTable_Order_detail();
 //    search_user_bill_order();
     showdate();
 //    text_cus_code.setText("0");
 //    print.setDisable(true);
+    
+    	btn_add_product.setDisable(true);
+    	btn_cong_point.setDisable(true);
+    
 //           
 //    text_discount.setText("0");
 //    id_order.setText("  ");
@@ -332,6 +336,8 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 			    	    UpdateTable_bill();
 			    	    btn_cong_point.setDisable(false);
 			    	    print.setDisable(false);
+			    	    label_error_cus1.setText("");
+			    	    btn_add_product.setDisable(false);
 			    	    
 			    }
 			} catch (SQLException e) {
@@ -358,7 +364,78 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     
     int p = 0;
     @FXML
-    void pay(ActionEvent event) {    
+    void pay(ActionEvent event) {  
+    	
+    	
+        try {
+                            
+	    	conn=connectDB.ConnectDb();
+	    	String query= "Select * from ware_house where pro_id = ? ";
+			pst = conn.prepareStatement(query);
+			pst.setString(1, text_id_product.getText());
+			pst.execute();
+			rs=pst.executeQuery();
+            
+            if(rs.next()){
+            	
+                int wh_id,pro_id,amount_stock,amount_input;
+                wh_id = rs.getInt(1);
+                pro_id = rs.getInt(2); 
+                amount_stock = rs.getInt(3);
+                amount_input = rs.getInt(4);
+                System.out.println(wh_id+"   "+pro_id+"   "+amount_stock);              
+                int amount_product = Integer.parseInt(text_amount.getText());
+   
+                double amount = amount_stock - amount_product;
+                System.out.println(amount);
+                
+            	conn = connectDB.ConnectDb();
+                String sql1a = "update ware_house set amount_stock= '"+amount+"' where wh_id = '"+wh_id+"' ";
+                pst= conn.prepareStatement(sql1a);
+                pst.execute();
+                
+                if (amount_stock > 0 || amount_input > 0) {
+                	double money =	Double.parseDouble(text_price.getText());
+                    int y = Integer.parseInt(text_amount.getText());
+                    double total=(money*y);   
+	                String s=bill_Area.getText();
+	                bill_Area.setText(s+"Name: "+text_name.getText()+"            Price: "+text_price.getText()+"        Amount: "
+	                +text_amount.getText()+"    Total: "+total+"\n--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --\n"
+	                );
+	                label_show.setText("Add "+ "'' "+ text_name.getText() +" ''" + " Successfully");
+				}
+                
+                if (amount_product > amount_stock ) {
+					int amount_lay = amount_product - amount_stock;
+					int alo = 0;
+					int amount_input_lay = amount_input - amount_lay;
+	            	conn = connectDB.ConnectDb();
+	                String sql1aa = "update ware_house set amount_input= '"+amount_input_lay+"',amount_stock= '"+alo+"' where wh_id = '"+wh_id+"' ";
+	                pst= conn.prepareStatement(sql1aa);
+	                pst.execute();
+                if (amount_input_lay < 0) {
+                		JOptionPane.showMessageDialog(null, "Run Out!!");
+	                	int aloo=0;
+						System.out.println("hết hàng dồi m ơi" +  amount_input);
+		            	conn = connectDB.ConnectDb();
+		                String sql1aaa = "update ware_house set amount_input= '"+aloo+"' where wh_id = '"+wh_id+"' ";
+		                pst= conn.prepareStatement(sql1aaa);
+		                
+		                pst.execute();
+					}
+				}
+
+                
+            }
+            rs.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
+            }
+    	
+    	
+    	
+    	
         DecimalFormat formatter = new DecimalFormat("###,###,###");           
 
         	
@@ -367,106 +444,105 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     	}
     	
     	
-    	
-    	p++;
-    	int c=0;
-    	double money =	Double.parseDouble(text_price.getText());
-        int y = Integer.parseInt(text_amount.getText());
-        double total=(money*y);      
-        String moneyString = formatter.format(total);
-        System.out.println(total);      
-
-       double z = 0;
-       double q = 0;
-       double discount = 0;
-       
-       	z = Integer.parseInt(text_discount.getText());
-		q = 100 - z;      
-		discount = (total*(q/100));
-		System.out.println(discount);        
-        c++;
-        search_bill.setText("");
-        
-        //--------------------		
-        conn = connectDB.ConnectDb();
-        String sql = "insert into orders_detail (name,quantity,price,total,order_id,pro_id)values(?,?,?,?,?,?)";
         try {
-        	id_order.setText("");
-            pst = conn.prepareStatement(sql);
-            pst.setString(1, text_name.getText());
-            pst.setString(2, text_amount.getText());
-//            pst.setString(4, date_text.getText());           
-            pst.setString(3, text_price.getText());
-            pst.setDouble(4, total);      
-            pst.setString(5, order_id1.getText());
-            pst.setString(6, text_id.getText());
-            pst.execute();
-            label_show.setVisible(true);
-            label_show.setText("Add "+ "'' "+ text_name.getText() +" ''" + " Successfully");
-            search_user_bill_order();
-
-		    try {
-		        conn=connectDB.ConnectDb();
-		        String query1="SELECT orders.*,employee.emp_name FROM orders,employee WHERE orders.emp_id=employee.emp_id ORDER BY orders.order_id DESC LIMIT 1 ";
-				pst= conn.prepareStatement(query1);
-			    rs=pst.executeQuery();
-			    while(rs.next()) {
-			    	 id_order.setText(rs.getString("order_id"));
-			    	 
-			    }		   
-			    
-			    try {
-			        conn=connectDB.ConnectDb();
-			        String query112="select * from ware_house where pro_id = ? ";
-			        pst.setString(1, text_id_product.getText());
-					pst= conn.prepareStatement(query112);
-				    rs=pst.executeQuery();
-
-				    if (rs.next()) {
-					
-				    		int id_product,amount_stock,id_wh,amount,id_pro;
-				    		id_wh = rs.getInt(1);
-				    		id_product = rs.getInt(2);
-				    		amount_stock = rs.getInt(3);
-				    		amount = Integer.parseInt(text_amount.getText());
-				    		id_pro = Integer.parseInt(text_id_product.getText());
-				    		
-				    		System.out.println(id_product+"//"+amount_stock+"//"+id_wh+"//"+amount+"//"+id_pro);
-				    		
-//						    if(ID1 == ID2)
-//						    {	
-//						          conn = connectDB.ConnectDb();;
-//						          String sql111 = "update ware_house set amount_stock= '"+amount_kho+"' where wh_id = '"+ID_ware+"' ";
-//						          pst= conn.prepareStatement(sql111);
-//						          pst.execute();
-//						          
-//						    }
-//						    else
-//						    {
-//						      //ID do not match...
-//						      // Throw error message...
-//						    }
-				    }
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
             
+	    	conn=connectDB.ConnectDb();
+	    	String query= "Select * from ware_house where pro_id = ? ";
+			pst = conn.prepareStatement(query);
+			pst.setString(1, text_id_product.getText());
+			pst.execute();
+			rs=pst.executeQuery();
+            
+            if(rs.next()){
+            	
+                int wh_id,pro_id,amount_stock,amount_input;
+                wh_id = rs.getInt(1);
+                pro_id = rs.getInt(2); 
+                amount_stock = rs.getInt(3);
+                amount_input = rs.getInt(4);
+                System.out.println(wh_id+"   "+pro_id+"   "+amount_stock);              
+                int amount_product = Integer.parseInt(text_amount.getText());
+   
+                double amount = amount_stock - amount_product;
+                System.out.println(amount);
+                
+//		            	conn = connectDB.ConnectDb();
+//		                String sql1a = "update ware_house set amount_stock= '"+amount+"' where wh_id = '"+wh_id+"' ";
+//		                pst= conn.prepareStatement(sql1a);
+//		                pst.execute();
+                
+				    	p++;
+				    	int c=0;
+				    	double money =	Double.parseDouble(text_price.getText());
+				        int y = Integer.parseInt(text_amount.getText());
+				        double total=(money*y);      
+				        String moneyString = formatter.format(total);
+				        System.out.println(total);      
+				
+				       double z = 0;
+				       double q = 0;
+				       double discount = 0;
+				       
+				       	z = Integer.parseInt(text_discount.getText());
+						q = 100 - z;      
+						discount = (total*(q/100));
+						System.out.println(discount);        
+				        c++;
+				        search_bill.setText("");
+				        if (amount_stock > 0 || amount_input > 0) {
+				        
+				        conn = connectDB.ConnectDb();
+				        String sql = "insert into orders_detail (name,quantity,price,total,order_id,pro_id)values(?,?,?,?,?,?)";
+					        try {
+					        	id_order.setText("");
+					            pst = conn.prepareStatement(sql);
+					            pst.setString(1, text_name.getText());
+					            pst.setString(2, text_amount.getText());
+					//            pst.setString(4, date_text.getText());           
+					            pst.setString(3, text_price.getText());
+					            pst.setDouble(4, total);      
+					            pst.setString(5, order_id1.getText());
+					            pst.setString(6, text_id.getText());
+					            pst.execute();
+					            label_show.setVisible(true);
+					//            label_show.setText("Add "+ "'' "+ text_name.getText() +" ''" + " Successfully");
+					            search_user_bill_order();
+					
+							    try {
+							        conn=connectDB.ConnectDb();
+							        String query1="SELECT orders.*,employee.emp_name FROM orders,employee WHERE orders.emp_id=employee.emp_id ORDER BY orders.order_id DESC LIMIT 1 ";
+									pst= conn.prepareStatement(query1);
+								    rs=pst.executeQuery();
+								    while(rs.next()) {
+								    	 id_order.setText(rs.getString("order_id"));
+								    	 
+								    }		   
+					            
+							        
+						        } catch (Exception e) {
+						        	System.out.println(e);
+						        	
+						            JOptionPane.showMessageDialog(null,e);
+						        }
+					        } catch (Exception e) {
+					        	System.out.println(e);
+					        	
+					            JOptionPane.showMessageDialog(null,e);
+					        }
+				        }
+            	}     
 	        } catch (Exception e) {
 	        	System.out.println(e);
 	        	
 	            JOptionPane.showMessageDialog(null,e);
-	        }
-        } catch (Exception e) {
-        	System.out.println(e);
-        	
-            JOptionPane.showMessageDialog(null,e);
-        }
+	        }     
+        //pro_id='" + str2 + "'"
+	    String str2 = text_id_product.getText();        
 
-        String s=bill_Area.getText();
-        bill_Area.setText(s+"Name:  "+text_name.getText()+"               Price:  "+text_price.getText()+"               Amount:  "
-        +text_amount.getText()+"\n--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --\n"
-        );
+//        String s=bill_Area.getText();
+//        bill_Area.setText(s+"Name:  "+text_name.getText()+"               Price:  "+text_price.getText()+"               Amount:  "
+//        +text_amount.getText()+"\n--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --\n"
+//        );
         text_price.setText("");
         text_amount.setText("");
         text_code.setText("");
@@ -680,9 +756,14 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
         
         String s=bill_Area.getText();
         bill_Area.setText(s+"Total Bill : "+total_bill_order.getText()+"\n"+" "+lable_message_sale.getText()+"\n"
-        +"Payment : "+total_bill_pay.getText()+"\n--------------------------------------\n"
+        +"Payment : "+total_bill_pay.getText()+"\n------------------- Good Bye And See You Again-------------------\n"
         );
         in.setDisable(false);
+        btn_cong_point.setDisable(false);
+        in.setDisable(false);
+        label_show.setText("");
+        print.setDisable(true);
+        btn_add_product.setDisable(true);
         
     }
 
@@ -741,6 +822,10 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     	double tienphaitra = tienkhachdua - tienbill;
     	
     	tienphaitrakhach.setText((String.valueOf(tienphaitra)));
+    	
+    	if (tienphaitra < 0 ) {
+    		tienphaitrakhach.setText("0");
+		}
 
     }
     
@@ -934,7 +1019,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
                   int diem = (cus_point/1000);
                   text_discount.setText(Integer.toString(diem));
                   label_cus_point_end.setText("0");
-                  lable_message_sale.setText("You get "+ diem +" discount!!!");
+                  lable_message_sale.setText("You get "+ diem +"% discount!!!");
                 }else if (cus_point > 30000 ) {
                 	int x = 0;
                                	
@@ -953,7 +1038,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 					
 					label_cus_point_end.setText(String.valueOf(cus_point));
 					label_cus_poit.setText(String.valueOf(cus_point));
-					lable_message_sale.setText("You get "+ text_discount.getText() + " discount!!!");
+					lable_message_sale.setText("You get "+ text_discount.getText() + "You don't have enough points to get a discount. Let's try to steal!");
 					text_discount.setText("0");
 				}
                 
@@ -986,14 +1071,23 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     
     @FXML
     void btn_add_point(ActionEvent event) {
-    	try {
-    	conn = connectDB.ConnectDb();
+    	try {        
+    	if (text_cus_id.getText().trim().equals("1")) {
+        	System.out.println("lêu lêu ko đc cộng điểm");
+        }else {
+		conn = connectDB.ConnectDb();
         String value1 = text_cus_id.getText();
         String value2 = label_tien.getText();
         System.out.println(value2);
         String sql = "update customer set cus_point= '"+value2+"' where cus_id = '"+value1+"' ";
         pst= conn.prepareStatement(sql);
         pst.execute();
+		}
+
+        
+        
+
+        
         
         label_cus_point_end.setText("");
         label_cus_poit.setText("");
@@ -1003,6 +1097,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
         label_show1.setText("");
         text_cus_code.setText("");
         btn_cong_point.setDisable(true);
+        
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

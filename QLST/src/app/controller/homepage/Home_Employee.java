@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
+import app.controller.employee_controller.Bill_Manage;
 import app.controller.employee_controller.Bill_employee;
 import app.dao.connectDB;
 import app.model.Bill;
@@ -223,6 +224,25 @@ public class Home_Employee implements Initializable{
 			e.printStackTrace();
 		}
 	}
+	
+    @FXML
+    void manage_bill_employee(MouseEvent event) {
+    	try {
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		FXMLLoader loader=new FXMLLoader();
+		loader.setLocation(getClass().getResource("../../ui/employee/Manage_Bill.fxml"));							
+		Parent parent=loader.load();
+        Bill_Manage id_emp=  loader.getController();
+        id_emp.getEmp_id(a1,a3);
+		Scene scene=new Scene(parent);				
+		stage.setScene(scene);
+		stage.show();
+		
+
+	    } catch (Exception ex) {
+	        System.out.println("y"+ex.getMessage());
+	    }
+    }
 
 	
 	@FXML
@@ -264,7 +284,7 @@ public class Home_Employee implements Initializable{
 			FXMLLoader loader=new FXMLLoader();
 			loader.setLocation(getClass().getResource("../../ui/employee/inventory.fxml"));							
 			Parent parent=loader.load();
-			Scene scene=new Scene(parent);				
+			Scene scene=new Scene(parent);	
 			stage.setScene(scene);
 			stage.show();
 //           Node node = (Node) event.getSource();

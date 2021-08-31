@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
+import app.controller.employee_controller.Bill_Manage;
 import app.model.Account1;
 import app.model.Bill;
+import app.model.Bill_Mange;
 import app.model.Inventory;
 import app.model.ChangeShift;
 
@@ -291,6 +294,39 @@ public class connectDB {
         return list;
         
 	} 
+    
+    public static ObservableList<Bill_Mange> getBill_manage() {
+        Connection conn = ConnectDb();
+        ObservableList<Bill_Mange> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT orders.order_id,orders.total_price,orders.point,orders.discount,orders_detail.name,orders_detail.quantity,orders_detail.price,orders_detail.total,orders.time FROM orders INNER JOIN orders_detail ON orders.order_id = orders_detail.order_id");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Bill_Mange(
+                		rs.getRow(),
+                		rs.getRow(),
+                		Integer.parseInt(rs.getString("order_id")),
+                		Integer.parseInt(rs.getString("total_price")),
+                		Integer.parseInt(rs.getString("point")),
+                		Integer.parseInt(rs.getString("discount")),              		
+                		Integer.parseInt(rs.getString("quantity")),
+                		Integer.parseInt(rs.getString("price")),
+                		Integer.parseInt(rs.getString("total")),
+                		rs.getString("name"),
+                		rs.getString("time")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	}
+    
+    
+    
     
     
 }

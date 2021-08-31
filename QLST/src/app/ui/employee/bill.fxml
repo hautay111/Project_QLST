@@ -67,7 +67,7 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="lable_message_sale" layoutX="138.0" layoutY="667.0" prefHeight="17.0" prefWidth="179.0" textFill="WHITE">
+            <Label fx:id="lable_message_sale" layoutX="138.0" layoutY="667.0" prefHeight="17.0" prefWidth="179.0" textFill="WHITE" visible="false">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
@@ -85,7 +85,7 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <TextArea fx:id="bill_Area" layoutX="42.0" layoutY="193.0" prefHeight="267.0" prefWidth="365.0" />
+            <TextArea fx:id="bill_Area" editable="false" layoutX="11.0" layoutY="167.0" prefHeight="267.0" prefWidth="399.0" />
             <Label layoutX="36.0" layoutY="43.0" prefHeight="25.0" prefWidth="42.0" text="Search" textFill="#3dff47" />
             <TextField fx:id="search_bill" layoutX="92.0" layoutY="40.0" prefHeight="32.0" prefWidth="203.0" />
             <Button layoutX="307.0" layoutY="43.0" mnemonicParsing="false" onAction="#quet" prefHeight="25.0" prefWidth="69.0" text="Barcode" />
@@ -109,7 +109,7 @@
                </columnResizePolicy>
             </TableView>
          </bottom>
-         <center>
+         <top>
             <Pane prefHeight="285.0" prefWidth="911.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="35.0" fitWidth="52.0" layoutX="866.0" layoutY="10.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" rotate="179.0">
@@ -278,10 +278,10 @@
                   <Button layoutX="796.0" layoutY="259.0" mnemonicParsing="false" onAction="#add_cus" text="Add Customer" />
                   <Button fx:id="btn_create_order" layoutX="358.0" layoutY="42.0" mnemonicParsing="false" onAction="#new_orders" prefHeight="26.0" prefWidth="98.0" text="Create Order" />
                   <Label fx:id="label_error_cus1" layoutX="574.0" layoutY="254.0" prefHeight="17.0" prefWidth="93.0" text="Points Success !!!" textFill="WHITE" visible="false" />
-                  <Label fx:id="text_id_product" layoutX="117.0" layoutY="22.0" text="Label" textFill="WHITE" />
+                  <Label fx:id="text_id_product" layoutX="117.0" layoutY="22.0" text="Label" textFill="WHITE" visible="false" />
                </children>
             </Pane>
-         </center>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>
