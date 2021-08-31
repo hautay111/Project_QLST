@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
-
+import app.model.*;
 import app.controller.employee_controller.Bill_Manage;
 import app.controller.employee_controller.Bill_employee;
 import app.dao.connectDB;

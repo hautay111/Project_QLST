@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import app.controller.employee_controller.Bill_Manage;
 import app.model.Account1;
 import app.model.Bill;
 import app.model.Bill_Mange;
@@ -68,7 +67,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Inventory> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.* FROM ware_house");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM ware_house INNER JOIN product ON ware_house.pro_id= product.pro_id");
             ResultSet rs = ps.executeQuery();					
             
             while (rs.next()){   
