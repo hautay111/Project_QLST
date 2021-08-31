@@ -21,10 +21,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
 import com.github.sarxos.webcam.Webcam;
@@ -45,6 +47,7 @@ import app.model.Order_Detail;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -54,6 +57,7 @@ import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -62,9 +66,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import com.github.sarxos.webcam.Webcam;
@@ -102,6 +108,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     @FXML
     private Label text_name;
 
+ 
     @FXML
     private TextField text_amount;
 
@@ -141,9 +148,18 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     @FXML
     private Label label_show;
     
+    @FXML
+    private Label label_point_bill;
+    
 
     @FXML
     private Button btn_create_order;
+    
+    @FXML
+    private Button btn_add_product;
+    
+    @FXML
+    private Button btn_cong_point;
     
     @FXML
     private TableColumn<Bill,String> col_name;
@@ -217,7 +233,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     private TextField text_cus_id;
 
     @FXML
-    private TextField text_discount;
+    private Label text_discount;
 	
     int index = -1;
     
@@ -231,13 +247,20 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     ObservableList<Order_Detail> dataList1;    
     private static String code_bar;
     public void initialize(URL url, ResourceBundle rb) {
-    UpdateTable_bill();
-    search_user_bill();
-    UpdateTable_Order_detail();
-    search_user_bill_order();
+//    UpdateTable_bill();
+//    search_user_bill();
+//    UpdateTable_Order_detail();
+//    search_user_bill_order();
     showdate();
-    text_discount.setText("0");
-    id_order.setText("  ");
+//    text_cus_code.setText("0");
+//    print.setDisable(true);
+//           
+//    text_discount.setText("0");
+//    id_order.setText("  ");
+    
+
+    
+    
     num=0;
     int a = 2;
     double b = 200.2000;
@@ -305,7 +328,11 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 			    	 text_cus_code.setText("");
 			    	 btn_create_order.setDisable(true);
 			    	 text_discount.setText("");
-			    	 
+			    	    print.setDisable(false);
+			    	    UpdateTable_bill();
+			    	    btn_cong_point.setDisable(false);
+			    	    print.setDisable(false);
+			    	    
 			    }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -388,40 +415,42 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 			    	 
 			    }		   
 			    
-//			    try {
-//			        conn=connectDB.ConnectDb();
-//			        String query11="select * from orders_detail ";
-//					pst= conn.prepareStatement(query11);
-//				    rs=pst.executeQuery();
-//
-//				    if (rs.next()) {
-//					String ID4 = order_id1.getText();
-//				    String ID1=id_product.getText();
-//				    String ID2=rs.getString("pro_id");
-//				    String ID3 = rs.getString("order_id");	
-//					
-//				    if(ID1.equals(ID2) && ID4.equals(ID3))
-//				    {
-//				          conn = connectDB.ConnectDb();
-//				          String amo = text_amount.getText();
-//				          String value1 = id_order_detail.getText();
-//				          String value2 = rs.getString("quantity");
-//				          String value3 = value2 + amo;
-//				          String sql11 = "update orders_detail set quantity= '"+value3+"' where order_detail_id = '"+value1+"' ";
-//				          pst= conn.prepareStatement(sql11);
-//				          pst.execute();
-//				    	
-//				    }
-//				    else
-//				    {
-//				      //ID do not match...
-//				      // Throw error message...
-//				    }
-//			    }
-//					} catch (SQLException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
+			    try {
+			        conn=connectDB.ConnectDb();
+			        String query112="select * from ware_house where pro_id = ? ";
+			        pst.setString(1, text_id_product.getText());
+					pst= conn.prepareStatement(query112);
+				    rs=pst.executeQuery();
+
+				    if (rs.next()) {
+					
+				    		int id_product,amount_stock,id_wh,amount,id_pro;
+				    		id_wh = rs.getInt(1);
+				    		id_product = rs.getInt(2);
+				    		amount_stock = rs.getInt(3);
+				    		amount = Integer.parseInt(text_amount.getText());
+				    		id_pro = Integer.parseInt(text_id_product.getText());
+				    		
+				    		System.out.println(id_product+"//"+amount_stock+"//"+id_wh+"//"+amount+"//"+id_pro);
+				    		
+//						    if(ID1 == ID2)
+//						    {	
+//						          conn = connectDB.ConnectDb();;
+//						          String sql111 = "update ware_house set amount_stock= '"+amount_kho+"' where wh_id = '"+ID_ware+"' ";
+//						          pst= conn.prepareStatement(sql111);
+//						          pst.execute();
+//						          
+//						    }
+//						    else
+//						    {
+//						      //ID do not match...
+//						      // Throw error message...
+//						    }
+				    }
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             
 	        } catch (Exception e) {
 	        	System.out.println(e);
@@ -433,13 +462,15 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
         	
             JOptionPane.showMessageDialog(null,e);
         }
+
+        String s=bill_Area.getText();
+        bill_Area.setText(s+"Name:  "+text_name.getText()+"               Price:  "+text_price.getText()+"               Amount:  "
+        +text_amount.getText()+"\n--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --\n"
+        );
         text_price.setText("");
         text_amount.setText("");
         text_code.setText("");
         text_name.setText("");
-        
-        
-        
     }
 
     public void getEmp_id(String id_emp) {
@@ -534,7 +565,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
      	   Integer TotalPrice = 0;
      	   TotalPrice = table_order.getItems().stream().map(
    	        (item) -> item.getTotal()).reduce(TotalPrice, (accumulator, _item) -> accumulator + _item);
-     	   total_bill_order.setText((String.valueOf(TotalPrice))+" vnđ");
+     	   total_bill_order.setText((String.valueOf(TotalPrice)));
      	   
      	  	double z = 0;
      	  	double q = 0;	     	  	
@@ -542,7 +573,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
      	  	q = 100 - z;   
    
      	  	double discount = (TotalPrice*(q/100));
-     	  	total_bill_pay.setText(String.valueOf(discount)+" vnđ");
+     	  	total_bill_pay.setText(String.valueOf(discount));
           conn = connectDB.ConnectDb();
           String value1 = order_id1.getText();
           String value2 = total_bill_order.getText();
@@ -560,7 +591,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
      	   Integer TotalPrice = 0;
      	   TotalPrice = table_order.getItems().stream().map(
    	        (item) -> item.getTotal()).reduce(TotalPrice, (accumulator, _item) -> accumulator + _item);
-     	   total_bill_order.setText((String.valueOf(TotalPrice))+" vnđ");
+     	   total_bill_order.setText((String.valueOf(TotalPrice)));
      	   
      	  	double z = 0;
      	  	double q = 0;	     	  	
@@ -568,8 +599,9 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
      	  	q = 100 - z;   
    
      	  	double discount = (TotalPrice*(q/100));
-     	  	total_bill_pay.setText(String.valueOf(discount)+" vnđ");
+     	  	total_bill_pay.setText(String.valueOf(discount));
      	  	double point;
+     	  	double point_bill;
      	  	
      	  double a = 100000;
           double b = 200000;
@@ -584,29 +616,45 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 
           if (discount < a) {
         	   point = p + 50;
+        	   point_bill = 50;
         	   System.out.println(point);
         	   label_tien.setText((String.valueOf(point)));
+        	   label_point_bill.setText((String.valueOf(point_bill)));
 			}else if(discount >= a && discount <= b ) {
 	      	   		point = (p + 100);
+	      	   	point_bill = 100;
 	      	   		System.out.println(point);
 				label_tien.setText((String.valueOf(point)));
+				label_point_bill.setText((String.valueOf(point_bill)));
 	          }else if (discount > b && discount <= c) {
 	          	   point = (p + 200);
+	          	 point_bill = 200;
 	          	 label_tien.setText((String.valueOf(point)));
+	          	label_point_bill.setText((String.valueOf(point_bill)));
 	  			System.out.println(point);
 			}else if (discount > c && discount <= d) {
 		      	   point = (p + 300);
+		      	 point_bill = 300;
 		      	 label_tien.setText((String.valueOf(point)));
+		      	label_point_bill.setText((String.valueOf(point_bill)));
 					System.out.println(point);
 			}else if (discount > d && discount <= e) {
 		      	   point = (p + 500);
+		      	 point_bill = 500;
 		      	 label_tien.setText((String.valueOf(point)));
+		      	label_point_bill.setText((String.valueOf(point_bill)));
 					System.out.println(point);
 			}else if (discount > e && discount <= f) {
 		      	   point = (p + 1000);
+		      	   point_bill = 1000;
 		      	 label_tien.setText((String.valueOf(point)));
+		      	label_point_bill.setText((String.valueOf(point_bill)));
 					System.out.println(point);
-			}          
+			}    
+	          conn = connectDB.ConnectDb();
+	          String sql = "update orders set point= '"+label_point_bill.getText()+"', cus_id = '"+text_cus_id.getText()+"', discount = '"+text_discount.getText()+"' where order_id = '"+order_id1.getText()+"' ";
+	          pst= conn.prepareStatement(sql);
+	          pst.execute();
           
 	      } catch (Exception e) {
 	          JOptionPane.showMessageDialog(null, e);
@@ -626,27 +674,42 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
           String sql = "update customer set cus_point= '"+point+"', last_purchase_date = '"+date_text.getText()+"' where cus_id = '"+id_cus+"' ";
           pst= conn.prepareStatement(sql);
           pst.execute();
-          label_show.setVisible(false);
 	      } catch (Exception e) {
 	          JOptionPane.showMessageDialog(null, e);
 	      }
-    	
-    	print.setVisible(false);
-        print(table_order);
-        totalCalculation();
-		      try {
-		      num++;
-		       PrintWriter f = new PrintWriter("bill "+String.valueOf(num)+".txt");
-		       f.println(table_order.getSelectionModel());
-		      f.close();
-			  } catch (FileNotFoundException ex) {
-			      Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
-			      System.out.println(ex);
-			  }
+        
+        String s=bill_Area.getText();
+        bill_Area.setText(s+"Total Bill : "+total_bill_order.getText()+"\n"+" "+lable_message_sale.getText()+"\n"
+        +"Payment : "+total_bill_pay.getText()+"\n--------------------------------------\n"
+        );
+        in.setDisable(false);
+        
     }
-         
+
+    @FXML
+    private Button in;   
     
-    private void print(Node node) {
+    @FXML
+    private TextArea bill_Area;
+    
+      @FXML
+    void inbill(ActionEvent event) {
+    	  
+          try {
+              num++;
+              
+               PrintWriter f = new PrintWriter("bill "+String.valueOf(num)+".txt");
+               f.println(bill_Area.getText());
+              f.close();
+          } catch (FileNotFoundException ex) {
+              Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
+          }
+
+    	  
+    	in.setVisible(false);
+        in(bill_Area);
+    }  
+    private void in(Node node) {
     	
         PrinterJob job = PrinterJob.createPrinterJob();
         if (job != null && job.showPrintDialog(node.getScene().getWindow())){
@@ -655,10 +718,33 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
                 job.endJob();
             }
         }
-        print.setVisible(true);
+        in.setVisible(true); 
+        
+        
     }
     
     
+    
+    
+    @FXML
+    private TextField tienthoi;
+    
+    @FXML
+    private Label tienphaitrakhach;
+    
+    @FXML
+    void chaythoitien(KeyEvent event) {
+    		
+    	double tienbill = Double.parseDouble(total_bill_pay.getText());	
+    	double tienkhachdua = Double.parseDouble(tienthoi.getText());	
+    	
+    	double tienphaitra = tienkhachdua - tienbill;
+    	
+    	tienphaitrakhach.setText((String.valueOf(tienphaitra)));
+
+    }
+    
+
     
     
     
@@ -683,7 +769,9 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
         table_bill.setItems(listM);
     }
     
-    
+
+    @FXML
+    private Label text_id_product;
     @FXML
     void getSelected_bill(MouseEvent event) {
         index = table_bill.getSelectionModel().getSelectedIndex();
@@ -692,7 +780,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
             return;
         }
         
-        
+        text_id_product.setText(col_id.getCellData(index).toString());
         text_id.setText(col_id.getCellData(index).toString());
         text_name.setText(col_name.getCellData(index).toString());
         text_code.setText(col_barcode.getCellData(index).toString());
@@ -888,7 +976,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
          	 	label_error_cus.setVisible(true);
 
              }
-            
+             bill_Area.setText("Welcome " +label_cus_name.getText()+ " to SuperMarket"+"\n");
             rs.close();
             } catch (SQLException ex) {
                 Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
@@ -913,10 +1001,14 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
         label_error_cus1.setVisible(true);
         btn_create_order.setDisable(false);
         label_show1.setText("");
+        text_cus_code.setText("");
+        btn_cong_point.setDisable(true);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
+    	
+    	
     }
 	
 	    @FXML

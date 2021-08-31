@@ -1,1 +1,5 @@
-javafx.scene.control.TableView$TableViewArrayListSelectionModel@2637639e
+Total Bill : 0
+ You get  discount!!!
+Payment : 0.0
+--------------------------------------
+

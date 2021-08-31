@@ -276,7 +276,9 @@ public class product_add implements Initializable{
 	            
 	        } catch (Exception e) {
 	        	System.out.println(e);
-	        	
+	            Stage stage = (Stage) root.getScene().getWindow();
+	            // do what you have to do
+	            stage.close();
 	            JOptionPane.showMessageDialog(null, "Please double check, you are entering missing Data or Barcode already exists!");
 	        }
 	    }

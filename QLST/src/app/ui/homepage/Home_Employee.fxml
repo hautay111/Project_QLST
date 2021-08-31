@@ -124,6 +124,26 @@
                      </cursor>
                   </VBox>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
+                  <VBox alignment="CENTER" onMouseClicked="#bill_employee" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
+                     <children>
+                        <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+                           <image>
+                              <Image url="@../../image/invoice.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="216.0" styleClass="shadow" text="Bill Manage" textFill="WHITE">
+                           <font>
+                              <Font name="Bell MT" size="41.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </VBox>
                </children>
                <VBox.margin>
                   <Insets top="31.0" />
@@ -136,7 +156,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="100.0">
                <children>
-                  <VBox alignment="CENTER" onMouseClicked="#change_shift_employee" prefHeight="200.0" prefWidth="233.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#change_shift_employee" prefHeight="200.0" prefWidth="240.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>

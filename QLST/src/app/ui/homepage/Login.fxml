@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1380.0" styleClass="login_css" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.homepage.Login">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1362.0" styleClass="login_css" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.homepage.Login">
    <children>
       <Label layoutX="580.0" layoutY="179.0" prefHeight="45.0" prefWidth="192.0" text="Login Form" textFill="#00ffd0">
          <font>
@@ -46,7 +46,7 @@
          </cursor>
       </Button>
       <CheckBox fx:id="btn_showpass" layoutX="586.0" layoutY="387.0" mnemonicParsing="false" onAction="#show_pass" text="Show Password" textFill="WHITE" />
-      <ImageView fitHeight="30.0" fitWidth="65.0" layoutX="1318.0" layoutY="28.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="30.0" fitWidth="65.0" layoutX="1258.0" layoutY="14.0" onMouseClicked="#logout" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../image/logout.png" />
          </image>
