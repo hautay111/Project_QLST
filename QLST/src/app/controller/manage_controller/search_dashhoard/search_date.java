@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import app.controller.manage_controller.search;
 import app.dao.connectDB;
 import app.model.Category1;
 import app.model.Dashboard;
-import app.model.search_dashboard.Quarter_1;
+import app.model.search_dashboard.Search_date;
+import app.model.search_dashboard.M8;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,18 +28,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class quarter_1 implements Initializable{
+public class search_date implements Initializable{
 	Connection conn = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
 	int index=-1;
-    ObservableList<Quarter_1> listC;
+	ObservableList<Search_date> listC;
 
     @FXML
     private BorderPane main;
 
     @FXML
-    private Label quarter;
+    private Label input_date;
 
     @FXML
     private LineChart<?, ?> lineChart;
@@ -66,19 +69,19 @@ public class quarter_1 implements Initializable{
     private BarChart<?, ?> barChart1;
     
     @FXML
-    private TableView<Quarter_1> table_quarter_1;
+    private TableView<Search_date> table_Search_date;
     
     @FXML
-    private TableColumn<Quarter_1, Integer> col_no;
+    private TableColumn<Search_date, Integer> col_no;
 
     @FXML
-    private TableColumn<Quarter_1, Integer> col_id;
+    private TableColumn<Search_date, Integer> col_id;
 
     @FXML
-    private TableColumn<Quarter_1, String> col_pro_name;
+    private TableColumn<Search_date, String> col_pro_name;
 
     @FXML
-    private TableColumn<Quarter_1, Integer> col_amount;
+    private TableColumn<Search_date, Integer> col_amount;
 
     public static int amount;
 	public static int product, orders,input, sales_money1, import_money1;
@@ -89,7 +92,6 @@ public class quarter_1 implements Initializable{
         // do what you have to do
         stage.close();
     }
-    
     @Override
 	public void initialize(URL location, ResourceBundle resources) {
     	tableQuarter1();
@@ -114,7 +116,7 @@ public class quarter_1 implements Initializable{
 		}
 		try {
 			conn = connectDB.ConnectDb();
-			String sql1 = "SELECT COUNT(order_id) FROM orders WHERE QUARTER(orders.time)=1;";
+			String sql1 = "SELECT COUNT(order_id) FROM orders WHERE MONTH(orders.time)=8;";
 			pst = conn.prepareStatement(sql1);
 			rs = pst.executeQuery();
 			if (rs.next()) {
@@ -128,7 +130,7 @@ public class quarter_1 implements Initializable{
 		}
 		try {
 			conn = connectDB.ConnectDb();
-			String sql2 = "SELECT COUNT(input_id) FROM input WHERE QUARTER(input.time)=1";
+			String sql2 = "SELECT COUNT(input_id) FROM input WHERE MONTH(input.time)=8";
 			pst = conn.prepareStatement(sql2);
 			rs = pst.executeQuery();
 			if (rs.next()) {
@@ -156,8 +158,8 @@ public class quarter_1 implements Initializable{
 		}
 		try {
 			conn = connectDB.ConnectDb();
-			String sql2 = "SELECT SUM(total) FROM input WHERE Quarter(time)=1";
-			String sql1 = "SELECT SUM(orders.total_price) FROM orders WHERE QUARTER(orders.time)=1";
+			String sql2 = "SELECT SUM(total) FROM input WHERE MONTH(time)=8";
+			String sql1 = "SELECT SUM(orders.total_price) FROM orders WHERE MONTH(orders.time)=8";
 			pst = conn.prepareStatement(sql2);
 			rs = pst.executeQuery();
 			if (rs.next()) {
@@ -183,10 +185,7 @@ public class quarter_1 implements Initializable{
 
 		conn = connectDB.ConnectDb();
 		
-		String sql1="SELECT product.pro_name,Sum(orders_detail.quantity) AS 'amount' "
-				+ "FROM orders_detail,product "
-				+ "WHERE orders_detail.pro_id=product.pro_id and (SELECT QUARTER(\"21-01-01\") AS 'Quarter') "
-				+ "GROUP BY product.pro_name ORDER BY Sum(orders_detail.quantity) DESC";
+		String sql1="SELECT product.pro_name,Sum(orders_detail.quantity) AS 'amount' FROM orders_detail,product,orders WHERE orders_detail.pro_id=product.pro_id AND orders_detail.order_id=orders.order_id and MONTH(orders.time)=8 GROUP BY product.pro_name ORDER BY Sum(orders_detail.quantity) DESC";
 		pst = conn.prepareStatement(sql1);
 		rs = pst.executeQuery();
 		while(rs.next()) {
@@ -309,7 +308,7 @@ public class quarter_1 implements Initializable{
 
 		conn = connectDB.ConnectDb();
 		
-		String sql2="SELECT c.cus_name,SUM(o.total_price) AS 'sales_price' FROM orders o, customer c WHERE o.cus_id=c.cus_id and c.cus_code!=1 and (SELECT QUARTER(\"21-01-01\") AS 'Quarter') GROUP BY o.cus_id ORDER BY SUM(o.total_price) DESC LIMIT 5";
+		String sql2="SELECT c.cus_name,SUM(o.total_price) AS 'sales_price' FROM orders o, customer c WHERE o.cus_id=c.cus_id and c.cus_code!=1 and MONTH(o.time)=8 GROUP BY o.cus_id ORDER BY SUM(o.total_price) DESC LIMIT 5";
 		pst = conn.prepareStatement(sql2);
 		rs = pst.executeQuery();
 		while(rs.next()) {
@@ -324,14 +323,23 @@ public class quarter_1 implements Initializable{
 		}
     }
 	
+
+	
+
+  
 	@FXML
 	void tableQuarter1() {
-		col_no.setCellValueFactory(new PropertyValueFactory<Quarter_1, Integer>("no"));
-		col_id.setCellValueFactory(new PropertyValueFactory<Quarter_1, Integer>("pro_id"));
-		col_pro_name.setCellValueFactory(new PropertyValueFactory<Quarter_1, String>("pro_name"));
-		col_amount.setCellValueFactory(new PropertyValueFactory<Quarter_1, Integer>("amount"));		
-		listC = connectDB.getDataQuater1();
-		table_quarter_1.setItems(listC);
-
+		col_no.setCellValueFactory(new PropertyValueFactory<Search_date, Integer>("no"));
+		col_id.setCellValueFactory(new PropertyValueFactory<Search_date, Integer>("pro_id"));
+		col_pro_name.setCellValueFactory(new PropertyValueFactory<Search_date, String>("pro_name"));
+		col_amount.setCellValueFactory(new PropertyValueFactory<Search_date, Integer>("amount"));		
+		listC = connectDB.getDataSearch_date();
+		table_Search_date.setItems(listC);
+	}
+	public static String a1;
+	public void getDate(String date) {
+		input_date.setText(date);
+		a1=input_date.getText();
+		System.out.println(a1);
 	}
 }

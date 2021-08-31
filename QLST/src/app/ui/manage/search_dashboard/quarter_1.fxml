@@ -7,6 +7,8 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -110,6 +112,48 @@
                                     </Label>
                                  </children>
                               </HBox>
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Import money: " textFill="WHITE">
+                                       <font>
+                                          <Font name="Footlight MT Light" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="import_money" text="Gross revenue" textFill="WHITE">
+                                       <font>
+                                          <Font name="Footlight MT Light" size="21.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="sales money: " textFill="WHITE">
+                                       <font>
+                                          <Font name="Footlight MT Light" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="sales_money" text="Gross revenue" textFill="WHITE">
+                                       <font>
+                                          <Font name="Footlight MT Light" size="21.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Gross revenue: " textFill="WHITE">
+                                       <font>
+                                          <Font name="Footlight MT Light" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="money" text="Gross revenue" textFill="WHITE">
+                                       <font>
+                                          <Font name="Footlight MT Light" size="21.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -143,6 +187,23 @@
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="500.0" styleClass="container">
+                     <children>
+                        <Label text="Import Prouct:" textFill="#f2f2f2">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="table_quarter_1" prefHeight="282.0" prefWidth="500.0" style="-fx-background-color: transparent;">
+                           <columns>
+                              <TableColumn fx:id="col_no" prefWidth="77.0" text="No." />
+                              <TableColumn fx:id="col_id" minWidth="0.0" prefWidth="85.0" text="Id" />
+                              <TableColumn fx:id="col_pro_name" prefWidth="135.0" text="Product Name" />
+                              <TableColumn fx:id="col_amount" prefWidth="137.0" text="Amount Import" />
+                           </columns>
+                        </TableView>
+                     </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="500.0" styleClass="container" stylesheets="@../../css/application.css">
                      <children>

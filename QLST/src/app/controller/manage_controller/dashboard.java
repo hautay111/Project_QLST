@@ -40,13 +40,24 @@ public class dashboard implements Initializable {
 	PreparedStatement pst = null;
 	int index=-1;
     ObservableList<Dashboard> listC;
-	ObservableList<Category1> dataListC;
 
 	@FXML
 	private Label amount_product;
 
 	@FXML
 	private Label amount_orders;
+	
+	@FXML
+    private Label amount_input;
+
+    @FXML
+    private Label import_money;
+
+    @FXML
+    private Label sales_money;
+
+    @FXML
+    private Label money;
 
 	@FXML
 	private BarChart<?, ?> barChart;
@@ -56,7 +67,8 @@ public class dashboard implements Initializable {
 	
 	@FXML
     private LineChart<?, ?> lineChart;
-
+	
+	public static int input, sales_money1, import_money1;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		tableRunOut();
@@ -106,6 +118,45 @@ public class dashboard implements Initializable {
 				orders = rs.getInt(1);
 				amount_orders.setText(Integer.toString(orders));
 				System.out.println("Tong orders : --->" + orders);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			conn = connectDB.ConnectDb();
+			String sql2 = "SELECT COUNT(input_id) FROM input";
+			pst = conn.prepareStatement(sql2);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				input = rs.getInt(1);
+				amount_input.setText(Integer.toString(input));
+				System.out.println("Tong orders : --->" + input);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			conn = connectDB.ConnectDb();
+			String sql2 = "SELECT SUM(total) FROM input";
+			String sql1 = "SELECT SUM(orders.total_price) FROM orders";
+			pst = conn.prepareStatement(sql2);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				import_money1=rs.getInt("SUM(total)");
+				import_money.setText(Integer.toString(import_money1));
+				pst = conn.prepareStatement(sql1);
+				ResultSet rs1 = pst.executeQuery();
+				if(rs1.next()) {
+					sales_money1=rs1.getInt("SUM(orders.total_price)");
+					sales_money.setText(Integer.toString(sales_money1));
+				}
+				input=sales_money1-import_money1;
+				money.setText(Integer.toString(input));
+				System.out.println("DT: --->" + input);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -305,14 +356,14 @@ public class dashboard implements Initializable {
 
 		conn = connectDB.ConnectDb();
 		
-		String sql2="SELECT customer.* FROM customer WHERE customer.cus_code!='1' ORDER BY customer.cus_point DESC LIMIT 5";
+		String sql2="SELECT c.cus_name,SUM(o.total_price) AS 'sales_price' FROM orders o, customer c WHERE o.cus_id=c.cus_id and c.cus_code!=1 GROUP BY o.cus_id ORDER BY SUM(o.total_price) DESC LIMIT 5";
 		pst = conn.prepareStatement(sql2);
 		rs = pst.executeQuery();
 		while(rs.next()) {
-			System.out.println("ten: "+rs.getString("cus_name")+" - Point: "+rs.getInt("cus_point"));
+			System.out.println("ten: "+rs.getString("cus_name")+" - sales_price: "+rs.getInt("sales_price"));
 			
 			XYChart.Series series = new XYChart.Series();
-			series.getData().add(new XYChart.Data(rs.getString("cus_name"), rs.getInt("cus_point")));
+			series.getData().add(new XYChart.Data(rs.getString("cus_name"), rs.getInt("sales_price")));
 		
 			
 			barChart1.getData().addAll(series);

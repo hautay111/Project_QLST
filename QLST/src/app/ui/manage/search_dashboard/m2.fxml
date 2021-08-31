@@ -6,29 +6,48 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1310.0" style="-fx-background-color: #9999CC;" styleClass="container" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.dashboard">
+<BorderPane fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="619.0" prefWidth="1310.0" style="-fx-background-color: #9999CC;" styleClass="container" stylesheets="@../../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.manage_controller.search_dashhoard.m2">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefWidth="100.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="200.0" spacing="1080.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="35.0" prefWidth="200.0" spacing="450.0">
                      <children>
                         <Label text="Sale Dashboard" textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" onAction="#Search" text="Search" />
+                        <HBox prefHeight="35.0" prefWidth="251.0">
+                           <children>
+                              <Label text="Month: " textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="quarter" text="2" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <ImageView fitHeight="25.0" fitWidth="28.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../image/icons8-go-back-48.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </HBox>
                   <HBox prefHeight="250.0" prefWidth="200.0">
@@ -136,6 +155,9 @@
                                  </children>
                               </HBox>
                            </children>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
                         </VBox>
                      </children>
                   </HBox>
@@ -143,7 +165,7 @@
             </VBox>
             <HBox prefHeight="300.0" prefWidth="200.0">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="500.0" styleClass="container" stylesheets="@../css/application.css">
+                  <VBox prefHeight="200.0" prefWidth="500.0" styleClass="container" stylesheets="@../../css/application.css">
                      <children>
                         <Label text="Top 10 Best Product: " textFill="WHITE">
                            <font>
@@ -166,27 +188,24 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox onMouseClicked="#RunOut" prefHeight="200.0" prefWidth="500.0" styleClass="container">
+                  <VBox prefHeight="200.0" prefWidth="500.0" styleClass="container">
                      <children>
-                        <Label text="Run Out: " textFill="#f2f2f2">
+                        <Label text="Import Prouct:" textFill="#f2f2f2">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="table_run_out" onMouseClicked="#RunOut" prefHeight="282.0" prefWidth="500.0" style="-fx-background-color: transparent;">
-                          <columns>
-                            <TableColumn fx:id="col_no" prefWidth="77.0" text="No." />
+                        <TableView fx:id="table_m2" prefHeight="282.0" prefWidth="500.0" style="-fx-background-color: transparent;">
+                           <columns>
+                              <TableColumn fx:id="col_no" prefWidth="77.0" text="No." />
                               <TableColumn fx:id="col_id" minWidth="0.0" prefWidth="85.0" text="Id" />
-                            <TableColumn fx:id="col_pro_name" prefWidth="135.0" text="Product Name" />
-                              <TableColumn fx:id="col_amount" prefWidth="151.0" text="Amount Stock" />
-                          </columns>
+                              <TableColumn fx:id="col_pro_name" prefWidth="135.0" text="Product Name" />
+                              <TableColumn fx:id="col_amount" prefWidth="137.0" text="Amount Import" />
+                           </columns>
                         </TableView>
                      </children>
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="500.0" styleClass="container" stylesheets="@../css/application.css">
+                  <VBox prefHeight="200.0" prefWidth="500.0" styleClass="container" stylesheets="@../../css/application.css">
                      <children>
                         <Label text="Top 5 Customer: " textFill="WHITE">
                            <font>
