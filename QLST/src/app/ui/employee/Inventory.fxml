@@ -96,7 +96,7 @@
         <tabs>
           <Tab text="View All">
                <content>
-                  <TableView fx:id="table_inventory" prefHeight="419.0" prefWidth="843.0" style="-fx-background-color: #ffffff;" styleClass="TableView_css" stylesheets="@../css/application.css">
+                  <TableView fx:id="table_inventory" onMouseClicked="#getSelected" prefHeight="419.0" prefWidth="843.0" style="-fx-background-color: #ffffff;" styleClass="TableView_css" stylesheets="@../css/application.css">
                     <columns>
                         <TableColumn fx:id="col_wh_id" prefWidth="84.79998588562012" text="Wh_id" />
                       <TableColumn fx:id="col_pro_id" prefWidth="78.4000015258789" text="Pro_id" />
@@ -147,5 +147,7 @@
       </Button>
       <Button layoutX="743.0" layoutY="163.0" mnemonicParsing="false" onAction="#Delete_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Delete" />
       <Button layoutX="627.0" layoutY="163.0" mnemonicParsing="false" onAction="#Update_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Update" />
+      <TextField fx:id="text_product_id" layoutX="564.0" layoutY="120.0" prefHeight="25.0" prefWidth="54.0" />
+      <TextField fx:id="text_wh_id1" layoutX="637.0" layoutY="120.0" prefHeight="25.0" prefWidth="46.0" />
    </children>
 </AnchorPane>

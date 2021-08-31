@@ -1,34 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="496.0" prefWidth="607.0" style="-fx-background-color: #d2d7fa;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Inventory_crud.Inventory_Inset">
+<AnchorPane fx:id="root" prefHeight="393.0" prefWidth="1175.0" style="-fx-background-color: #d2d7fa;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Inventory_crud.Inventory_Inset">
    <children>
       <Label alignment="CENTER" layoutX="159.0" layoutY="14.0" prefHeight="47.0" prefWidth="270.0" text="Receipt">
          <font>
             <Font name="Consolas" size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="text_wh_id" layoutX="85.0" layoutY="83.0" />
-      <TextField fx:id="text_pro_name" layoutX="86.0" layoutY="227.0" />
-      <TextField fx:id="text_pro_id" layoutX="86.0" layoutY="155.0" />
-      <TextField fx:id="text_amount_stock" layoutX="433.0" layoutY="82.0" />
-      <TextField fx:id="text_amount_input" layoutX="433.0" layoutY="155.0" />
-      <TextField fx:id="text_price_input" layoutX="433.0" layoutY="227.0" />
-      <Label layoutX="28.0" layoutY="87.0" text="Wh_id" />
-      <Label layoutX="28.0" layoutY="231.0" text="Pro_name" />
-      <Label layoutX="28.0" layoutY="159.0" text="Pro_id" />
-      <Label layoutX="343.0" layoutY="86.0" prefHeight="18.0" prefWidth="90.0" text="Amount Stocks" />
-      <Label layoutX="343.0" layoutY="158.0" prefHeight="18.0" prefWidth="78.0" text="Amount Input" />
-      <Label layoutX="343.0" layoutY="230.0" prefHeight="18.0" prefWidth="67.0" text="Price Input" />
-      <Button layoutX="245.0" layoutY="426.0" mnemonicParsing="false" onAction="#Inset_inventory" prefHeight="26.0" prefWidth="98.0" text="Inset" />
-      <CubicCurve controlX1="-88.80000305175781" controlX2="94.4000244140625" controlY1="-43.79999542236328" controlY2="95.39999389648438" endX="-0.79998779296875" endY="118.59999084472656" fill="#e2d810" layoutX="288.0" layoutY="130.0" startX="18.4000244140625" startY="-43.80000305175781" stroke="BLACK" />
-      <Label layoutX="266.0" layoutY="287.0" text="Date Input" />
-      <TextField fx:id="text_date_input" layoutX="219.0" layoutY="317.0" />
+      <HBox layoutX="71.0" layoutY="61.0" prefHeight="271.0" prefWidth="980.0" spacing="44.0">
+         <children>
+            <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="76.0" spacing="27.0">
+               <children>
+                  <Label prefHeight="31.0" prefWidth="76.0" text="Barcode">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="76.0" text="Name">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="76.0" text="Price">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="76.0" text="Category">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="167.0" prefWidth="155.0" spacing="35.0">
+               <children>
+                  <TextField fx:id="text_product_barcode" prefHeight="25.0" prefWidth="129.0" promptText="Barcode" />
+                  <TextField fx:id="text_product_name" promptText="Product Name" />
+                  <TextField fx:id="text_product_price" promptText="Price" />
+                  <ComboBox fx:id="combobox_product_category" onAction="#box_category" prefHeight="25.0" prefWidth="188.0" promptText="Category" />
+               </children>
+            </VBox>
+            <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="100.0" prefWidth="76.0" spacing="26.0">
+               <children>
+                  <Label prefHeight="31.0" prefWidth="76.0" text="Expiry" />
+                  <Label prefHeight="31.0" prefWidth="76.0" text="Unit" />
+                  <Label prefHeight="31.0" prefWidth="76.0" text="Brand" />
+               </children>
+            </VBox>
+            <VBox prefHeight="167.0" prefWidth="184.0" spacing="34.0">
+               <children>
+                  <DatePicker fx:id="date" prefHeight="25.0" prefWidth="193.0" />
+                  <TextField fx:id="text_product_unit" prefHeight="25.0" prefWidth="129.0" promptText="Unit" />
+                  <ComboBox fx:id="combobox_product_brand" onAction="#box_brand" prefHeight="25.0" prefWidth="188.0" promptText="Brand" />
+               </children>
+            </VBox>
+            <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="271.0" prefWidth="96.0" spacing="27.0">
+               <children>
+                  <Label prefHeight="31.0" prefWidth="106.0" text="Amount Stock">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="97.0" text="Amount Input">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="101.0" text="Price Input">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="31.0" prefWidth="99.0" text="Date Input">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="167.0" prefWidth="155.0" spacing="35.0">
+               <children>
+                  <TextField fx:id="text_product_amount_stock" prefHeight="25.0" prefWidth="129.0" promptText="Amount Stock" />
+                  <TextField fx:id="text_product_amount_input" promptText="Amount Input" />
+                  <TextField fx:id="text_product_price_input" promptText="Price Input" />
+                  <DatePicker fx:id="date_input" prefHeight="25.0" prefWidth="193.0" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <TextField fx:id="text_product_id" layoutX="462.0" layoutY="14.0" promptText="ID" visible="false" />
+      <Button layoutX="504.0" layoutY="332.0" mnemonicParsing="false" onAction="#Inset_inventory" prefHeight="26.0" prefWidth="98.0" text="Inset" />
    </children>
 </AnchorPane>

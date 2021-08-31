@@ -196,13 +196,13 @@ public class Inventory_employee implements Initializable{
 
 				return;
 			}
-			text_wh_id.setText(col_wh_id.getCellData(index).toString());
-			text_pro_id.setText(col_pro_id.getCellData(index).toString());
-			text_amount_stock.setText(col_amount_stock.getCellData(index).toString());
-			text_amount_input.setText(col_amount_input.getCellData(index).toString());
-			text_price_input.setText(col_price_input.getCellData(index).toString());
-			text_pro_name.setText(col_pro_name.getCellData(index).toString());
-			text_date_input.setText(col_date_input.getCellData(index).toString());
+			text_wh_id1.setText(col_wh_id.getCellData(index).toString());
+//			text_pro_id.setText(col_pro_id.getCellData(index).toString());
+//			text_amount_stock.setText(col_amount_stock.getCellData(index).toString());
+//			text_amount_input.setText(col_amount_input.getCellData(index).toString());
+//			text_price_input.setText(col_price_input.getCellData(index).toString());
+//			text_pro_name.setText(col_pro_name.getCellData(index).toString());
+//			text_date_input.setText(col_date_input.getCellData(index).toString());
 //	        pass.setText(col_pass.getCellData(index).toString());
 		}
 	    
@@ -269,7 +269,11 @@ public class Inventory_employee implements Initializable{
 			}
 	    }
 	    
+	    @FXML
+	    private TextField text_product_id;
 	    
+	    @FXML
+	    private TextField text_wh_id1;
 	    
 		@FXML
 		void Delete_inventory(ActionEvent event) {
@@ -277,7 +281,7 @@ public class Inventory_employee implements Initializable{
 			String sql = "delete from ware_house where wh_id = ?";
 			try {
 				pst = conn.prepareStatement(sql);
-				pst.setString(1, wh_id.getText());
+				pst.setString(1, text_wh_id1.getText());
 				pst.execute();
 				JOptionPane.showMessageDialog(null, "Delete");
 //				UpdateTable1();
@@ -285,6 +289,35 @@ public class Inventory_employee implements Initializable{
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e);
 			}
+		    try {
+		        conn=connectDB.ConnectDb();
+		        String query1="SELECT * FROM product ORDER BY pro_id DESC LIMIT 1;";
+				pst= conn.prepareStatement(query1);
+			    rs=pst.executeQuery();
+			    while(rs.next()) {
+			    	text_product_id.setText(rs.getString("pro_id"));
+			    	System.out.println(text_product_id.getText());
+			    	 
+			    }	
+			} catch (Exception e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "No2");
+				System.out.println(e);
+			}
+		    
+			conn = connectDB.ConnectDb();
+			String sql1 = "delete from product where pro_id = ?";
+			try {
+				pst = conn.prepareStatement(sql1);
+				pst.setString(1, text_product_id.getText());
+				pst.execute();
+				JOptionPane.showMessageDialog(null, "Delete");
+//				UpdateTable1();
+				search_user_inventory();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e);
+			}
+		    
 		}
 
 	    
