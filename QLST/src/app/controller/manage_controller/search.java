@@ -2,10 +2,19 @@ package app.controller.manage_controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class search {
+	
+	@FXML
+    private BorderPane main;
 
     @FXML
     private DatePicker date;
@@ -18,10 +27,30 @@ public class search {
 
     @FXML
     private Button search;
+    
+    @FXML
+    void back(MouseEvent event) {
+    	Stage stage = (Stage) main.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+    }
 
     @FXML
     void Quarter_1(ActionEvent event) {
-
+    	try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/manage/search_dashboard/quarter_1.fxml"));
+	                Parent root = (Parent) fxmlLoader.load();
+	                Stage stage = new Stage();
+	                stage.setScene(new Scene(root));  
+	                stage.show();             	  
+	               
+	        } catch(Exception e) {
+	        	
+	           e.printStackTrace();
+	         }
+    	Stage stage = (Stage) main.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
     @FXML
@@ -31,7 +60,20 @@ public class search {
 
     @FXML
     void Quarter_3(ActionEvent event) {
-
+    	try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/manage/search_dashboard/quarter_3.fxml"));
+	                Parent root = (Parent) fxmlLoader.load();
+	                Stage stage = new Stage();
+	                stage.setScene(new Scene(root));  
+	                stage.show();             	  
+	               
+	        } catch(Exception e) {
+	        	
+	           e.printStackTrace();
+	         }
+    	Stage stage = (Stage) main.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
     @FXML
