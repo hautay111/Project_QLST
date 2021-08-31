@@ -13,6 +13,23 @@ import app.model.ChangeShift;
 
 import app.model.Product;
 import app.model.Title;
+import app.model.search_dashboard.M1;
+import app.model.search_dashboard.M10;
+import app.model.search_dashboard.M11;
+import app.model.search_dashboard.M12;
+import app.model.search_dashboard.M2;
+import app.model.search_dashboard.M3;
+import app.model.search_dashboard.M4;
+import app.model.search_dashboard.M5;
+import app.model.search_dashboard.M6;
+import app.model.search_dashboard.M7;
+import app.model.search_dashboard.M8;
+import app.model.search_dashboard.M9;
+import app.model.search_dashboard.Quarter_1;
+import app.model.search_dashboard.Quarter_2;
+import app.model.search_dashboard.Quarter_3;
+import app.model.search_dashboard.Quarter_4;
+import app.model.search_dashboard.Search_date;
 import app.model.Brand1;
 import app.model.Category1;
 import app.model.Dashboard;
@@ -269,7 +286,7 @@ public class connectDB {
         return list;
     }
  
-    //----------------------RUN OUT--------------------
+  //----------------------RUN OUT--------------------
     public static ObservableList<Dashboard> getDataRunOut() {
         Connection conn = ConnectDb();
         ObservableList<Dashboard> list = FXCollections.observableArrayList();
@@ -293,6 +310,404 @@ public class connectDB {
         return list;
         
 	} 
+  //----------------------Quater 1--------------------
+    public static ObservableList<Quarter_1> getDataQuater1() {
+        Connection conn = ConnectDb();
+        ObservableList<Quarter_1> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and QUARTER(ware_house.date_input)=1");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Quarter_1(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Quater 2--------------------
+    public static ObservableList<Quarter_2> getDataQuater2() {
+        Connection conn = ConnectDb();
+        ObservableList<Quarter_2> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and QUARTER(ware_house.date_input)=2");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Quarter_2(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+    
+  //----------------------Quater 3--------------------
+    public static ObservableList<Quarter_3> getDataQuater3() {
+        Connection conn = ConnectDb();
+        ObservableList<Quarter_3> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and QUARTER(ware_house.date_input)=3");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Quarter_3(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+    
+  //----------------------Quater 4--------------------
+    public static ObservableList<Quarter_4> getDataQuater4() {
+        Connection conn = ConnectDb();
+        ObservableList<Quarter_4> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and QUARTER(ware_house.date_input)=4");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Quarter_4(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+    //----------------------Month 1--------------------
+    public static ObservableList<M1> getDataM1() {
+        Connection conn = ConnectDb();
+        ObservableList<M1> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=1");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M1(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 2--------------------
+    public static ObservableList<M2> getDataM2() {
+        Connection conn = ConnectDb();
+        ObservableList<M2> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=2");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M2(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 3--------------------
+    public static ObservableList<M3> getDataM3() {
+        Connection conn = ConnectDb();
+        ObservableList<M3> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=3");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M3(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 4--------------------
+    public static ObservableList<M4> getDataM4() {
+        Connection conn = ConnectDb();
+        ObservableList<M4> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=4");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M4(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 5--------------------
+    public static ObservableList<M5> getDataM5() {
+        Connection conn = ConnectDb();
+        ObservableList<M5> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=5");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M5(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 6--------------------
+    public static ObservableList<M6> getDataM6() {
+        Connection conn = ConnectDb();
+        ObservableList<M6> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=6");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M6(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 7--------------------
+    public static ObservableList<M7> getDataM7() {
+        Connection conn = ConnectDb();
+        ObservableList<M7> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=7");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M7(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+    
+  //----------------------Month 8--------------------
+    public static ObservableList<M8> getDataM8() {
+        Connection conn = ConnectDb();
+        ObservableList<M8> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=8");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M8(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 9--------------------
+    public static ObservableList<M9> getDataM9() {
+        Connection conn = ConnectDb();
+        ObservableList<M9> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=9");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M9(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 10--------------------
+    public static ObservableList<M10> getDataM10() {
+        Connection conn = ConnectDb();
+        ObservableList<M10> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=10");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M10(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+  //----------------------Month 11--------------------
+    public static ObservableList<M11> getDataM11() {
+        Connection conn = ConnectDb();
+        ObservableList<M11> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=11");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M11(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+    //----------------------Month 12--------------------
+    public static ObservableList<M12> getDataM12() {
+        Connection conn = ConnectDb();
+        ObservableList<M12> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=12");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new M12(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	} 
+    
+    public static String h1;
+    public void ngay(String ngay_gui) {
+    	h1=ngay_gui;
+    }
+  //----------------------Month Search_date--------------------
+    public static ObservableList<Search_date> getDataSearch_date() {
+        Connection conn = ConnectDb();
+        ObservableList<Search_date> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id AND DATE(ware_house.date_input)='2021-08-31'");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Search_date(
+                		Integer.parseInt(rs.getString("pro_id")), 
+                		Integer.parseInt(rs.getString("total_amount")), 
+                		rs.getRow(),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;       
+	}
     
     public static ObservableList<Bill_Mange> getBill_manage() {
         Connection conn = ConnectDb();
