@@ -69,7 +69,7 @@
             </Pane>
          </children>
       </HBox>
-      <TableView fx:id="table_changeshift" layoutX="159.0" layoutY="133.0" prefHeight="566.0" prefWidth="1034.0">
+      <TableView fx:id="table_changeshift" layoutX="159.0" layoutY="133.0" prefHeight="566.0" prefWidth="1034.0" styleClass="TableView_css" stylesheets="@../css/application.css">
         <columns>
           <TableColumn fx:id="col_no_shift_id" prefWidth="88.79995727539062" text="Shift id" />
           <TableColumn fx:id="col_emp_name" prefWidth="136.0000762939453" text="Name" />

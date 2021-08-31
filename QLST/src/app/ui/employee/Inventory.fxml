@@ -27,16 +27,16 @@
          <children>
             <Pane prefHeight="100.0" prefWidth="319.0">
                <children>
-                  <Label layoutX="32.0" layoutY="14.0" prefHeight="70.0" prefWidth="210.0" text="Inventory">
+                  <Label layoutX="32.0" layoutY="14.0" prefHeight="70.0" prefWidth="210.0" style="-fx-effect: dropshadow(three-pass-box,#EE82EE, 5, 0.5, 0, 2);" text="Inventory">
                      <font>
                         <Font name="Consolas Bold" size="40.0" />
                      </font>
                      <textFill>
-                        <RadialGradient centerX="0.5" centerY="0.7671755543191925" radius="0.5">
+                        <RadialGradient centerX="0.7177778032090929" centerY="0.29007632131794925" cycleMethod="REFLECT" radius="0.5">
                            <stops>
                               <Stop>
                                  <color>
-                                    <Color red="0.9157894849777222" green="0.22385965287685394" blue="0.6390175223350525" />
+                                    <Color red="0.8947368264198303" green="0.14912280440330505" blue="0.5964912176132202" />
                                  </color>
                               </Stop>
                               <Stop offset="1.0">
@@ -52,7 +52,7 @@
             </Pane>
             <Pane prefHeight="100.0" prefWidth="418.0">
                <children>
-                  <TextField fx:id="search_inventory" layoutX="73.0" layoutY="37.0" prefHeight="34.0" prefWidth="195.0" />
+                  <TextField fx:id="search_inventory" layoutX="58.0" layoutY="37.0" prefHeight="34.0" prefWidth="210.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" />
                   <ImageView fitHeight="34.0" fitWidth="36.0" layoutX="288.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../image/icons8_Search_52px.png" />
@@ -63,16 +63,40 @@
             <Pane prefHeight="100.0" prefWidth="438.0">
                <children>
                   <ColorPicker layoutX="219.0" layoutY="37.0" prefHeight="28.0" prefWidth="125.0" promptText="ds" />
-                  <Button layoutX="28.0" layoutY="38.0" mnemonicParsing="false" onAction="#Delete_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" text="Delete" />
+                  <Label layoutX="-59.0" layoutY="38.0" prefHeight="26.0" prefWidth="117.0" text="Total products :">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <textFill>
+                        <RadialGradient centerX="0.4822222391764323" centerY="0.7824427153317983" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.9157894849777222" green="0.22385965287685394" blue="0.6390175223350525" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="0.35555556416511536" blue="0.35555556416511536" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </textFill>
+                  </Label>
+                  <Label fx:id="amount_warehouse" layoutX="66.0" layoutY="38.0" prefHeight="26.0" prefWidth="141.0" text="Amount product in warehouse:" textFill="#ff3838c0">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font></Label>
                </children>
             </Pane>
          </children>
       </HBox>
-      <TabPane layoutX="147.0" layoutY="236.0" prefHeight="448.0" prefWidth="1057.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane layoutX="147.0" layoutY="236.0" prefHeight="448.0" prefWidth="1057.0" styleClass="TabPane_css" stylesheets="@../css/application.css" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="View All">
                <content>
-                  <TableView fx:id="table_inventory" prefHeight="419.0" prefWidth="843.0" style="-fx-background-color: #ffffff;">
+                  <TableView fx:id="table_inventory" prefHeight="419.0" prefWidth="843.0" style="-fx-background-color: #ffffff;" styleClass="TableView_css" stylesheets="@../css/application.css">
                     <columns>
                         <TableColumn fx:id="col_wh_id" prefWidth="84.79998588562012" text="Wh_id" />
                       <TableColumn fx:id="col_pro_id" prefWidth="78.4000015258789" text="Pro_id" />
@@ -111,20 +135,17 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <Button layoutX="147.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#Inventory_bill" prefHeight="28.0" prefWidth="132.0" style="-fx-background-color: #FFE3FC; -fx-background-radius: 1em;" text="Delivery bill" textFill="#fc6b6b">
-         <font>
-            <Font name="Consolas" size="15.0" />
-         </font>
-      </Button>
       <ImageView fitHeight="32.0" fitWidth="41.0" layoutX="1302.0" layoutY="15.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../image/icons8-go-back-48.png" />
          </image>
       </ImageView>
-      <Button layoutX="367.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#Inventory_import" prefHeight="28.0" prefWidth="132.0" style="-fx-background-color: #FFE3FC; -fx-background-radius: 1em;" text="Import goods" textFill="#fc6b6b">
+      <Button layoutX="147.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#Inventory_import" prefHeight="28.0" prefWidth="132.0" style="-fx-background-color: #FFE3FC; -fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Import goods" textFill="#fc6b6b">
          <font>
             <Font name="Consolas" size="15.0" />
          </font>
       </Button>
+      <Button layoutX="743.0" layoutY="163.0" mnemonicParsing="false" onAction="#Delete_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Delete" />
+      <Button layoutX="627.0" layoutY="163.0" mnemonicParsing="false" onAction="#Update_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Update" />
    </children>
 </AnchorPane>

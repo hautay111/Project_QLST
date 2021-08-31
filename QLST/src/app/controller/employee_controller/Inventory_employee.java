@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.Iterator;
 import java.util.ResourceBundle;
@@ -86,12 +87,35 @@ public class Inventory_employee implements Initializable{
 	    @FXML
 	    private TableColumn<Inventory, Integer> col_price_input;
 	    
-	    
 	    @FXML
 	    private TextField search_inventory;
 	    
 	    @FXML
+	    private TextField text_wh_id;
+	    
+	    @FXML
+	    private TextField text_pro_id;
+	    
+	    @FXML
+	    private TextField text_pro_name;
+	    
+	    @FXML
+	    private TextField text_amount_stock;
+	    
+	    @FXML
+	    private TextField text_amount_input;
+	    
+	    @FXML
+	    private TextField text_price_input;
+	    
+	    @FXML
+	    private TextField text_date_input;
+	    
+	    @FXML
 	    private Button Inventory_import;
+	    
+	    @FXML
+		private Label amount_warehouse;
 	    
 	    @FXML
 	    private Label ltotal;
@@ -104,7 +128,7 @@ public class Inventory_employee implements Initializable{
 	    ObservableList<Inventory> listM;
 	    ObservableList<Inventory> dataList;
 
-		private Result id;
+		private Result wh_id;
 	
 	    
 	    public void UpdateTable_inventory(){
@@ -172,13 +196,13 @@ public class Inventory_employee implements Initializable{
 
 				return;
 			}
-			col_wh_id.setText(col_wh_id.getCellData(index).toString());
-			col_pro_id.setText(col_pro_id.getCellData(index).toString());
-			col_amount_stock.setText(col_amount_stock.getCellData(index).toString());
-			col_amount_input.setText(col_amount_input.getCellData(index).toString());
-			col_price_input.setText(col_price_input.getCellData(index).toString());
-			col_pro_name.setText(col_pro_name.getCellData(index).toString());
-			col_date_input.setText(col_date_input.getCellData(index).toString());
+			text_wh_id.setText(col_wh_id.getCellData(index).toString());
+			text_pro_id.setText(col_pro_id.getCellData(index).toString());
+			text_amount_stock.setText(col_amount_stock.getCellData(index).toString());
+			text_amount_input.setText(col_amount_input.getCellData(index).toString());
+			text_price_input.setText(col_price_input.getCellData(index).toString());
+			text_pro_name.setText(col_pro_name.getCellData(index).toString());
+			text_date_input.setText(col_date_input.getCellData(index).toString());
 //	        pass.setText(col_pass.getCellData(index).toString());
 		}
 	    
@@ -213,14 +237,47 @@ public class Inventory_employee implements Initializable{
 //			}
 //		}
 //		
-		
+	    
+	    
+	    
+	    
+	    @FXML
+	    void Update_inventory(ActionEvent event) {
+	    	try {
+				if (wh_id.getText().trim().equals("")) {
+					JOptionPane.showMessageDialog(null, "Please select the data you want to delete!");
+				} else {
+					conn = connectDB.ConnectDb();
+					String value1 = text_wh_id.getText();
+		            String value2 = text_pro_id.getText();
+		            String value3 = text_amount_stock.getText();
+		            String value4 = text_amount_input.getText();
+		            String value5 = text_price_input.getText();
+		            String value6 = text_pro_name.getText();
+		            String value7 = text_date_input.getText();
+					
+					String sql = "update ware_house set pro_id= '" + value2 + "',amount_stock '" + value3 + "',amount_input '" + value4 + "',price_input '" + value5 + "',"
+							+ "pro_name '" + value6 + "',date_input '" + value7 + "' where wh_id= '" + value1 + "' ";
+					pst = conn.prepareStatement(sql);
+					pst.execute();
+					JOptionPane.showMessageDialog(null, "Update");
+					search_user_inventory();
+				}
+
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e);
+			}
+	    }
+	    
+	    
+	    
 		@FXML
 		void Delete_inventory(ActionEvent event) {
 			conn = connectDB.ConnectDb();
 			String sql = "delete from ware_house where wh_id = ?";
 			try {
 				pst = conn.prepareStatement(sql);
-				pst.setString(1, id.getText());
+				pst.setString(1, wh_id.getText());
 				pst.execute();
 				JOptionPane.showMessageDialog(null, "Delete");
 //				UpdateTable1();
@@ -285,12 +342,30 @@ public class Inventory_employee implements Initializable{
 			e.printStackTrace();
 		}
 }
-
+		
+	
+	public static int ware_house;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		UpdateTable_inventory();
 		search_user_inventory();
+		
+		try {
+			conn = connectDB.ConnectDb();
+			String sql7 = "select count(wh_id) from ware_house";
+			pst = conn.prepareStatement(sql7);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				ware_house = rs.getInt(1);
+				amount_warehouse.setText(Integer.toString(ware_house));
+				System.out.println("Tong warehouse : --->" + ware_house);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
