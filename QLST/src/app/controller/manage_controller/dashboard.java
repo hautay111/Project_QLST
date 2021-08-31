@@ -305,7 +305,7 @@ public class dashboard implements Initializable {
 
 		conn = connectDB.ConnectDb();
 		
-		String sql2="SELECT customer.* FROM customer ORDER BY customer.cus_point DESC LIMIT 5";
+		String sql2="SELECT customer.* FROM customer WHERE customer.cus_code!='1' ORDER BY customer.cus_point DESC LIMIT 5";
 		pst = conn.prepareStatement(sql2);
 		rs = pst.executeQuery();
 		while(rs.next()) {
