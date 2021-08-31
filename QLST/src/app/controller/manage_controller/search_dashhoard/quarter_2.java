@@ -183,10 +183,7 @@ public class quarter_2 implements Initializable{
 
 		conn = connectDB.ConnectDb();
 		
-		String sql1="SELECT product.pro_name,Sum(orders_detail.quantity) AS 'amount' "
-				+ "FROM orders_detail,product "
-				+ "WHERE orders_detail.pro_id=product.pro_id and (SELECT QUARTER(\"21-05-05\") AS 'Quarter') "
-				+ "GROUP BY product.pro_name ORDER BY Sum(orders_detail.quantity) DESC";
+		String sql1="SELECT Sum(orders_detail.quantity) AS 'amount',product.pro_name ,product.pro_id FROM orders_detail,orders,product WHERE orders.order_id=orders_detail.order_id AND orders_detail.pro_id=product.pro_id AND quarter(orders.time)=2 GROUP BY product.pro_name ORDER BY Sum(orders_detail.quantity) DESC";
 		pst = conn.prepareStatement(sql1);
 		rs = pst.executeQuery();
 		while(rs.next()) {
@@ -309,7 +306,7 @@ public class quarter_2 implements Initializable{
 
 		conn = connectDB.ConnectDb();
 		
-		String sql2="SELECT c.cus_name,SUM(o.total_price) AS 'sales_price' FROM orders o, customer c WHERE o.cus_id=c.cus_id and c.cus_code!=1 and (SELECT QUARTER(\"21-05-05\") AS 'Quarter') GROUP BY o.cus_id ORDER BY SUM(o.total_price) DESC LIMIT 5";
+		String sql2="SELECT c.cus_name,SUM(o.total_price) AS 'sales_price' FROM orders o, customer c WHERE o.cus_id=c.cus_id and c.cus_code!=1 and quarter(o.time)=2 GROUP BY o.cus_id ORDER BY SUM(o.total_price) DESC LIMIT 5";
 		pst = conn.prepareStatement(sql2);
 		rs = pst.executeQuery();
 		while(rs.next()) {
