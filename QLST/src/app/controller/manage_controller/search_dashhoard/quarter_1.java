@@ -1,6 +1,5 @@
-package app.controller.manage_controller;
+package app.controller.manage_controller.search_dashhoard;
 
-import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,65 +8,58 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import app.dao.connectDB;
-import app.model.Category1;
-import app.model.Dashboard;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class dashboard implements Initializable {
-
+public class quarter_1 implements Initializable{
 	Connection conn = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
-	int index=-1;
-    ObservableList<Dashboard> listC;
-	ObservableList<Category1> dataListC;
 
-	@FXML
-	private Label amount_product;
+    @FXML
+    private BorderPane main;
 
-	@FXML
-	private Label amount_orders;
+    @FXML
+    private Label quarter;
 
-	@FXML
-	private BarChart<?, ?> barChart;
-	
-	@FXML
-    private BarChart<?, ?> barChart1;
-	
-	@FXML
+    @FXML
     private LineChart<?, ?> lineChart;
 
-	@Override
+    @FXML
+    private Label amount_product;
+
+    @FXML
+    private Label amount_orders;
+
+    @FXML
+    private Label amount_input;
+
+    @FXML
+    private BarChart<?, ?> barChart;
+
+    @FXML
+    private BarChart<?, ?> barChart1;
+
+    public static int amount;
+	public static int product, orders,input;
+	
+    @FXML
+    void back(MouseEvent event) {
+    	Stage stage = (Stage) main.getScene().getWindow();
+        // do what you have to do
+        stage.close();
+    }
+    
+    @Override
 	public void initialize(URL location, ResourceBundle resources) {
-		tableRunOut();
 		// TODO Auto-generated method stub
-		try {
-			iniLineChart();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
 		try {
 			barChart();
 		} catch (SQLException e) {
@@ -75,12 +67,39 @@ public class dashboard implements Initializable {
 			e.printStackTrace();
 		}
 		try {
-			barChart1();
+			iniLineChart();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			conn = connectDB.ConnectDb();
+			String sql1 = "SELECT COUNT(order_id) FROM orders WHERE QUARTER(orders.time)=3;";
+			pst = conn.prepareStatement(sql1);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				orders = rs.getInt(1);
+				amount_orders.setText(Integer.toString(orders));
+				System.out.println("Tong orders : --->" + orders);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		try {
+			conn = connectDB.ConnectDb();
+			String sql2 = "SELECT COUNT(input_id) FROM input WHERE QUARTER(input.time)=3";
+			pst = conn.prepareStatement(sql2);
+			rs = pst.executeQuery();
+			if (rs.next()) {
+				input = rs.getInt(1);
+				amount_input.setText(Integer.toString(input));
+				System.out.println("Tong orders : --->" + input);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			conn = connectDB.ConnectDb();
 			String sql3 = "select count(pro_id) from product";
@@ -95,62 +114,16 @@ public class dashboard implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		try {
-			conn = connectDB.ConnectDb();
-			String sql1 = "select count(order_id) from orders";
-			pst = conn.prepareStatement(sql1);
-			rs = pst.executeQuery();
-			if (rs.next()) {
-				orders = rs.getInt(1);
-				amount_orders.setText(Integer.toString(orders));
-				System.out.println("Tong orders : --->" + orders);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-//		try {
-//			String sql="SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id;";
-//			pst = conn.prepareStatement(sql);
-//			rs = pst.executeQuery();
-//			while(rs.next()) {
-//				System.out.println("Hang can nhap: "+rs.getString("pro_name")+" - So luong hang con trong kho: "+rs.getInt("total_amount"));
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		try {
-//			String sql1="SELECT product.pro_name,Sum(orders_detail.quantity) AS 'amount' FROM orders_detail,product WHERE orders_detail.pro_id=product.pro_id GROUP BY orders_detail.pro_id ORDER BY Sum(orders_detail.quantity) DESC";
-//			pst = conn.prepareStatement(sql1);
-//			rs = pst.executeQuery();
-//			while(rs.next()) {
-//				System.out.println("Hang ban chay: "+rs.getString("pro_name")+" - So luong hang con trong kho: "+rs.getInt("amount"));
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
-	public static int amount;
-	public static int product, orders;
-
-	private void barChart() throws SQLException {
+    
+    private void barChart() throws SQLException {
 
 		conn = connectDB.ConnectDb();
-//		String sql1 = "select count(order_id) from orders";
-//		pst = conn.prepareStatement(sql1);
-//		rs = pst.executeQuery();
-//		if (rs.next()) {
-//			orders = rs.getInt(1);
-//			System.out.println("=================" + orders);
-//		}
 		
-		String sql1="SELECT product.pro_name,Sum(orders_detail.quantity) AS amount FROM orders_detail,product WHERE orders_detail.pro_id=product.pro_id GROUP BY product.pro_name ORDER BY Sum(orders_detail.quantity) DESC";
+		String sql1="SELECT product.pro_name,Sum(orders_detail.quantity) AS 'amount' "
+				+ "FROM orders_detail,product "
+				+ "WHERE orders_detail.pro_id=product.pro_id and (SELECT QUARTER(\"21-08-08\") AS 'Quarter') "
+				+ "GROUP BY product.pro_name ORDER BY Sum(orders_detail.quantity) DESC";
 		pst = conn.prepareStatement(sql1);
 		rs = pst.executeQuery();
 		while(rs.next()) {
@@ -166,7 +139,6 @@ public class dashboard implements Initializable {
 		
 	}
 
-	
 	
 	
 	private int order,order1,order2,order3,order4,order5,order6,order7,order8,order9,order10,order11,order12;
@@ -268,88 +240,5 @@ public class dashboard implements Initializable {
 		lineChart.getData().addAll(line1);
 		lineChart.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
 	}
-	
-	
-	@FXML
-    private TableView<Dashboard> table_run_out;
 
-    @FXML
-    private TableColumn<Dashboard, Integer> col_no;
-
-    @FXML
-    private TableColumn<Dashboard, Integer> col_id;
-
-    @FXML
-    private TableColumn<Dashboard, String> col_pro_name;
-
-    @FXML
-    private TableColumn<Dashboard, Integer> col_amount;
-	
-	
-    @FXML
-	void tableRunOut() {
-		col_no.setCellValueFactory(new PropertyValueFactory<Dashboard, Integer>("no"));
-		col_id.setCellValueFactory(new PropertyValueFactory<Dashboard, Integer>("pro_id"));
-		col_pro_name.setCellValueFactory(new PropertyValueFactory<Dashboard, String>("pro_name"));
-		col_amount.setCellValueFactory(new PropertyValueFactory<Dashboard, Integer>("amount"));
-		
-		listC = connectDB.getDataRunOut();
-        table_run_out.setItems(listC);
-
-	}
-	
-	
-	
-	
-    private void barChart1() throws SQLException {
-
-		conn = connectDB.ConnectDb();
-		
-		String sql2="SELECT customer.* FROM customer WHERE customer.cus_code!='1' ORDER BY customer.cus_point DESC LIMIT 5";
-		pst = conn.prepareStatement(sql2);
-		rs = pst.executeQuery();
-		while(rs.next()) {
-			System.out.println("ten: "+rs.getString("cus_name")+" - Point: "+rs.getInt("cus_point"));
-			
-			XYChart.Series series = new XYChart.Series();
-			series.getData().add(new XYChart.Data(rs.getString("cus_name"), rs.getInt("cus_point")));
-		
-			
-			barChart1.getData().addAll(series);
-			barChart1.lookup(".chart-plot-background").setStyle("-fx-background-color: transparent;");
-		}
-    }
-	
-	
-	
-	
-    @FXML
-    void RunOut(MouseEvent event) {
-    	
-    	
-       
-			 
-    }
-
-    @FXML
-    void Search(ActionEvent event) {
-
-    	try {
-	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/manage/search.fxml"));
-	                Parent root = (Parent) fxmlLoader.load();
-	                Stage stage = new Stage();
-	                stage.setScene(new Scene(root));  
-	                stage.show();
-	                
-	        } catch(Exception e) {
-	           e.printStackTrace();
-	          }
-    }
-	
-	
-	
-	
-	
-	
-	
 }
