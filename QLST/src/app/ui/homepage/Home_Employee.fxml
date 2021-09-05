@@ -43,7 +43,6 @@
             </HBox>
             <Label fx:id="id" text="id" />
             <Pane maxHeight="-Infinity" prefHeight="2.0" prefWidth="292.0" style="-fx-background-color: #fff;" styleClass="line-color" HBox.hgrow="ALWAYS" />
-            <Label fx:id="image_emp" text="Label" visible="false" />
             <Label alignment="CENTER" onMouseClicked="#home" prefHeight="61.0" prefWidth="343.0" styleClass="shadow" text="Employee" textFill="#f50000">
                <font>
                   <Font name="Bernard MT Condensed" size="35.0" />
@@ -178,17 +177,17 @@
                      </cursor>
                   </VBox>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#btn_roll_call" prefHeight="200.0" prefWidth="249.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@../../image/icons8-settings-96.png" />
+                              <Image url="@../../image/icons8-employee-50.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Customer" textFill="WHITE">
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="254.0" styleClass="shadow" text="Roll Call" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>

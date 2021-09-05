@@ -164,8 +164,6 @@ public class Home_Employee implements Initializable{
     @FXML
     private Label menucolse;
     
-    @FXML
-    private Label image_emp;
 
     @FXML
     private VBox slider;
@@ -195,7 +193,10 @@ public class Home_Employee implements Initializable{
     } 
     
     
-    
+    @FXML
+    void btn_roll_call(MouseEvent event) {
+
+    }
     
     
     @FXML
@@ -205,7 +206,7 @@ public class Home_Employee implements Initializable{
 		loader.setLocation(getClass().getResource("../../ui/homepage/Home_Employee.fxml"));							
 		Parent parent=loader.load();
         Home_Employee home=loader.getController();
-        home.getId(a1,a2,a3,a4);
+        home.getId(a1,a2,a3);
 		Scene scene=new Scene(parent);				
 		stage.setScene(scene);
 	}
@@ -256,7 +257,7 @@ public class Home_Employee implements Initializable{
 			loader.setLocation(getClass().getResource("../../ui/employee/bill.fxml"));							
 			Parent parent=loader.load();
             Bill_Controller id_emp=  loader.getController();
-            id_emp.getEmp_id(a1,a2,a4);
+            id_emp.getEmp_id(a1,a2);
 			Scene scene=new Scene(parent);				
 			stage.setScene(scene);
 			stage.show();
@@ -338,7 +339,7 @@ public class Home_Employee implements Initializable{
 	
 	
 	
-    private static String emp_id, name,phone,email,username,title_name,date,image;
+    private static String emp_id, name,phone,email,username,title_name,date;
 	@FXML
     void toInformation(MouseEvent event) throws IOException, SQLException {
 		
@@ -359,7 +360,6 @@ public class Home_Employee implements Initializable{
 				email=rs.getString("emp_email");
 				username=rs.getString("emp_user");
 				date=rs.getString("emp_birthday");
-				image = rs.getString("image_qrcode");
 				int title_id=rs.getInt("title_id");
 				pst = conn.prepareStatement("select * from title where title_id=?");	
 				pst.setLong(1, title_id);
@@ -393,18 +393,16 @@ public class Home_Employee implements Initializable{
 		stage.setScene(scene);
 	}
 	
-	private static String a1,a2,a3,a4;
-	public void getId(String id1,String user1,String title1,String image) {
+	private static String a1,a2,a3;
+	public void getId(String id1,String user1,String title1) {
 		id.setText(id1);
 		user.setText(user1);
 		title.setText(title1);
-		image_emp.setText(image);
 		a1=id.getText();
 		a2=user.getText();
 		a3=title.getText();
-		a4=image_emp.getText();
 		
-		System.out.println(a1+" / "+a2+" / "+a3 +" / "+a4);
+		System.out.println(a1+" / "+a2+" / "+a3 );
 	}
 
 	

@@ -134,6 +134,27 @@ public class product_add implements Initializable{
  
 	      } 
 	        
+		  	private static Integer unit_id;
+		      @FXML
+		      void box_unit(ActionEvent event) {
+		  		try {
+					Connection con = connectDB.ConnectDb();
+					String title_name = combobox_product.getValue();
+					String sql = "select * from unit where unit_name='" + title_name + "' ";
+					PreparedStatement statement;
+					statement = con.prepareStatement(sql);
+					ResultSet set = statement.executeQuery();
+					if (set.next()) {
+						unit_id = set.getInt("unit_id");
+						System.out.println(unit_id);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		      }
+		      
+	        
 	        
 	      public void product_combobox_brand() {
 //	      ObservableList<String> list1 = FXCollections.observableArrayList("cat_name");
@@ -236,7 +257,7 @@ public class product_add implements Initializable{
 	    @FXML
 	    void btn_product_add(ActionEvent event) {
 	        conn = connectDB.ConnectDb();
-	        String sql = "insert into product (barcode,pro_name,pro_sale_price,pro_expiry,pro_unit,brand_id,pro_category,pro_brand,cat_id)values(?,?,?,?,?,?,?,?,?)";
+	        String sql = "insert into product (barcode,pro_name,pro_sale_price,pro_expiry,pro_unit,brand_id,pro_category,pro_brand,cat_id,unit_id)values(?,?,?,?,?,?,?,?,?,?)";
 	        try {
 	        	
 //	            DecimalFormat formatter = new DecimalFormat("###,###,###");
@@ -268,6 +289,7 @@ public class product_add implements Initializable{
 	            pst.setString(7, value2);
 	            pst.setString(8, value1);
 	            pst.setInt(9, category_id);
+	            pst.setInt(10, unit_id);
 	            pst.execute();
 	            JOptionPane.showMessageDialog(null, "Users Add succes");
 	            Stage stage = (Stage) root.getScene().getWindow();
@@ -279,7 +301,7 @@ public class product_add implements Initializable{
 	            Stage stage = (Stage) root.getScene().getWindow();
 	            // do what you have to do
 	            stage.close();
-	            JOptionPane.showMessageDialog(null, "Please double check, you are entering missing Data or Barcode already exists!");
+	            JOptionPane.showMessageDialog(null, "Barcode already exists!");
 	        }
 	    }
 
