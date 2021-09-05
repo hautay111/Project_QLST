@@ -220,4 +220,9 @@ public class Home_Manage {
     void dashboard(MouseEvent event) {
 		loadUI("dashboard");
     }
+	
+	@FXML
+    void expiry(MouseEvent event) {
+		loadUI("run_out");
+    }
 }

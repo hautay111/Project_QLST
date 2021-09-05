@@ -1,6 +1,7 @@
 package app.controller.manage_controller.search_dashhoard;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
@@ -23,6 +24,7 @@ import app.model.search_dashboard.Quarter_3;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
@@ -39,12 +41,15 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.export.ExporterInput;
 import net.sf.jasperreports.export.OutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class quarter_3 implements Initializable{
 	Connection conn = null;
@@ -354,24 +359,25 @@ public class quarter_3 implements Initializable{
 	}
 	@FXML
     void In(ActionEvent event) throws JRException {
-		a();		 
+//		a();
+		b();
     }
 
 	public void a() throws JRException {
-		String reportSrcFile = "C:/Users/Admin/JaspersoftWorkspace/MyReports/a2.jrxml";
+		String reportSrcFile = "C:/java/work-space/Project_QLST - 1/QLST/src/app/report/TestReport.jrxml";
 	       
-	       // Compile file nguồn trước.
+	       // Compile file nguá»“n trÆ°á»›c.
 	       JasperReport jasperReport =    JasperCompileManager.compileReport(reportSrcFile);
 	 
 	       Connection conn = connectDB.ConnectDb();
 	 
-	       // Tham số truyền vào báo cáo.
+	       // Tham sá»‘ truyá»�n vÃ o bÃ¡o cÃ¡o.
 	       Map<String, Object> parameters = new HashMap<String, Object>();
 	 
 	       JasperPrint print = JasperFillManager.fillReport(jasperReport,
 	               parameters, conn);
-	 
-	       // Đảm bảo thư mục đầu ra tồn tại.
+	       
+	       // Ä�áº£m báº£o thÆ° má»¥c Ä‘áº§u ra tá»“n táº¡i.
 	       File outDir = new File("C:/jasperoutput");
 	       outDir.mkdirs();
 	 
@@ -397,8 +403,71 @@ public class quarter_3 implements Initializable{
 	       exporter.setConfiguration(configuration);
 	       exporter.exportReport();
 	       
-	       JOptionPane.showMessageDialog(null, "Export Report Successfully.");
+	       JasperViewer.viewReport(print);
+//	       JOptionPane.showMessageDialog(null, "Export Report Successfully.");
 	 
 	       System.out.print("Done!");
 	}
+	public void b() throws JRException {
+		conn=connectDB.ConnectDb();
+		try {
+			JasperDesign jdesign=FXMLLoader.load(getClass().getResource("/app/report/TestReport.jrxml"));
+			String sql="SELECT ware_house.wh_id,input_detail.pro_id, product.pro_name,input_detail.amount,input_detail.input_price,input_detail.input_detail_id,input_detail.input_id,ware_house.date_input FROM ware_house ,input_detail, product WHERE ware_house.input_detail_id=input_detail.input_detail_id AND input_detail.pro_id=product.pro_id";
+			JRDesignQuery show= new JRDesignQuery();
+			show.setText(sql);
+			jdesign.setQuery(show);
+			JasperReport jasperReport =    JasperCompileManager.compileReport(jdesign);
+			JasperPrint print = JasperFillManager.fillReport(jasperReport,
+		               null, conn);
+			JasperViewer.viewReport(print);
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+//	public void c() throws JRException {
+//		conn=connectDB.ConnectDb();
+//		try {
+//			public void b() throws JRException {
+//				conn=connectDB.ConnectDb();
+//				try {
+//					public void b() throws JRException {
+//						conn=connectDB.ConnectDb();
+//						try {
+//							JasperDesign jdesign=FXMLLoader.load(getClass().getResource("/app/report/TestReport.jrxml"));
+//							String sql="SELECT ware_house.wh_id,input_detail.pro_id, product.pro_name,input_detail.amount,input_detail.input_price,input_detail.input_detail_id,input_detail.input_id,ware_house.date_input FROM ware_house ,input_detail, product WHERE ware_house.input_detail_id=input_detail.input_detail_id AND input_detail.pro_id=product.pro_id";
+//							JRDesignQuery show= new JRDesignQuery();
+//							show.setText(sql);
+//							jdesign.setQuery(show);
+//							JasperReport jasperReport =    JasperCompileManager.compileReport(jdesign);
+//							JasperPrint print = JasperFillManager.fillReport(jasperReport,
+//						               null, conn);
+//							JasperViewer.viewReport(print);
+//							
+//							
+//						} catch (IOException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//						
+//					}
+//					
+//					
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+//			}
+//			
+//			
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	}
 }

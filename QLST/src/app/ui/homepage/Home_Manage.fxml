@@ -278,17 +278,17 @@
                      </cursor>
                   </VBox>
                   <Pane maxHeight="-Infinity" prefHeight="100.0" prefWidth="1.0" style="-fx-background-color: white;" styleClass="line-color" />
-                  <VBox alignment="CENTER" onMouseClicked="#toInformation" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
+                  <VBox alignment="CENTER" onMouseClicked="#expiry" prefHeight="235.0" prefWidth="241.0" styleClass="btnhome">
                      <children>
                         <ImageView fitHeight="79.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                            <image>
-                              <Image url="@../../image/icons8-settings-96.png" />
+                              <Image url="@../../image/box.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ImageView>
-                        <Label alignment="CENTER" onMouseClicked="#toAcc" prefHeight="34.0" prefWidth="209.0" styleClass="shadow" text="Settings" textFill="WHITE">
+                        <Label alignment="CENTER" onMouseClicked="#toAcc" prefHeight="34.0" prefWidth="209.0" styleClass="shadow" text="Expiry" textFill="WHITE">
                            <font>
                               <Font name="Bell MT" size="41.0" />
                            </font>
@@ -356,6 +356,14 @@
             <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#toInformation" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
                <image>
                   <Image url="@../../image/icons8-settings-96.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#expiry" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/box.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
