@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" prefHeight="714.0" prefWidth="1352.0" style="-fx-background-color: #2F2B43;" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Bill_Controller.Bill_Controller">
+<AnchorPane fx:id="main" minHeight="-Infinity" prefHeight="714.0" prefWidth="1352.0" style="-fx-background-color: #2F2B43;" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Bill_Controller.Bill_Controller">
    <children>
       <AnchorPane layoutX="463.0" layoutY="18.0" prefHeight="660.0" prefWidth="783.0">
          <children>
@@ -338,7 +338,6 @@
                   </Label>
                </children>
             </HBox>
-            <ImageView fx:id="image_emp" fitHeight="150.0" fitWidth="208.0" layoutX="24.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
             <Button layoutX="72.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleUpload" text="Button" visible="false" />
          </children>
       </Pane>

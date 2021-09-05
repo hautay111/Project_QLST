@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 import net.sf.jasperreports.engine.xml.JRXmlDigesterFactory;
 import javax.swing.JOptionPane;
 
+import app.controller.employee_controller.security;
+import app.controller.homepage.Home_Employee;
 import app.dao.connectDB;
 import app.model.Bill;
 import app.model.Order_Detail;
@@ -57,6 +59,14 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 public class Bill_Controller implements Initializable{
+	
+	public static ResultSet rs1 = null, rs2 = null, rs3 = null, rs4 = null, rs5 = null;
+	public static PreparedStatement pst1 = null, pst2 = null, pst3 = null, pst4 = null, pst5 = null;
+	public static Integer kho, mua, thieu, du, spmua, spkho;
+	public static String sql1, sql2, sql3, sql4, sql5;
+	
+	@FXML
+    private AnchorPane main;
 	
     @FXML
     private Label text_code;
@@ -240,26 +250,26 @@ private void handleUpload(ActionEvent t) {
       date_text.setText(format.format(cal.getTime()));
 
      }     
-      public void image_qrcode_emp() {
-    	  
-    	    String text = image_qrcode_emp.getText();              
-//    	    File file = new File("/app/image/ordeer.gif");
-    	    Image image = new Image("/app/image/"+text);
-    	    image_emp.setImage(image);
-    	    System.out.println("/"+text);
-    	  
-//    	  image_emp.imageProperty().bind(Bindings.createObjectBinding(() -> {
-//  	        File file = new File("/app/image/"+image_qrcode_emp.getText());
-//  	        if (file.exists()) {
-//  	            return new Image(file.toURI().toString());
-//  	        } else {
-//  	            return null ;
-//  	        }
-//  	    }, image_qrcode_emp.textProperty()
-//  	    
-//  	    ));
-//     
-      }
+//      public void image_qrcode_emp() {
+//    	  
+//    	    String text = image_qrcode_emp.getText();              
+////    	    File file = new File("/app/image/ordeer.gif");
+//    	    Image image = new Image("/app/image/"+text);
+//    	    image_emp.setImage(image);
+//    	    System.out.println("/"+text);
+//    	  
+////    	  image_emp.imageProperty().bind(Bindings.createObjectBinding(() -> {
+////  	        File file = new File("/app/image/"+image_qrcode_emp.getText());
+////  	        if (file.exists()) {
+////  	            return new Image(file.toURI().toString());
+////  	        } else {
+////  	            return null ;
+////  	        }
+////  	    }, image_qrcode_emp.textProperty()
+////  	    
+////  	    ));
+////     
+//      }
       
         
 
@@ -374,14 +384,14 @@ private void handleUpload(ActionEvent t) {
     private Label name_emp_bill;
     
     @FXML
-    private Label image_qrcode_emp;
+//    private Label image_qrcode_emp;
     
-    public void getEmp_id(String id_emp, String name_emp,String image_emp) {
+    public void getEmp_id(String id_emp, String name_emp) {
     	emp_id.setText(id_emp);
     	name_emp_bill.setText(name_emp);
-    	image_qrcode_emp.setText(image_emp);
-    	image_qrcode_emp();
-    	System.out.println("emp_id bill employee: "+ emp_id.getText() +"name bill employee:"+name_emp_bill.getText()+"   "+image_qrcode_emp.getText());
+//    	image_qrcode_emp.setText(image_emp);
+//    	image_qrcode_emp();
+//    	System.out.println("emp_id bill employee: "+ emp_id.getText() +"name bill employee:"+name_emp_bill.getText()+"   "+image_qrcode_emp.getText());
     }
 	
     @FXML
@@ -537,10 +547,10 @@ private void handleUpload(ActionEvent t) {
                 
                 if (amount>=0) {
 					
-                    conn = connectDB.ConnectDb();
-                    String sqlz = "update input_detail set amount= '"+amount+"' where input_detail_id = '"+input_detail_id+"' ";
-                    pst= conn.prepareStatement(sqlz);
-                    pst.execute();
+//                    conn = connectDB.ConnectDb();
+//                    String sqlz = "update input_detail set amount= '"+amount+"' where input_detail_id = '"+input_detail_id+"' ";
+//                    pst= conn.prepareStatement(sqlz);
+//                    pst.execute();
                 	
            		conn = connectDB.ConnectDb();
      	        String sql = "insert into orders_detail (name,quantity,price,total,order_id,pro_id)values(?,?,?,?,?,?)";
@@ -663,7 +673,7 @@ private void handleUpload(ActionEvent t) {
    }
    
   @FXML
-  void Buy_order(ActionEvent event) {		
+  void Buy_order(ActionEvent event) throws SQLException {		
 		  
 	      try {
 	        	
@@ -687,7 +697,7 @@ private void handleUpload(ActionEvent t) {
 	           pst= conn.prepareStatement(sql);
 	           pst.execute();
 	   	      } catch (Exception e) {
-	   	          JOptionPane.showMessageDialog(null, e);
+//	   	          JOptionPane.showMessageDialog(null, e);
 	   	      }
 		  
 
@@ -770,7 +780,7 @@ private void handleUpload(ActionEvent t) {
 				          pst.execute();
 					}
 		      } catch (Exception e) {
-		          JOptionPane.showMessageDialog(null, e);
+//		          JOptionPane.showMessageDialog(null, e);
 		      }
 	      
 	      
@@ -788,9 +798,86 @@ private void handleUpload(ActionEvent t) {
 	        pst= conn.prepareStatement(sql);
 	        pst.execute();
 		      } catch (Exception e) {
-		          JOptionPane.showMessageDialog(null, e);
+//		          JOptionPane.showMessageDialog(null, e);
 		      }
 	      
+	      
+//	      ----------------------------------------------------------
+	      conn = connectDB.ConnectDb();
+			sql1 = "SELECT orders_detail.order_detail_id,orders_detail.order_id,orders_detail.pro_id,SUM(orders_detail.quantity) AS 'quantity',product.pro_name,product.pro_sale_price,(SUM(orders_detail.quantity)*product.pro_sale_price) AS'total' FROM orders_detail,product WHERE orders_detail.pro_id=product.pro_id AND orders_detail.order_id=(SELECT orders.order_id FROM orders ORDER BY orders.order_id DESC LIMIT 1) GROUP BY orders_detail.pro_id";
+			pst1 = conn.prepareStatement(sql1);
+			rs1 = pst1.executeQuery();// orders:
+										// order_detail_id,order_id,pro_id,pro_name,quantity,pro_sale_price,total
+			while (rs1.next()) {
+				mua = rs1.getInt("quantity");
+				spmua = rs1.getInt("pro_id");
+
+				sql2 = "SELECT input_detail.*,ware_house.wh_id FROM input_detail,ware_house WHERE ware_house.input_detail_id=input_detail.input_detail_id AND input_detail.pro_id='"
+						+ spmua + "' AND input_detail.amount!=0";
+				pst2 = conn.prepareStatement(sql2);
+				rs2 = pst2.executeQuery();
+
+				System.out.println(sql2);// kho: input_detail_id,input_id,pro_id,expiry,amount,input_price,total,wh_id
+				System.out.println("");
+
+				while (rs2.next()) {
+					sql3 = "SELECT * FROM output ORDER BY output_id DESC LIMIT 1";
+					pst3 = conn.prepareStatement(sql3);// output_id,emp_id,time,order_id,status
+					rs3 = pst3.executeQuery();
+					if (rs2.getInt("amount") >= mua && rs3.next()) {
+						kho = rs2.getInt("amount") - mua;
+
+						sql4 = "UPDATE input_detail SET input_detail.amount='" + kho
+								+ "' WHERE input_detail.input_detail_id='" + rs2.getInt("input_detail_id") + "'";
+						pst4 = conn.prepareStatement(sql4);
+						pst4.execute();
+						System.out.println("sql4: " + sql4);
+						sql5 = "INSERT INTO output_detail (output_id,wh_id, quantity) VALUES ('" + rs3.getInt("output_id")
+								+ "', '" + rs2.getInt("wh_id") + "', '" + mua + "');";
+							pst5 = conn.prepareStatement(sql5);
+							pst5.execute();
+						System.out.println(sql5);
+						System.out.println("sp mua : " + spmua + " / sl luong mua: " + mua);
+						System.out.println("cap nha so luong lai vao kho : " + kho);
+						System.out.println("");
+						System.out.println("-------------------------------------");
+						System.out.println("");
+
+						mua = 0;
+					}
+
+					while (mua > rs2.getInt("amount") && mua > 0 && rs3.next()) {
+						mua = mua - rs2.getInt("amount");
+
+						System.out.println("sql4: " + sql4);
+						sql5 = "INSERT INTO `output_detail` (`output_id`, `wh_id`, `quantity`) VALUES ('"
+								+ rs3.getInt("output_id") + "', '" + rs2.getInt("wh_id") + "', '" + rs2.getInt("amount")
+								+ "');";
+							pst5 = conn.prepareStatement(sql5);
+							pst5.execute();
+						System.out.println("sql5: " + sql5);
+						System.out.println("sp mua : " + spmua + " / sl luong mua: " + mua);
+						System.out.println("sl mua con thieu: " + mua);
+						System.out.println("");
+						System.out.println("-------------------------------------");
+						System.out.println("");
+						kho = 0;
+
+						sql4 = "UPDATE input_detail SET input_detail.amount='" + kho
+								+ "' WHERE input_detail.input_detail_id='" + rs2.getInt("input_detail_id") + "'";
+						pst4 = conn.prepareStatement(sql4);
+						pst4.execute();
+					}
+
+				}
+//				-----------------------------------------------
+//				System.out.println("sp mua : "+spmua+" / sl luong mua: "+mua);
+//				System.out.println("");
+//				System.out.println("-------------------------------------");
+//				System.out.println("");
+			}
+
+	      System.out.println("up date staus output_status = 1");
 	  }
 
   public void output_ammount() {
@@ -894,10 +981,10 @@ private void handleUpload(ActionEvent t) {
   
   
   @FXML
-  void print_bill(ActionEvent event) {
+  void print_bill(ActionEvent event) throws SQLException {
 
       try {
-          JasperDesign jasdi=JRXmlLoader.load("C:\\Users\\hau\\git\\Project_QLST\\QLST\\src\\app\\ui\\employee\\Bill_Order.jrxml");
+          JasperDesign jasdi=JRXmlLoader.load("C:/java/work-space/Project_QLST/QLST/src/app/ui/employee/Bill_Order.jrxml");
           String sql1s="SELECT *, SUM(quantity) AS amount FROM orders_detail WHERE order_id ='"+order_id1.getText()+"' GROUP BY order_id, name";
           JRDesignQuery newQuery=new JRDesignQuery();
           newQuery.setText(sql1s);
@@ -918,51 +1005,29 @@ private void handleUpload(ActionEvent t) {
           System.out.println(e);
       }
 	  
-	  
+
+
 	  
   }
   
   @FXML
   void btn_refresh_order(ActionEvent event) {
+	  String ID=order_id1.getText();
+	  System.out.println(order_id1.getText().toString());
+	  id_order.setText("   ");
+	  try {
+	      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../../ui/employee/security.fxml"));
+	      Parent root = (Parent) fxmlLoader.load();
+	      Stage stage = new Stage();
+	 security home=fxmlLoader.getController();
+      home.getOrderId(ID);
+	      stage.setScene(new Scene(root));  
+	      stage.show();
+	      
+			} catch(Exception e) {
+			 e.printStackTrace();
+			}
 	  
-	  
-      conn = connectDB.ConnectDb();
-      String sql = "delete from orders_detail where order_id = ?";
-          try {
-              pst = conn.prepareStatement(sql);
-              pst.setString(1, order_id1.getText());
-              pst.execute();
-              label_thongbao.setText("successful delete!");
-              search_user_bill_order();
-          } catch (Exception e) {
-              JOptionPane.showMessageDialog(null, e);
-          }
-
-          conn = connectDB.ConnectDb();
-          String sql1q1 = "delete from output where order_id = ?";
-              try {
-                  pst = conn.prepareStatement(sql1q1);
-                  pst.setString(1, order_id1.getText());
-                  pst.execute();
-                  label_thongbao.setText("successful delete!");
-                  search_user_bill_order();
-              } catch (Exception e) {
-                  JOptionPane.showMessageDialog(null, e);
-              }
-          
-	      conn = connectDB.ConnectDb();
-	      String sql1q = "delete from orders where order_id = ?";
-	          try {
-	              pst = conn.prepareStatement(sql1q);
-	              pst.setString(1, order_id1.getText());
-	              pst.execute();
-	              label_thongbao.setText("successful delete!");
-	              search_user_bill_order();
-	          } catch (Exception e) {
-	              JOptionPane.showMessageDialog(null, e);
-	          }
-	  
-
   }
   
   
