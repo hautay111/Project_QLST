@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import app.model.*;
 import app.controller.employee_controller.Bill_Manage;
-import app.controller.employee_controller.Bill_employee;
 import app.controller.employee_controller.Bill_Controller.Bill_Controller;
 import app.dao.connectDB;
 import app.model.Bill;

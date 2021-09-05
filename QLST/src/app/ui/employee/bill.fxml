@@ -277,6 +277,7 @@
                   </HBox>
                </children>
             </VBox>
+            <Button layoutX="636.0" layoutY="27.0" mnemonicParsing="false" onAction="#add_cus" text="Register Customer" />
          </children>
       </AnchorPane>
       <VBox layoutX="253.0" layoutY="-51.0" prefHeight="139.0" prefWidth="37.0" rotate="88.8" visible="false">

@@ -263,21 +263,22 @@ private void handleUpload(ActionEvent t) {
       
         
 
-//    
-//    @FXML
-//    void add_cus(ActionEvent event) {
-//	    try {
-//	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/Customer.fxml"));
-//	                Parent root = (Parent) fxmlLoader.load();
-//	                Stage stage = new Stage();
-//	                stage.setScene(new Scene(root));  
-//	                stage.show();             	  
-//	               
-//	        } catch(Exception e) {
-//	        	
-//	           e.printStackTrace();
-//	          }
- //   }
+    
+    @FXML
+    void add_cus(ActionEvent event) {
+	    try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../../ui/employee/Customer.fxml"));
+	                Parent root = (Parent) fxmlLoader.load();
+	                Stage stage = new Stage();
+	                stage.setScene(new Scene(root));  
+	                stage.show();             	  
+	               
+	        } catch(Exception e) {
+	        	
+	           e.printStackTrace();
+	          }
+    }
+    
     @FXML
     void handleScanCustomer(KeyEvent event) {
     	

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,7 +22,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Create_Customer implements Initializable {
@@ -53,6 +56,9 @@ public class Create_Customer implements Initializable {
     @FXML
     private ComboBox<String> combobox_product_category;
 
+    @FXML
+    private Label label_thongbao;
+    
     int index = -1;
     
     Connection conn =null;
@@ -80,6 +86,47 @@ public class Create_Customer implements Initializable {
 
         
     }
+    
+    @FXML
+    void scanner_barcode_cus(KeyEvent event) {
+    	scanner_cus();
+    }
+    
+	public void scanner_cus() {
+    	
+
+        try {
+            
+ 	    	conn=connectDB.ConnectDb();
+ 	    	String query= "Select * from customer where cus_code = ? ";
+ 			pst = conn.prepareStatement(query);
+ 			pst.setString(1, text_cus_code.getText());
+ 			pst.execute();
+ 			rs=pst.executeQuery();
+             
+             if(rs.next()){
+            	 String code_input = text_cus_code.getText();
+            	 String code = rs.getString(4);
+            	 
+            	  if(code_input.equals(code)) {
+            		 label_thongbao.setText("Code Customer Already Exists!");
+            		 System.out.println(code_input+"  "+ code);            		
+            		 label_thongbao.setTextFill(Color.RED);	
+				}else {
+				 	System.out.println(code_input+"  "+ code);					
+ 					label_thongbao.setText("Code Customer valid!");
+					label_thongbao.setTextFill(Color.GREEN);	
+				}
+             }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//	      if (text_cus_code.getText().trim().isEmpty()) {
+//				label_thongbao.setText(" ");
+//	     } 
+    } 
+    
 	
     @FXML
     void btn_cus_add(ActionEvent event) {
