@@ -12,6 +12,7 @@ import app.model.Inventory;
 import app.model.ChangeShift;
 
 import app.model.Product;
+import app.model.Run_Out;
 import app.model.Title;
 import app.model.search_dashboard.M1;
 import app.model.search_dashboard.M10;
@@ -63,12 +64,19 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Bill> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("select * from product");
+            PreparedStatement ps = conn.prepareStatement("select * from product INNER JOIN ware_house ON product.pro_id=ware_house.pro_id");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
 
-                list.add(new Bill(rs.getRow(),Integer.parseInt(rs.getString("pro_id")),rs.getString("pro_name"),rs.getString("pro_brand"),rs.getString("pro_sale_price"),rs.getString("barcode"),rs.getString("pro_category")));       
+                list.add(new Bill(rs.getRow(),Integer.parseInt(rs.getString("pro_id")),
+                		Integer.parseInt(rs.getString("amount_stock")),
+                		Integer.parseInt(rs.getString("amount_input")),
+                		rs.getString("pro_name"),
+                		rs.getString("pro_brand"),
+                		rs.getString("pro_sale_price"),
+                		rs.getString("barcode"),
+                		rs.getString("pro_category")));       
 
 
             }
@@ -274,11 +282,17 @@ public class connectDB {
         ObservableList<Order_Detail> list = FXCollections.observableArrayList();
         try {
 //            PreparedStatement ps = conn.prepareStatement("select product.pro_id, product.pro_name,product.pro_expiry,product.pro_unit,product.pro_category,product.pro_brand ,product.pro_sale_price,product.barcode from product INNER JOIN brand ON product.brand_id = brand.brand_id");
-        	PreparedStatement ps = conn.prepareStatement("select * from orders_detail where order_id = order_id");
+        	PreparedStatement ps = conn.prepareStatement("SELECT *, SUM(quantity) AS amount FROM orders_detail GROUP BY order_id, name");
             ResultSet rs = ps.executeQuery();
-            
+//            
             while (rs.next()){   
-                list.add(new Order_Detail(rs.getRow(),Integer.parseInt(rs.getString("order_id")),Integer.parseInt(rs.getString("quantity")),Integer.parseInt(rs.getString("price")),rs.getString("name"),Integer.parseInt(rs.getString("total"))));       
+                list.add(new Order_Detail(rs.getRow(),
+                		Integer.parseInt(rs.getString("order_id")),
+                		Integer.parseInt(rs.getString("order_detail_id")),
+                		Integer.parseInt(rs.getString("amount")),
+                		Integer.parseInt(rs.getString("price")),
+                		rs.getString("name"),
+                		Integer.parseInt(rs.getString("total"))));       
             }
         } catch (Exception e) {
         	System.out.println(e);
@@ -291,10 +305,11 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Dashboard> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id"
-            		+ "");
+//            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id"
+//            		+ "");
+//            ResultSet rs = ps.executeQuery();
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product WHERE input_detail.pro_id=product.pro_id GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
-            
             while (rs.next()){   
                 list.add(new Dashboard(
                 		Integer.parseInt(rs.getString("pro_id")), 
@@ -738,9 +753,36 @@ public class connectDB {
         return list;
         
 	}
+
+
     
-    
-    
-    
+  //---------------------account-------------------------------
+    public static ObservableList<Run_Out> getDataRunOut1() {
+        Connection conn = ConnectDb();
+        ObservableList<Run_Out> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("Select tbl_expiry.*,product.pro_name,supplier.sup_name FROM tbl_expiry,product ,supplier WHERE tbl_expiry.pro_id=product.pro_id AND tbl_expiry.sup_id=supplier.sup_id AND tbl_expiry.amount>0 ORDER BY tbl_expiry.expiry DESC");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Run_Out(
+                		rs.getRow(), 
+                		Integer.parseInt(rs.getString("expiry_id")), 
+                		rs.getString("sup_name"), 
+                		rs.getString("expiry"), 
+                		rs.getString("amount"),  
+                		rs.getString("total"),  
+                		rs.getString("input_price"),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+
+    }
+
     
 }

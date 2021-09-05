@@ -201,7 +201,7 @@ public class dashboard implements Initializable {
 //			System.out.println("=================" + orders);
 //		}
 		
-		String sql1="SELECT product.pro_name,Sum(orders_detail.quantity) AS amount FROM orders_detail,product WHERE orders_detail.pro_id=product.pro_id GROUP BY product.pro_name ORDER BY Sum(orders_detail.quantity) DESC";
+		String sql1="SELECT product.pro_name,Sum(orders_detail.quantity) AS amount FROM orders_detail,product WHERE orders_detail.pro_id=product.pro_id GROUP BY product.pro_name ORDER BY Sum(orders_detail.quantity) DESC LIMIT 10";
 		pst = conn.prepareStatement(sql1);
 		rs = pst.executeQuery();
 		while(rs.next()) {

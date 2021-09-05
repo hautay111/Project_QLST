@@ -1,6 +1,148 @@
 package app.controller.employee_controller;
 
 import java.awt.Dimension;
+
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+
+import org.apache.poi.ss.usermodel.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.lang.ModuleLayer.Controller;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import app.Main;
+import app.controller.employee_controller.Bill_Controller.export_inventory;
+import app.controller.homepage.Home_Manage;
+import app.controller.manage_controller.Product_controller.Barcode_Create.Barcode_Image;
+import app.controller.manage_controller.product_crud.*;
+import javax.swing.JOptionPane;
+
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+import com.mysql.cj.result.Row;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Object;
+
+import app.dao.connectDB;
+import app.model.Category1;
+import app.model.Product;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+//import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.StringConverter;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
+
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import app.dao.connectDB;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import jxl.Workbook; 
+import jxl.write.*;
+
+
+import com.github.sarxos.webcam.Webcam;
+import com.github.sarxos.webcam.WebcamPanel;
+import com.github.sarxos.webcam.WebcamResolution;
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.MultiFormatReader;
+import com.google.zxing.NotFoundException;
+import com.google.zxing.Result;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.HybridBinarizer;
+import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -60,6 +202,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import jxl.Workbook;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 
 public class Inventory_employee implements Initializable{
 	
@@ -203,35 +348,10 @@ public class Inventory_employee implements Initializable{
 		}
 	    
 	    
-//		@FXML
-//		void Update(ActionEvent event) {
-//			try {
-//				if (id.getText().trim().equals("")) {
-//					JOptionPane.showMessageDialog(null, "Please select the data you want to delete!");
-//				} else {
-//					conn = connectDB.ConnectDb();
-//					String value1 = id.getText();
-//					String value2 = name.getText();
-//					String value3 = email.getText();
-//					String value4 = phone.getText();
-//					String value5 = address.getText();
-//					String value6 = gender.getValue();
-//					Integer value7 = title_id;
-//					String value8 = user.getText();
-//					String sql = "update employee set emp_name= '" + value2 + "',emp_email= '" + value3 + "',emp_phone= '"
-//							+ value4 + "',emp_address= '" + value5 + "',emp_gender= '" + value6 + "',title_id='" + value7
-//							+ "',emp_user= '" + value8 + "' where emp_id= '" + value1 + "' ";
-//					pst = conn.prepareStatement(sql);
-//					pst.execute();
-//					JOptionPane.showMessageDialog(null, "Update");
-////					UpdateTable1();
-//					search_user_inventory();
-//				}
-//
-//			} catch (Exception e) {
-//				JOptionPane.showMessageDialog(null, e);
-//			}
-//		}
+		@FXML
+		void load_inventory(ActionEvent event) {		
+			UpdateTable_inventory();
+		}
 //		
 	    
 	    
@@ -239,6 +359,11 @@ public class Inventory_employee implements Initializable{
 	    
 	    @FXML
 	    void Update_inventory(ActionEvent event) {
+	    	
+	    	
+	    	
+	    	
+	    	
 	    	try {
 				if (wh_id.getText().trim().equals("")) {
 					JOptionPane.showMessageDialog(null, "Please select the data you want to delete!");
@@ -371,6 +496,12 @@ public class Inventory_employee implements Initializable{
 		}
 }
 		
+    @FXML
+    void export_product(ActionEvent event){
+    	
+    	
+    	
+    }
 	
 	public static int ware_house;
 	

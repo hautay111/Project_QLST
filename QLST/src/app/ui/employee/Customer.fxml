@@ -39,7 +39,7 @@
                   </VBox>
                   <VBox prefHeight="167.0" prefWidth="155.0" spacing="35.0">
                      <children>
-                        <TextField fx:id="text_cus_code" prefHeight="25.0" prefWidth="129.0" promptText="Code" />
+                        <TextField fx:id="text_cus_code" onKeyTyped="#scanner_barcode_cus" prefHeight="25.0" prefWidth="129.0" promptText="Code" />
                         <TextField fx:id="text_cus_name" promptText="Customer Name" />
                         <TextField fx:id="text_cus_address" promptText="Address" />
                      </children>
@@ -65,6 +65,7 @@
                </children>
             </HBox>
             <Button layoutX="437.0" layoutY="307.0" mnemonicParsing="false" onAction="#btn_cus_add" prefHeight="25.0" prefWidth="161.0" text="Add" />
+            <Label fx:id="label_thongbao" layoutX="285.0" layoutY="61.0" prefHeight="17.0" prefWidth="202.0" textFill="RED" />
          </children>
       </Pane>
    </children>

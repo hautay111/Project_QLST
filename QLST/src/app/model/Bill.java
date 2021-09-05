@@ -1,11 +1,13 @@
 package app.model;
 
 public class Bill {
-	int no, pro_id;
+	int no, pro_id,amount_stock,amount_input;
 	String name,brand,price,code,category;
-	public Bill(int no,int pro_id, String name, String brand, String price, String code, String category) {
+	public Bill(int no,int pro_id,int amount_stock,int amount_input, String name, String brand, String price, String code, String category) {
 		this.no = no;
 		this.pro_id = pro_id;
+		this.amount_stock=amount_stock;
+		this.amount_input=amount_input;
 		this.name = name;
 		this.brand = brand;
 		this.price = price;
@@ -15,6 +17,30 @@ public class Bill {
 	}
 	
 	
+
+	public int getAmount_stock() {
+		return amount_stock;
+	}
+
+
+
+	public void setAmount_stock(int amount_stock) {
+		this.amount_stock = amount_stock;
+	}
+
+
+
+	public int getAmount_input() {
+		return amount_input;
+	}
+
+
+
+	public void setAmount_input(int amount_input) {
+		this.amount_input = amount_input;
+	}
+
+
 
 	public int getPro_id() {
 		return pro_id;

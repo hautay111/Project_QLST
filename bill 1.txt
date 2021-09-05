@@ -1,1 +1,12 @@
-javafx.scene.control.TableView$TableViewArrayListSelectionModel@62795543
+Welcome Huy to SuperMarket
+Name: Bánh G?o M?t Ong            Price: 25000        Amount: 2    Total: 50000.0
+--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --
+Name: Bánh G?o M?t Ong            Price: 25000        Amount: 3    Total: 75000.0
+--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --
+Name: Bánh G?o M?t Ong            Price: 25000        Amount: 4    Total: 100000.0
+--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --
+Total Bill : 225000
+ You get You don't have enough points to get a discount. Let's try to steal!
+Payment : 225000.0
+------------------- Good Bye And See You Again-------------------
+
