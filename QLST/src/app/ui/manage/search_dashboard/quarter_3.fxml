@@ -6,6 +6,7 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -29,7 +30,7 @@
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <HBox prefHeight="35.0" prefWidth="251.0">
+                        <HBox alignment="CENTER" prefHeight="35.0" prefWidth="354.0">
                            <children>
                               <Label text="Quater: " textFill="WHITE">
                                  <font>
@@ -41,6 +42,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
+                              <Button mnemonicParsing="false" onAction="#In" prefHeight="25.0" prefWidth="68.0" text="In" />
                            </children>
                         </HBox>
                         <ImageView fitHeight="25.0" fitWidth="28.0" onMouseClicked="#back" pickOnBounds="true" preserveRatio="true">

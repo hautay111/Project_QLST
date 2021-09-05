@@ -1,17 +1,27 @@
 package app.controller.manage_controller.search_dashhoard;
 
+import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
 
 import app.dao.connectDB;
 import app.model.Category1;
 import app.model.Dashboard;
 import app.model.search_dashboard.Quarter_3;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -24,6 +34,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.ExporterInput;
+import net.sf.jasperreports.export.OutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 
 public class quarter_3 implements Initializable{
 	Connection conn = null;
@@ -330,5 +351,54 @@ public class quarter_3 implements Initializable{
 		listC = connectDB.getDataQuater3();
 		table_quarter_3.setItems(listC);
 
+	}
+	@FXML
+    void In(ActionEvent event) throws JRException {
+		a();		 
+    }
+
+	public void a() throws JRException {
+		String reportSrcFile = "C:/Users/Admin/JaspersoftWorkspace/MyReports/a2.jrxml";
+	       
+	       // Compile file nguồn trước.
+	       JasperReport jasperReport =    JasperCompileManager.compileReport(reportSrcFile);
+	 
+	       Connection conn = connectDB.ConnectDb();
+	 
+	       // Tham số truyền vào báo cáo.
+	       Map<String, Object> parameters = new HashMap<String, Object>();
+	 
+	       JasperPrint print = JasperFillManager.fillReport(jasperReport,
+	               parameters, conn);
+	 
+	       // Đảm bảo thư mục đầu ra tồn tại.
+	       File outDir = new File("C:/jasperoutput");
+	       outDir.mkdirs();
+	 
+	       // PDF Exportor.
+	       JRPdfExporter exporter = new JRPdfExporter();
+	 
+	       ExporterInput exporterInput = new SimpleExporterInput(print);
+	       // ExporterInput
+	       exporter.setExporterInput(exporterInput);
+//	 ------------
+	       String timeStamp = new SimpleDateFormat("yyyy_MM_dd_HH'"+"h"+"'_mm'"+"m"+"'_ss'"+"s"+"'").format(new Date());
+	       String namefile=timeStamp + ".pdf";
+//	 -----------
+	       // ExporterOutput
+	       OutputStreamExporterOutput exporterOutput = new SimpleOutputStreamExporterOutput(
+	    		   "C:/jasperoutput/FirstJasperReport_"+namefile	    		   
+	    	);
+	       // Output
+	       exporter.setExporterOutput(exporterOutput);
+	 
+	       //
+	       SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+	       exporter.setConfiguration(configuration);
+	       exporter.exportReport();
+	       
+	       JOptionPane.showMessageDialog(null, "Export Report Successfully.");
+	 
+	       System.out.print("Done!");
 	}
 }
