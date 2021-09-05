@@ -43,7 +43,7 @@ public class connectDB {
     public static Connection ConnectDb(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/qlst_2","root","");
+            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/qlst","root","");
            // JOptionPane.showMessageDialog(null, "Connection Established");
             System.out.println("ket noi database thanh cong");
             return conn;
