@@ -505,11 +505,6 @@ public class Inventory_Inset implements Initializable{
 				    	System.out.println(text_product_id.getText());
 				    	 
 				    }	
-//	  			    if(rs.next()) {
-//	  			    	 id_input.setText(rs.getString("input_id"));
-//	  			    	 input_id1.setText(rs.getString("input_id"));
-//	  			    	 JComponent label_show;
-//						label_show.setVisible(true);
 	  			    
 			} catch (Exception e) {
 //				JOptionPane.showMessageDialog(null, "Zo 3");
