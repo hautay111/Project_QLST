@@ -65,7 +65,7 @@ public class Login {
             return txt_pass.getText();
         }
     }
-    private static String id,title_name,user;
+    private static String id,title_name,user,image;
     private static Integer title_id,status;
     @FXML
     void btn_login(ActionEvent event) throws SQLException, IOException, InvalidKeyException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, BadPaddingException, IllegalBlockSizeException {
@@ -90,6 +90,7 @@ public class Login {
 				title_id=rs.getInt("title_id");
 				user=rs.getString("emp_name");
 				status=rs.getInt("emp_status");
+				image=rs.getString("image_qrcode");
 				if(status==1) {
 					JOptionPane.showMessageDialog(null, "Tai Khoan Dang Dang Nhap Tren May Khac.");	
 				}else {
@@ -106,7 +107,7 @@ public class Login {
 			            pst= conn.prepareStatement(sql);
 			            pst.execute();
 			            Home_Employee home=loader.getController();
-			            home.getId(id,user,title_name);
+			            home.getId(id,user,title_name,image);
 						Scene scene=new Scene(parent);				
 						stage.setScene(scene);
 					}

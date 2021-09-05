@@ -136,10 +136,10 @@ public class Bill_Manage implements Initializable{
     @FXML
     void btn_delete(ActionEvent event) {
     	if(emp_tille_name.getText().trim().equals("emp")) {
-    		JOptionPane.showMessageDialog(null, "Only security guards have the right to delete!!");
+    		JOptionPane.showMessageDialog(null, "Only Security Guards or Manager have the right to delete!!");
     	}
     	
-    	if(emp_tille_name.getText().trim().equals("emp_security")) {
+    	if(emp_tille_name.getText().trim().equals("emp_security") || emp_tille_name.getText().trim().equals("mana")) {
 	        conn = connectDB.ConnectDb();
 	        String sql = "delete from orders_detail where order_id = ?";
 	            try {
