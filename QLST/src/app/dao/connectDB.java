@@ -12,6 +12,7 @@ import app.model.Inventory;
 import app.model.ChangeShift;
 
 import app.model.Product;
+import app.model.Run_Out;
 import app.model.Title;
 import app.model.search_dashboard.M1;
 import app.model.search_dashboard.M10;
@@ -291,10 +292,11 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Dashboard> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id"
-            		+ "");
+//            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id"
+//            		+ "");
+//            ResultSet rs = ps.executeQuery();
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product WHERE input_detail.pro_id=product.pro_id GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
-            
             while (rs.next()){   
                 list.add(new Dashboard(
                 		Integer.parseInt(rs.getString("pro_id")), 
@@ -740,7 +742,33 @@ public class connectDB {
 	}
     
     
-    
-    
+  //---------------------account-------------------------------
+    public static ObservableList<Run_Out> getDataRunOut1() {
+        Connection conn = ConnectDb();
+        ObservableList<Run_Out> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("Select tbl_expiry.*,product.pro_name,supplier.sup_name FROM tbl_expiry,product ,supplier WHERE tbl_expiry.pro_id=product.pro_id AND tbl_expiry.sup_id=supplier.sup_id AND tbl_expiry.amount>0 ORDER BY tbl_expiry.expiry DESC");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Run_Out(
+                		rs.getRow(), 
+                		Integer.parseInt(rs.getString("expiry_id")), 
+                		rs.getString("sup_name"), 
+                		rs.getString("expiry"), 
+                		rs.getString("amount"),  
+                		rs.getString("total"),  
+                		rs.getString("input_price"),
+                		rs.getString("pro_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+
+    }
+
     
 }
