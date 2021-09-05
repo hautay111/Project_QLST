@@ -61,7 +61,7 @@
                   <VBox prefHeight="167.0" prefWidth="184.0" spacing="34.0">
                      <children>
                         <DatePicker fx:id="date" prefHeight="25.0" prefWidth="193.0" />
-                        <ComboBox fx:id="combobox_product" prefHeight="25.0" prefWidth="185.0" promptText="Unit" />
+                        <ComboBox fx:id="combobox_product" onAction="#box_unit" prefHeight="25.0" prefWidth="185.0" promptText="Unit" />
                         <ComboBox fx:id="combobox_product_brand" onAction="#box_brand" prefHeight="25.0" prefWidth="188.0" promptText="Brand" />
                      </children>
                   </VBox>

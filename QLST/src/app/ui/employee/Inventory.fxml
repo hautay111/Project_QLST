@@ -149,10 +149,7 @@
       <Button layoutX="627.0" layoutY="163.0" mnemonicParsing="false" onAction="#Update_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Update" />
       <TextField fx:id="text_product_id" layoutX="564.0" layoutY="120.0" prefHeight="25.0" prefWidth="54.0" visible="false" />
       <TextField fx:id="text_wh_id1" layoutX="637.0" layoutY="120.0" prefHeight="25.0" prefWidth="46.0" visible="false" />
-<<<<<<< HEAD
-=======
       <Button layoutX="515.0" layoutY="163.0" mnemonicParsing="false" onAction="#load_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Load" />
       <Button layoutX="397.0" layoutY="163.0" mnemonicParsing="false" onAction="#export_product" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Export" />
->>>>>>> 64f6a6a45e7fe4b55f13f94193bdebdd89194708
    </children>
 </AnchorPane>
