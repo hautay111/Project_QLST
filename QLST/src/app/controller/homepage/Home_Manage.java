@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
+
+import app.controller.employee_controller.Bill_Manage;
 import app.dao.connectDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -86,6 +88,20 @@ public class Home_Manage {
 		loader.setLocation(getClass().getResource("../../ui/manage/account1.fxml"));
 		Parent parent=loader.load();
 		mainPane.setCenter(parent);
+
+    }
+	
+	@FXML
+    void bill_manage(MouseEvent event) throws IOException{
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		FXMLLoader loader=new FXMLLoader();
+		loader.setLocation(getClass().getResource("../../ui/manage/Manage_Bill.fxml"));							
+		Parent parent=loader.load();
+        app.controller.manage_controller.Bill_Manage id_emp=  loader.getController();
+        id_emp.getEmp_id1(a1,a3);
+		Scene scene=new Scene(parent);				
+		stage.setScene(scene);
+		stage.show();
 
     }
 	

@@ -174,6 +174,12 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 
     @FXML
     private TableColumn<Bill,String> col_price;
+    
+    @FXML
+    private TableColumn<Bill,Integer> col_amount_stock;
+
+    @FXML
+    private TableColumn<Bill,Integer> col_amount_input;
 
     @FXML
     private TableView<Bill> table_bill;
@@ -201,6 +207,10 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 
     @FXML
     private TableColumn<Order_Detail, String> col_bill_total;
+    
+
+    @FXML
+    private TableColumn<Order_Detail, Integer> col_bill_id;
     
     
     @FXML
@@ -231,6 +241,9 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 
     @FXML
     private TextField text_cus_id;
+    
+    @FXML
+    private TextField text_id_order_remove;
 
     @FXML
     private Label text_discount;
@@ -367,72 +380,72 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     void pay(ActionEvent event) {  
     	
     	
-        try {
+//        try {
+//                            
+//	    	conn=connectDB.ConnectDb();
+//	    	String query= "Select * from ware_house where pro_id = ? ";
+//			pst = conn.prepareStatement(query);
+//			pst.setString(1, text_id_product.getText());
+//			pst.execute();
+//			rs=pst.executeQuery();
+//            
+//            if(rs.next()){
+//            	
+//                int wh_id,pro_id,amount_stock,amount_input;
+//                wh_id = rs.getInt(1);
+//                pro_id = rs.getInt(2); 
+//                amount_stock = rs.getInt(3);
+//                amount_input = rs.getInt(4);
+//                System.out.println(wh_id+"   "+pro_id+"   "+amount_stock);              
+//                int amount_product = Integer.parseInt(text_amount.getText());
+//                int amount = amount_stock - amount_product;
+//                System.out.println(amount);                
+//                int a = amount_input + amount_stock;
+//                int b = amount_product - a;
+//            	double money =	Double.parseDouble(text_price.getText());
+//                int y = Integer.parseInt(text_amount.getText());
+//		        double total=(money*y); 
                             
-	    	conn=connectDB.ConnectDb();
-	    	String query= "Select * from ware_house where pro_id = ? ";
-			pst = conn.prepareStatement(query);
-			pst.setString(1, text_id_product.getText());
-			pst.execute();
-			rs=pst.executeQuery();
-            
-            if(rs.next()){
-            	
-                int wh_id,pro_id,amount_stock,amount_input;
-                wh_id = rs.getInt(1);
-                pro_id = rs.getInt(2); 
-                amount_stock = rs.getInt(3);
-                amount_input = rs.getInt(4);
-                System.out.println(wh_id+"   "+pro_id+"   "+amount_stock);              
-                int amount_product = Integer.parseInt(text_amount.getText());
-   
-                double amount = amount_stock - amount_product;
-                System.out.println(amount);
                 
-            	conn = connectDB.ConnectDb();
-                String sql1a = "update ware_house set amount_stock= '"+amount+"' where wh_id = '"+wh_id+"' ";
-                pst= conn.prepareStatement(sql1a);
-                pst.execute();
-                
-                if (amount_stock > 0 || amount_input > 0) {
-                	double money =	Double.parseDouble(text_price.getText());
-                    int y = Integer.parseInt(text_amount.getText());
-                    double total=(money*y);   
-	                String s=bill_Area.getText();
-	                bill_Area.setText(s+"Name: "+text_name.getText()+"            Price: "+text_price.getText()+"        Amount: "
-	                +text_amount.getText()+"    Total: "+total+"\n--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --\n"
-	                );
-	                label_show.setText("Add "+ "'' "+ text_name.getText() +" ''" + " Successfully");
-				}
-                
-                if (amount_product > amount_stock ) {
-					int amount_lay = amount_product - amount_stock;
-					int alo = 0;
-					int amount_input_lay = amount_input - amount_lay;
-	            	conn = connectDB.ConnectDb();
-	                String sql1aa = "update ware_house set amount_input= '"+amount_input_lay+"',amount_stock= '"+alo+"' where wh_id = '"+wh_id+"' ";
-	                pst= conn.prepareStatement(sql1aa);
-	                pst.execute();
-                if (amount_input_lay < 0) {
-                		JOptionPane.showMessageDialog(null, "Run Out!!");
-	                	int aloo=0;
-						System.out.println("hết hàng dồi m ơi" +  amount_input);
-		            	conn = connectDB.ConnectDb();
-		                String sql1aaa = "update ware_house set amount_input= '"+aloo+"' where wh_id = '"+wh_id+"' ";
-		                pst= conn.prepareStatement(sql1aaa);
-		                
-		                pst.execute();
-					}
-				}
-
-                
-            }
-            rs.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println(ex);
-            }
-    	
+//                if( amount_stock>amount_product && b>0) {
+//                	
+//	                conn = connectDB.ConnectDb();
+//	                String sql1a = "update ware_house set amount_stock= '"+amount+"' where wh_id = '"+wh_id+"' ";
+//	                pst= conn.prepareStatement(sql1a);
+//	                pst.execute();
+//	                String s=bill_Area.getText();
+//	                bill_Area.setText(s+"Name: "+text_name.getText()+"            Price: "+text_price.getText()+"$"+"        Amount: "
+//	                +text_amount.getText()+"    Total: "+total+"$"+"\n--  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --\n"
+//	                );
+//                }               
+//                if (amount_product > amount_stock ) {
+//					int amount_lay = amount_product - amount_stock;
+//					int alo = 0;
+//					int amount_input_lay = amount_input - amount_lay;
+//	            	conn = connectDB.ConnectDb();
+//	                String sql1aa = "update ware_house set amount_input= '"+amount_input_lay+"',amount_stock= '"+alo+"' where wh_id = '"+wh_id+"' ";
+//	                pst= conn.prepareStatement(sql1aa);
+//	                pst.execute();
+//	             }  
+//                int amount_lay = amount_product - amount_stock;
+//                int amount_input_lay = amount_input - amount_lay;
+//                if (amount_input_lay < 0) {
+//                		JOptionPane.showMessageDialog(null, "Run Out!! Only" +amount_stock+ "products in amount input and" +amount_input+ "products in amount stock ");
+//	                	int aloo=0;
+//						System.out.println("hết hàng dồi m ơi" +  amount_input);
+//					}
+//                
+//                if((amount_product-amount_input-amount_stock)<0) {
+//                	JOptionPane.showMessageDialog(null, "Run Out!! Only" +amount_stock+ "products in amount input and" +amount_input+ "products in amount stock ");
+//                }
+             
+//            }
+//            rs.close();
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Bill_employee.class.getName()).log(Level.SEVERE, null, ex);
+//                System.out.println(ex);
+//            }
+//    	
     	
     	
     	
@@ -530,6 +543,9 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 					            JOptionPane.showMessageDialog(null,e);
 					        }
 				        }
+				        
+				        
+				        
             	}     
 	        } catch (Exception e) {
 	        	System.out.println(e);
@@ -555,26 +571,7 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     	System.out.println("emp_id bill employee: "+ emp_id.getText());
     }
     
-    public void UpdateTable_Order_detail(){
-
-        
-    	
-    	
-    	col_bill_no.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("no"));
-    	col_bill_name.setCellValueFactory(new PropertyValueFactory<Order_Detail,String>("name"));
-    	col_bill_amount.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("quantity"));
-    	col_bill_price.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("price"));
-    	col_bill_total.setCellValueFactory(new PropertyValueFactory<Order_Detail,String>("total"));
-    	
-    	
-
-
-        listM1 = connectDB.getDataOrder_detail();
-        table_order.setItems(listM1);
-    }
-    
-    
-    
+   
     int num =0;
 //    public void Print() {
 //        
@@ -754,10 +751,12 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
 	          JOptionPane.showMessageDialog(null, e);
 	      }
         
-        String s=bill_Area.getText();
-        bill_Area.setText(s+"Total Bill : "+total_bill_order.getText()+"\n"+" "+lable_message_sale.getText()+"\n"
-        +"Payment : "+total_bill_pay.getText()+"\n------------------- Good Bye And See You Again-------------------\n"
-        );
+//        String s=bill_Area.getText();
+//        bill_Area.setText(s+"Total Bill : "+total_bill_order.getText()+"\n"+" "+lable_message_sale.getText()+"\n"
+//        +"Payment : "+total_bill_pay.getText()+"\n------------------- Good Bye And See You Again-------------------\n"
+//        );
+//        
+        
         in.setDisable(false);
         btn_cong_point.setDisable(false);
         in.setDisable(false);
@@ -789,6 +788,27 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     	  
     	in.setVisible(false);
         in(bill_Area);
+        
+    	try {        
+    	if (text_cus_id.getText().trim().equals("1")) {
+        	System.out.println("lêu lêu ko đc cộng điểm");
+        }else {
+		conn = connectDB.ConnectDb();
+        String value1 = text_cus_id.getText();
+        String value2 = label_tien.getText();
+        System.out.println(value2);
+        String sql = "update customer set cus_point= '"+value2+"' where cus_id = '"+value1+"' ";
+        pst= conn.prepareStatement(sql);
+        pst.execute();
+		}
+        label_cus_point_end.setText("");
+        label_cus_poit.setText("");
+        label_cus_name.setText("");
+        
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+        
     }  
     private void in(Node node) {
     	
@@ -821,23 +841,42 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     	
     	double tienphaitra = tienkhachdua - tienbill;
     	
-    	tienphaitrakhach.setText((String.valueOf(tienphaitra)));
+    	tienphaitrakhach.setText((String.valueOf(tienphaitra))+"$");
     	
     	if (tienphaitra < 0 ) {
-    		tienphaitrakhach.setText("0");
+    		tienphaitrakhach.setText("0$");
 		}
 
     }
     
+    public void UpdateTable_Order_detail(){
+    	col_bill_no.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("no"));
+    	col_bill_id.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("id"));
+    	col_bill_name.setCellValueFactory(new PropertyValueFactory<Order_Detail,String>("name"));
+    	col_bill_amount.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("quantity"));
+    	col_bill_price.setCellValueFactory(new PropertyValueFactory<Order_Detail,Integer>("price"));
+    	col_bill_total.setCellValueFactory(new PropertyValueFactory<Order_Detail,String>("total"));
+    	
 
+        listM1 = connectDB.getDataOrder_detail();
+        table_order.setItems(listM1);
+    }
+    
+
+    @FXML
+    void getSelected_bill_remove(MouseEvent event) {
+
+    }
+    
+    
+    @FXML
+    void btn_remove_order(ActionEvent event) {
+
+    }
     
     
     
     public void UpdateTable_bill(){
-
-    	
-   
-    	
 
     	col_no.setCellValueFactory(new PropertyValueFactory<Bill,Integer>("no"));
     	col_name.setCellValueFactory(new PropertyValueFactory<Bill,String>("name"));
@@ -846,9 +885,8 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     	col_barcode.setCellValueFactory(new PropertyValueFactory<Bill,String>("code"));
     	col_category.setCellValueFactory(new PropertyValueFactory<Bill,String>("category"));
     	col_id.setCellValueFactory(new PropertyValueFactory<Bill,Integer>("pro_id"));
-    	
-    	
-
+    	col_amount_stock.setCellValueFactory(new PropertyValueFactory<Bill,Integer>("amount_stock"));
+    	col_amount_input.setCellValueFactory(new PropertyValueFactory<Bill,Integer>("amount_input"));
 
         listM = connectDB.getDatausers_bill();
         table_bill.setItems(listM);
@@ -1071,49 +1109,15 @@ public class Bill_employee implements Runnable, ThreadFactory , Initializable{
     
     @FXML
     void btn_add_point(ActionEvent event) {
-    	try {        
-    	if (text_cus_id.getText().trim().equals("1")) {
-        	System.out.println("lêu lêu ko đc cộng điểm");
-        }else {
-		conn = connectDB.ConnectDb();
-        String value1 = text_cus_id.getText();
-        String value2 = label_tien.getText();
-        System.out.println(value2);
-        String sql = "update customer set cus_point= '"+value2+"' where cus_id = '"+value1+"' ";
-        pst= conn.prepareStatement(sql);
-        pst.execute();
-		}
-
-        
-        
-
-        
-        
-        label_cus_point_end.setText("");
-        label_cus_poit.setText("");
-        label_cus_name.setText("");
-        label_error_cus1.setVisible(true);
-        btn_create_order.setDisable(false);
-        label_show1.setText("");
-        text_cus_code.setText("");
-        btn_cong_point.setDisable(true);
-        
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-
-    	
+    	label_cus_name.setText("Walk-in Guest");
+    	label_cus_poit.setText("0");
+    	label_cus_point_end.setText("0");
     	
     }
 	
 	    @FXML
 	    void quet(ActionEvent event) {
 	    	
-	    	WebcamQRCodeExample code = new WebcamQRCodeExample();	
-	    	code.setVisible(true);	    	
-	    	System.out.println(code.getStr());
-	    	String ab = code.getStr();
-	    	search_bill.setText(ab);
 	    	
 	    	
 	    	

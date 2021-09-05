@@ -1,10 +1,2 @@
 Welcome You to SuperMarket
-Name:  Bánh G?o               Price:  45000               Amount:  1
---  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --
-Name:  Bánh Pía               Price:  67000               Amount:  1
---  --  --  --  --  --  --  --  --  - -  --  --  --  --  --  --  --  --  --  --  --
-Total Bill : 112000
- You get You don't have enough points to get a discount. Let's try to steal!
-Payment : 112000.0
-------------------- Good Bye And See You Again-------------------
 

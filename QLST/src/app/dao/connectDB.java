@@ -63,12 +63,19 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Bill> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("select * from product");
+            PreparedStatement ps = conn.prepareStatement("select * from product INNER JOIN ware_house ON product.pro_id=ware_house.pro_id");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
 
-                list.add(new Bill(rs.getRow(),Integer.parseInt(rs.getString("pro_id")),rs.getString("pro_name"),rs.getString("pro_brand"),rs.getString("pro_sale_price"),rs.getString("barcode"),rs.getString("pro_category")));       
+                list.add(new Bill(rs.getRow(),Integer.parseInt(rs.getString("pro_id")),
+                		Integer.parseInt(rs.getString("amount_stock")),
+                		Integer.parseInt(rs.getString("amount_input")),
+                		rs.getString("pro_name"),
+                		rs.getString("pro_brand"),
+                		rs.getString("pro_sale_price"),
+                		rs.getString("barcode"),
+                		rs.getString("pro_category")));       
 
 
             }
@@ -274,11 +281,17 @@ public class connectDB {
         ObservableList<Order_Detail> list = FXCollections.observableArrayList();
         try {
 //            PreparedStatement ps = conn.prepareStatement("select product.pro_id, product.pro_name,product.pro_expiry,product.pro_unit,product.pro_category,product.pro_brand ,product.pro_sale_price,product.barcode from product INNER JOIN brand ON product.brand_id = brand.brand_id");
-        	PreparedStatement ps = conn.prepareStatement("select * from orders_detail where order_id = order_id");
+        	PreparedStatement ps = conn.prepareStatement("SELECT *, SUM(quantity) AS amount FROM orders_detail GROUP BY order_id, name");
             ResultSet rs = ps.executeQuery();
-            
+//            
             while (rs.next()){   
-                list.add(new Order_Detail(rs.getRow(),Integer.parseInt(rs.getString("order_id")),Integer.parseInt(rs.getString("quantity")),Integer.parseInt(rs.getString("price")),rs.getString("name"),Integer.parseInt(rs.getString("total"))));       
+                list.add(new Order_Detail(rs.getRow(),
+                		Integer.parseInt(rs.getString("order_id")),
+                		Integer.parseInt(rs.getString("order_detail_id")),
+                		Integer.parseInt(rs.getString("amount")),
+                		Integer.parseInt(rs.getString("price")),
+                		rs.getString("name"),
+                		Integer.parseInt(rs.getString("total"))));       
             }
         } catch (Exception e) {
         	System.out.println(e);
@@ -738,7 +751,8 @@ public class connectDB {
         return list;
         
 	}
-    
+
+
     
     
     

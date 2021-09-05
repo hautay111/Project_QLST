@@ -213,6 +213,8 @@ public class Inventory_Inset implements Initializable{
 	    
 	    @FXML
 	    void Inset_inventory(ActionEvent event) {
+	    	
+	    	
 	        conn = connectDB.ConnectDb();
 	        String sql = "insert into product (barcode,pro_name,pro_sale_price,pro_expiry,pro_unit,brand_id,pro_category,pro_brand,cat_id)values(?,?,?,?,?,?,?,?,?)";
 	        try {
