@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import app.model.*;
 import app.controller.employee_controller.Bill_Manage;
+import app.controller.employee_controller.Inventory_employee;
 import app.controller.employee_controller.Bill_Controller.Bill_Controller;
 import app.dao.connectDB;
 import app.model.Bill;
@@ -185,6 +186,8 @@ public class Home_Employee implements Initializable{
     @FXML
     private VBox home_lider;
     
+    
+    	
     public void initialize(URL url, ResourceBundle rb) {
     	
 
@@ -284,6 +287,8 @@ public class Home_Employee implements Initializable{
 			FXMLLoader loader=new FXMLLoader();
 			loader.setLocation(getClass().getResource("../../ui/employee/inventory.fxml"));							
 			Parent parent=loader.load();
+            Inventory_employee id_emp=  loader.getController();
+            id_emp.getEmp_id(a1);
 			Scene scene=new Scene(parent);	
 			stage.setScene(scene);
 			stage.show();

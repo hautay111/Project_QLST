@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 import app.controller.manage_controller.Product_controller.product;
@@ -27,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -54,6 +56,18 @@ public class Inventory_Inset implements Initializable{
 	    private TextField text_product_id;
 	    
 	    @FXML
+	    private TextField emp_id;
+
+	    @FXML
+	    private TextField id_input;
+
+	    @FXML
+	    private TextField input_id1;
+	    
+	    @FXML
+	    private Label label_notification;
+	    
+	    @FXML
 	    private DatePicker expiry;
 
 	    @FXML
@@ -64,6 +78,8 @@ public class Inventory_Inset implements Initializable{
 
 	    @FXML
 	    private TextField text_product_price;
+	    
+	    private static Integer input_id;
 	    
 	    @FXML
 	    private Label ltotal;
@@ -112,7 +128,12 @@ public class Inventory_Inset implements Initializable{
 	        private ComboBox<String> combobox_sup_id;
 
 			private int pro_id;
-	        
+			
+			 public void getEmp_id(String id_emp) {
+			    	emp_id.setText(id_emp);
+			    	System.out.println("emp_id bill employee: "+ emp_id.getText());
+			    }
+			 
 		      public void combobox_sup_id() {
 //			      ObservableList<String> list1 = FXCollections.observableArrayList("cat_name");
 //			      combobox_product.setItems(list1);
@@ -123,7 +144,7 @@ public class Inventory_Inset implements Initializable{
 			            conn = (Connection) connectDB.ConnectDb();
 			            PreparedStatement pstStn = conn.prepareStatement(sql);
 			            ResultSet stnRS = pstStn.executeQuery(sql);
-			
+			            
 			            while (stnRS.next()) {
 			
 //			            	combobox_product.getItems().add(stnRS.getString("cat_name"));
@@ -356,7 +377,7 @@ public class Inventory_Inset implements Initializable{
 				      
 				      
 	    @FXML
-	    void Inset_inventory(ActionEvent event) {
+	    void Inset_inventory(ActionEvent event) throws SQLException {
 	    	
 	    	
 	        conn = connectDB.ConnectDb();
@@ -411,108 +432,98 @@ public class Inventory_Inset implements Initializable{
 				JOptionPane.showMessageDialog(null, "Zo 1");
 				System.out.println(e);
 			}	
-		    
-	    	conn = connectDB.ConnectDb();
-			String sql1 = "insert into ware_house (date_input) values (?)";
-			try {
-	            pst = conn.prepareStatement(sql1);
-//	            pst.setString(1, text_product_id.getText());
-//	            pst.setString(2, text_product_amount.getText());
-//	            pst.setString(3, text_product_price_input.getText());
-	            pst.setString(1, date_input.getValue().toString());
-	            pst.execute();
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Zo 2");
-				// TODO: handle exception
-			}
-		    
-	    }
+	    
+//	    	conn = connectDB.ConnectDb();
+//			String sql1 = "insert into ware_house (date_input) values (?)";
+//			try {
+//	            pst = conn.prepareStatement(sql1);
+////	            pst.setString(1, text_product_id.getText());
+////	            pst.setString(2, text_product_amount.getText());
+////	            pst.setString(3, text_product_price_input.getText());
+//	            pst.setString(1, date_input.getValue().toString());
+//	            pst.execute();
+//			} catch (Exception e) {
+//				JOptionPane.showMessageDialog(null, "Zo 2");
+//				// TODO: handle exception
+//			}
+//		    
+//	    }
 
 	    
-	   
-//			conn = connectDB.ConnectDb();
-//			String sql2 = "insert into input_detail(amount,input_price) values (?,?)";
-//			try {
-//	            pst = conn.prepareStatement(sql2);
-//	            pst.setString(1, text_input_detail_amount.getText());
-//	            pst.setString(2, text_input_detail_price_input.getText());
-////	            pst.setString(3, text_product_id.getText());
-////	            pst.setInt(3, pro_id);
-//	            pst.execute();
-//	            System.out.println("Success new input detail");
-////	            try {
-//	  		        conn=connectDB.ConnectDb();
+  	    	conn=connectDB.ConnectDb();
+  	    	String query= "insert into input (emp_id) VALUES (?)";
+  			pst = conn.prepareStatement(query);
+  			pst.setString(1, emp_id.getText());
+  			pst.execute();
+  			System.out.println("new input success");
+  		    try {
+  		        conn=connectDB.ConnectDb();
+  		        String query3="SELECT input.* FROM input,employee WHERE input.emp_id=employee.emp_id ORDER BY input.input_id DESC LIMIT 1 ";
+  				pst= conn.prepareStatement(query3);
+  			    rs=pst.executeQuery();
+  			    if(rs.next()) {
+  			    	 id_input.setText(rs.getString("input_id"));
+  			    	 input_id1.setText(rs.getString("input_id"));
+  			    	 label_notification.setText("Create Input Succeed !!!");
+ 	    
+			    }
+			} catch (SQLException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Zo 2");
+				e.printStackTrace();
+			}
+				
+}
+
+	    {
+		    
+			conn = connectDB.ConnectDb();
+			String sql2 = "insert into input_detail(input_id,sup_id,pro_id,expiry,amount,input_price) values (?,?,?,?,?,?)";
+//			sql2="SELECT input_detail.*,input.input_id,supplier.sup_id,product.pro_id FROM input_detail,input,supplier,product WHERE input_detail.input_id=input.input_id,input_detail.sup_id=supplier.sup_id,input_detail.pro_id=product.pro_id ORDER BY input_detail.input_id,input_detail.sup_id,input_detail.pro_id DESC LIMIT 1";
+			try {
+	            pst = conn.prepareStatement(sql2);
+	            pst.setInt(1, input_id);
+	            pst.setInt(2, sup_id);
+	            pst.setInt(3, pro_id);
+	            pst.setString(4, expiry.getValue().toString());	
+	            pst.setString(5, text_input_detail_amount.getText());
+	            pst.setString(6, text_input_detail_price_input.getText());
+//	            pst.setString(3, text_product_id.getText());
+	            pst.execute();
+	            System.out.println("Success new input detail");
+	            Stage stage = (Stage) root.getScene().getWindow();
+	            // do what you have to do
+	            stage.close();
+	            try {
+	  		        conn=connectDB.ConnectDb();
 //	  		        String query1="SELECT input_detail.*,input.input_id,supplier.sup_id,product.pro_id FROM input_detail,input,supplier,product WHERE input_detail.input_id=input.input_id,input_detail.sup_id=supplier.sup_id,input_detail.pro_id=product.pro_id ORDER BY input_detail.input_id,input_detail.sup_id,input_detail.pro_id DESC LIMIT 1";
-//	  				pst= conn.prepareStatement(query1);
-//	  			    rs=pst.executeQuery();
+	  		        String query2="SELECT input_detail.* FROM input_detail";
+	  		        pst= conn.prepareStatement(query2);
+	  			    rs=pst.executeQuery();
+	  			  while(rs.next()) {
+				    	text_product_id.setText(rs.getString("input_id"));
+				    	System.out.println(text_product_id.getText());
+				    	 
+				    }	
 //	  			    if(rs.next()) {
 //	  			    	 id_input.setText(rs.getString("input_id"));
 //	  			    	 input_id1.setText(rs.getString("input_id"));
-//	  			    	 label_show.setVisible(true);
-//	  			    	 total_bill_pay.setText("");
-//	  			    	 total_bill_order.setText("");
-//	  			    	 label_cus_point_end.setText("");
-//	  			    	 label_cus_poit.setText("");
-//	  			    	 label_cus_name.setText("");
-//	  			    	 text_cus_code.setText("");
-//	  			    	 btn_create_order.setDisable(true);
-//	  			    	 text_discount.setText("");
-	  			    	    
+//	  			    	 JComponent label_show;
+//						label_show.setVisible(true);
 	  			    
-//			} catch (Exception e) {
+			} catch (Exception e) {
 //				JOptionPane.showMessageDialog(null, "Zo 3");
-//				// TODO: handle exception
-//			}
-//}
-	   			
+				// TODO: handle exception
+			}
+			    
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Zo 4");
+				// TODO: handle exception
+			}
+   
+			   
+	    }
 	    
-	//    @FXML
-//	      void new_orders(ActionEvent event) {
-//	      	try {
-//	  	    	conn=connectDB.ConnectDb();
-//	  	    	String query= "insert into orders (emp_id) VALUES (?)";
-//	  			pst = conn.prepareStatement(query);
-//	  			pst.setString(1, emp_id.getText());
-//	  			pst.execute();
-//	  			System.out.println("tao new orders thanh cong");
-//	  			search_user_bill_order();
-//	  		    try {
-//	  		        conn=connectDB.ConnectDb();
-//	  		        String query1="SELECT orders.*,employee.emp_name FROM orders,employee WHERE orders.emp_id=employee.emp_id ORDER BY orders.order_id DESC LIMIT 1 ";
-//	  				pst= conn.prepareStatement(query1);
-//	  			    rs=pst.executeQuery();
-//	  			    if(rs.next()) {
-//	  			    	 id_order.setText(rs.getString("order_id"));
-//	  			    	 order_id1.setText(rs.getString("order_id"));
-//	  			    	 label_show.setVisible(true);
-//	  			    	 total_bill_pay.setText("");
-//	  			    	 total_bill_order.setText("");
-//	  			    	 label_cus_point_end.setText("");
-//	  			    	 label_cus_poit.setText("");
-//	  			    	 label_cus_name.setText("");
-//	  			    	 text_cus_code.setText("");
-//	  			    	 btn_create_order.setDisable(true);
-//	  			    	 text_discount.setText("");
-//	  			    	    print.setDisable(false);
-//	  			    	    UpdateTable_bill();
-//	  			    	    btn_cong_point.setDisable(false);
-//	  			    	    print.setDisable(false);
-//	  			    	    label_error_cus1.setText("");
-//	  			    	    btn_add_product.setDisable(false);
-//	  			    	    
-//	  			    }
-//	  			} catch (SQLException e) {
-//	  				// TODO Auto-generated catch block
-//	  				e.printStackTrace();
-//	  			}
-//	  		    
-//	  		    
-//	  		} catch (SQLException e) {
-//	  			// TODO Auto-generated catch block
-//	  			e.printStackTrace();
-//	  		}
-//	      }
-
 		@Override
 		public void initialize(URL location, ResourceBundle resources) {
 			// TODO Auto-generated method stub
@@ -520,6 +531,7 @@ public class Inventory_Inset implements Initializable{
 	        product_combobox_category();
 	        product_combobox_unit();
 	        combobox_sup_id();
-		}
+	}
 	    
 }
+
