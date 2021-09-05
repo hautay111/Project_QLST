@@ -1,4 +1,4 @@
-package app.controller.homepage;
+	package app.controller.homepage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -101,16 +101,13 @@ public class Home_Employee implements Initializable{
     private TableColumn<Inventory, Integer> col_wh_id;
     
     @FXML
-    private TableColumn<Inventory, Integer> col_pro_id;
+    private TableColumn<Inventory, Integer> col_inp_de_id;
     
     @FXML
-    private TableColumn<Inventory, Integer> col_amount_stock;
+    private TableColumn<Inventory, Integer> col_quantity;
     
     @FXML
-    private TableColumn<Inventory, Integer> col_amount_input;
-    
-    @FXML
-    private TableColumn<Inventory, Integer> col_price_input;
+    private TableColumn<Inventory, Integer> col_input_price;
     
     
     @FXML

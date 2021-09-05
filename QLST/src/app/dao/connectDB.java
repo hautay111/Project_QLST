@@ -84,16 +84,15 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Inventory> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM ware_house INNER JOIN product ON ware_house.pro_id= product.pro_id");
-            ResultSet rs = ps.executeQuery();					
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.wh_id,input_detail.input_detail_id,product.pro_name,input_detail.amount,input_detail.input_price,ware_house.date_input FROM ware_house ,input_detail, product WHERE ware_house.input_detail_id=input_detail.input_detail_id");
+            ResultSet rs = ps.executeQuery();				
             
             while (rs.next()){   
                 list.add(new Inventory(
                 		Integer.parseInt(rs.getString("wh_id")),
-                		Integer.parseInt(rs.getString("pro_id")),
-                		Integer.parseInt(rs.getString("amount_stock")),
-                		Integer.parseInt(rs.getString("amount_input")),
-                		Integer.parseInt(rs.getString("price_input")),
+                		Integer.parseInt(rs.getString("input_detail_id")),
+                		Integer.parseInt(rs.getString("amount")),
+                		Integer.parseInt(rs.getString("input_price")),
                 		rs.getRow(),
                 		rs.getString("pro_name"), 
                 		rs.getString("date_input")
@@ -106,6 +105,7 @@ public class connectDB {
         return list;
         //SELECT ware_house.*,product.* FROM ware_house,product WHERE ware_house.pro_name=product.pro_name
         //SELECT ware_house.pro_name, product.pro_name FROM ware_house INNER JOIN product ON ware_house.pro_name = product.pro_name
+        //SELECT * FROM ware_house INNER JOIN product ON ware_house.pro_id= product.pro_id
 	} 
     
     

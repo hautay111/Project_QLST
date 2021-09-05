@@ -73,19 +73,19 @@ public class Inventory_employee implements Initializable{
 	    private TableView<Inventory> table_inventory;
 	    
 	    @FXML
+	    private TableColumn<Inventory, Integer> col_no;
+	    
+	    @FXML
 	    private TableColumn<Inventory, Integer> col_wh_id;
 	    
 	    @FXML
-	    private TableColumn<Inventory, Integer> col_pro_id;
+	    private TableColumn<Inventory, Integer> col_inp_de_id;
 	    
 	    @FXML
-	    private TableColumn<Inventory, Integer> col_amount_stock;
+	    private TableColumn<Inventory, Integer> col_amount;
 	    
 	    @FXML
-	    private TableColumn<Inventory, Integer> col_amount_input;
-	    
-	    @FXML
-	    private TableColumn<Inventory, Integer> col_price_input;
+	    private TableColumn<Inventory, Integer> col_input_price;
 	    
 	    @FXML
 	    private TextField search_inventory;
@@ -100,10 +100,7 @@ public class Inventory_employee implements Initializable{
 	    private TextField text_pro_name;
 	    
 	    @FXML
-	    private TextField text_amount_stock;
-	    
-	    @FXML
-	    private TextField text_amount_input;
+	    private TextField text_amount;
 	    
 	    @FXML
 	    private TextField text_price_input;
@@ -133,12 +130,11 @@ public class Inventory_employee implements Initializable{
 	    
 	    public void UpdateTable_inventory(){
 
-
+	    	col_no.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("no"));
 	    	col_wh_id.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("wh_id"));
-	    	col_pro_id.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("pro_id"));
-	    	col_amount_stock.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("amount_stock"));
-	    	col_amount_input.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("amount_input"));
-	    	col_price_input.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("price_input"));
+	    	col_inp_de_id.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("input_de_id"));
+	    	col_amount.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("amount"));
+	    	col_input_price.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("input_price"));
 	    	col_pro_name.setCellValueFactory(new PropertyValueFactory<Inventory,String>("pro_name"));
 	    	col_date_input.setCellValueFactory(new PropertyValueFactory<Inventory,String>("date_input"));
 	    	
@@ -152,11 +148,11 @@ public class Inventory_employee implements Initializable{
 
 	    @FXML
 	    void search_user_inventory(){
+	    	col_no.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("no"));
 	    	col_wh_id.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("wh_id"));
-	    	col_pro_id.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("pro_id"));
-	    	col_amount_stock.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("amount_stock"));
-	    	col_amount_input.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("amount_input"));
-	    	col_price_input.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("price_input"));
+	    	col_inp_de_id.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("input_de_id"));
+	    	col_amount.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("amount"));
+	    	col_input_price.setCellValueFactory(new PropertyValueFactory<Inventory,Integer>("input_price"));
 	    	col_pro_name.setCellValueFactory(new PropertyValueFactory<Inventory,String>("pro_name"));
 	    	col_date_input.setCellValueFactory(new PropertyValueFactory<Inventory,String>("date_input"));
 
@@ -250,14 +246,13 @@ public class Inventory_employee implements Initializable{
 					conn = connectDB.ConnectDb();
 					String value1 = text_wh_id.getText();
 		            String value2 = text_pro_id.getText();
-		            String value3 = text_amount_stock.getText();
-		            String value4 = text_amount_input.getText();
-		            String value5 = text_price_input.getText();
-		            String value6 = text_pro_name.getText();
-		            String value7 = text_date_input.getText();
+		            String value3 = text_amount.getText();
+		            String value4 = text_price_input.getText();
+		            String value5 = text_pro_name.getText();
+		            String value6 = text_date_input.getText();
 					
-					String sql = "update ware_house set pro_id= '" + value2 + "',amount_stock '" + value3 + "',amount_input '" + value4 + "',price_input '" + value5 + "',"
-							+ "pro_name '" + value6 + "',date_input '" + value7 + "' where wh_id= '" + value1 + "' ";
+					String sql = "update ware_house set pro_id= '" + value2 + "',amount '" + value3 + "',price_input '" + value4 + "',"
+							+ "pro_name '" + value5 + "',date_input '" + value6 + "' where wh_id= '" + value1 + "' ";
 					pst = conn.prepareStatement(sql);
 					pst.execute();
 					JOptionPane.showMessageDialog(null, "Update");
