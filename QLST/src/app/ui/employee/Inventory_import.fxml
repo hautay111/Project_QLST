@@ -107,5 +107,13 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
+      <TextField fx:id="emp_id" layoutX="20.0" layoutY="13.0" prefHeight="26.0" prefWidth="25.0" promptText="emp_id" />
+      <TextField fx:id="id_input" disable="true" layoutX="42.0" layoutY="13.0" opacity="0.0" prefHeight="26.0" prefWidth="0.0" promptText="id_input" />
+      <TextField fx:id="input_id1" layoutX="72.0" layoutY="13.0" opacity="0.0" prefHeight="26.0" prefWidth="0.0" promptText="input_id1" />
+      <Label fx:id="label_notification" layoutX="703.0" layoutY="332.0" prefHeight="39.0" prefWidth="174.0" textFill="#ffbfbf">
+         <font>
+            <Font name="Candara Bold Italic" size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

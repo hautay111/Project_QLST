@@ -92,7 +92,8 @@ public class Login {
 				status=rs.getInt("emp_status");
 				if(status==1) {
 					JOptionPane.showMessageDialog(null, "Tai Khoan Dang Dang Nhap Tren May Khac.");	
-				}else {
+				}else if(status==0){
+					
 					String sql1="Select * from title where title_id= '"+title_id+"' and title_name like '%emp%'";				
 					ResultSet rs1 = pst.executeQuery(sql1);
 					if (rs1.next()) {
@@ -127,7 +128,10 @@ public class Login {
 						Scene scene=new Scene(parent);				
 						stage.setScene(scene);
 					}
-				}							
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Tai Khoan het han su dung");	
+				}
 			}else {
         		JOptionPane.showMessageDialog(null, "Check username or password.");	
         	}

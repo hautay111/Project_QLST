@@ -28,6 +28,7 @@ import java.util.concurrent.Executors;
 
 import app.Main;
 import app.controller.employee_controller.Bill_Controller.export_inventory;
+import app.controller.employee_controller.Inventory_crud.Inventory_Inset;
 import app.controller.homepage.Home_Manage;
 import app.controller.manage_controller.Product_controller.Barcode_Create.Barcode_Image;
 import app.controller.manage_controller.product_crud.*;
@@ -260,6 +261,9 @@ public class Inventory_employee implements Initializable{
 		private Label amount_warehouse;
 	    
 	    @FXML
+	    private TextField emp_id;
+	    
+	    @FXML
 	    private Label ltotal;
 	    
 	    int index = -1;
@@ -271,6 +275,11 @@ public class Inventory_employee implements Initializable{
 	    ObservableList<Inventory> dataList;
 
 		private Result wh_id;
+		
+		 public void getEmp_id(String id_emp) {
+		    	emp_id.setText(id_emp);
+		    	System.out.println("emp_id bill employee: "+ emp_id.getText());
+		    }
 	
 	    
 	    public void UpdateTable_inventory(){
@@ -441,13 +450,17 @@ public class Inventory_employee implements Initializable{
 		}
 
 	    
+	    
 	    @FXML
 	    void Inventory_import(MouseEvent event) {
 		    try {
-		        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/Inventory_import.fxml"));
-		                Parent root = (Parent) fxmlLoader.load();
+		        FXMLLoader Loader = new FXMLLoader(getClass().getResource("../../ui/employee/Inventory_import.fxml"));
+		                Parent root = (Parent) Loader.load();
 		                Stage stage = new Stage();
-		                stage.setScene(new Scene(root));  
+		                stage.setScene(new Scene(root)); 
+		                Inventory_Inset id_emp=  Loader.getController();
+		                String a1=emp_id.getText();
+		                id_emp.getEmp_id(a1);
 		                stage.show();             
 		                UpdateTable_inventory();
 		                search_user_inventory();
@@ -503,7 +516,7 @@ public class Inventory_employee implements Initializable{
     	
     }
 	
-	public static int ware_house;
+	public static int product;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -513,13 +526,13 @@ public class Inventory_employee implements Initializable{
 		
 		try {
 			conn = connectDB.ConnectDb();
-			String sql7 = "select count(wh_id) from ware_house";
+			String sql7 = "select count(pro_name) from product";
 			pst = conn.prepareStatement(sql7);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				ware_house = rs.getInt(1);
-				amount_warehouse.setText(Integer.toString(ware_house));
-				System.out.println("Tong warehouse : --->" + ware_house);
+				product = rs.getInt(1);
+				amount_warehouse.setText(Integer.toString(product));
+				System.out.println("Tong product : --->" + product);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
