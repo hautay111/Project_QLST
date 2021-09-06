@@ -43,7 +43,7 @@ public class connectDB {
     public static Connection ConnectDb(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/qlst","root","");
+            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/qlst_2","root","");
            // JOptionPane.showMessageDialog(null, "Connection Established");
             System.out.println("ket noi database thanh cong");
             return conn;
@@ -282,7 +282,7 @@ public class connectDB {
         ObservableList<Order_Detail> list = FXCollections.observableArrayList();
         try {
 //            PreparedStatement ps = conn.prepareStatement("select product.pro_id, product.pro_name,product.pro_expiry,product.pro_unit,product.pro_category,product.pro_brand ,product.pro_sale_price,product.barcode from product INNER JOIN brand ON product.brand_id = brand.brand_id");
-        	PreparedStatement ps = conn.prepareStatement("SELECT *, SUM(quantity) AS amount FROM orders_detail GROUP BY order_id, name");
+        	PreparedStatement ps = conn.prepareStatement("SELECT *, SUM(quantity) AS amount , sum(total) as total1 FROM orders_detail GROUP BY order_id, name");
             ResultSet rs = ps.executeQuery();
 //            
             while (rs.next()){   
@@ -292,7 +292,7 @@ public class connectDB {
                 		Integer.parseInt(rs.getString("amount")),
                 		Integer.parseInt(rs.getString("price")),
                 		rs.getString("name"),
-                		Integer.parseInt(rs.getString("total"))));       
+                		Integer.parseInt(rs.getString("total1"))));       
             }
         } catch (Exception e) {
         	System.out.println(e);

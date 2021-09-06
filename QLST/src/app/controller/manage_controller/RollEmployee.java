@@ -1,15 +1,155 @@
 package app.controller.manage_controller;
 
-public class RollEmployee {
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.ResourceBundle;
 
-	
-	
-	
-	
-    public void getEmp_id(String id_emp, String user,String title,String name ) {
-//    	emp_id.setText(id_emp);
-//    	name_emp_bill.setText(name_emp);
-//    	image_qrcode_emp.setText(image_emp);
-//    	image_qrcode_emp();
+import app.dao.connectDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+public class RollEmployee implements Initializable{
+
+    @FXML
+    private Label emp_name;
+
+    @FXML
+    private Label emp_position;
+
+    @FXML
+    private Label emp_id;
+    
+    @FXML
+    private Label date_today;
+
+    @FXML
+    private Pane pane;
+    
+    @FXML
+    private ComboBox<String> roll_combox;
+    
+    int index = -1;
+    
+    Connection conn =null;
+    ResultSet rs = null;
+    PreparedStatement pst = null;
+    ObservableList<String> list = FXCollections.observableArrayList("Shift 1", "Shift 2","Shift 3");
+
+    public void initialize(URL url, ResourceBundle rb) {
+    	showdate();
+    	roll_combox.setItems(list);
+ 
     }
+    
+    public void getEmp_id(String id_emp,String title,String name ) {
+    	emp_id.setText(id_emp);
+    	emp_name.setText(name);
+    	emp_position.setText(title);
+
+    }
+    
+    public static  String DateFormat = "yyyy-MM-dd";
+    public void showdate()
+    {
+      Calendar cal= Calendar.getInstance();
+      SimpleDateFormat format = new SimpleDateFormat(DateFormat);
+      date_today.setText(format.format(cal.getTime()));
+      
+      
+      
+     }  
+    
+    
+    @FXML
+    void btn_canel(ActionEvent event) {
+		Stage stage = (Stage) pane.getScene().getWindow();
+		stage.close();	
+    }
+
+    
+    
+    public void roll_combobox() {
+    	
+
+    } 
+    
+    @FXML
+    void box_roll(ActionEvent event) {	
+    	
+    	String value = roll_combox.getSelectionModel().getSelectedItem().toString();
+    	System.out.println(value);
+    	
+    	
+    }
+    
+    @FXML
+    private Label date_data;
+    @FXML
+    void btn_ok_roll(ActionEvent event) {
+    	
+//	    try {
+//	        conn=connectDB.ConnectDb();
+//	        String query1="SELECT * FROM timesheets WHERE emp_id = ? ORDER BY th_id DESC LIMIT 1";
+//			pst.setString(1, emp_id.getText());
+//			pst= conn.prepareStatement(query1);
+//		    rs=pst.executeQuery();
+//				    if(rs.next()) {
+//				    	date_data.setText(rs.getString("date"));
+//				    	
+//				    }
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//    	
+//	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+////	    sdf.format(date_data.getText()).equals(sdf.format(date_today.getText()));
+//	    
+//	    if (sdf.format(date_data.getText()).equals(sdf.format(date_today.getText()))) {
+//			System.out.println("hello");
+//		}
+	    
+    	String value = roll_combox.getSelectionModel().getSelectedItem().toString();
+   		conn = connectDB.ConnectDb();
+	        String sql = "insert into timesheets (emp_id,shift)values(?,?)";
+	        		try {;
+     		            pst = conn.prepareStatement(sql);
+     		            pst.setString(1, emp_id.getText());
+     		           pst.setString(2, value);
+     		            pst.execute();
+		     		} catch (Exception e) {
+		     			System.out.println(e);
+		     			// TODO: handle exception
+		     		}
+
+    }
+	
+	@FXML
+	void exit(MouseEvent event) {
+			
+			Stage stage = (Stage) pane.getScene().getWindow();
+			stage.close();	
+			
+	}
+	
 }
