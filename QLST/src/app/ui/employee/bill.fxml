@@ -311,19 +311,24 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="29.0" prefWidth="372.0">
+            <HBox prefHeight="29.0" prefWidth="287.0" spacing="4.0">
                <children>
-                  <Label prefHeight="25.0" prefWidth="98.0" text="cash advance" textFill="WHITE">
+                  <Label prefHeight="25.0" prefWidth="108.0" text="Cash Advance :" textFill="WHITE">
                      <font>
                         <Font name="System Italic" size="15.0" />
                      </font>
                   </Label>
                   <TextField fx:id="tienthoi" onKeyTyped="#Scanner_cash" prefHeight="21.0" prefWidth="133.0" promptText="\$" />
+                  <ImageView fitHeight="26.0" fitWidth="36.0" onMouseClicked="#btn_dua_du" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/icons8-arrow-100.png" />
+                     </image>
+                  </ImageView>
                </children>
             </HBox>
             <HBox prefHeight="26.0" prefWidth="372.0">
                <children>
-                  <Label prefHeight="26.0" prefWidth="67.0" text="Change" textFill="WHITE">
+                  <Label prefHeight="26.0" prefWidth="67.0" text="Change :" textFill="WHITE">
                      <font>
                         <Font name="System Italic" size="15.0" />
                      </font>
