@@ -2,7 +2,7 @@ package app.model;
 
 public class Account1 {
 	int emp_id,emp_status,no;
-	String emp_name,emp_email,emp_phone,emp_address,emp_gender,title_name,emp_user,emp_pass;
+	String emp_name,emp_email,emp_phone,emp_address,emp_gender,title_name,emp_user,emp_pass,status1;
 	
 	public Account1(int emp_id, int emp_status, int no, String emp_name, String emp_email, String emp_phone,
 			String emp_address, String emp_gender, String title_name, String emp_user, String emp_pass) {
@@ -17,6 +17,13 @@ public class Account1 {
 		this.title_name = title_name;
 		this.emp_user = emp_user;
 		this.emp_pass = emp_pass;
+		if(this.emp_status==1) {
+			status1="Active";
+		}else if(this.emp_status==0){
+			status1="None Active";
+		}else {
+			status1="Bloked";
+		}
 	}
 
 	public int getEmp_id() {
@@ -33,6 +40,21 @@ public class Account1 {
 
 	public void setEmp_status(int emp_status) {
 		this.emp_status = emp_status;
+		if(this.emp_status==1) {
+			status1="Active";
+		}else if(this.emp_status==0){
+			status1="None Active";
+		}else {
+			status1="Bloked";
+		}
+	}
+
+	public String getStatus1() {
+		return status1;
+	}
+
+	public void setStatus1(String status1) {
+		this.status1 = status1;
 	}
 
 	public int getNo() {
