@@ -12,7 +12,7 @@
 
 <AnchorPane fx:id="root" prefHeight="393.0" prefWidth="1175.0" style="-fx-background-color: linear-gradient(to right, #0f0c29, #302b63, #24243e);" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Inventory_crud.Inventory_Inset">
    <children>
-      <Label alignment="CENTER" layoutX="490.0" layoutY="1.0" prefHeight="52.0" prefWidth="277.0" text="Receipt" textFill="WHITE" underline="true">
+      <Label alignment="CENTER" layoutX="458.0" prefHeight="52.0" prefWidth="277.0" text="Receipt" textFill="WHITE" underline="true">
          <font>
             <Font name="Impact" size="30.0" />
          </font>
@@ -107,7 +107,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <TextField fx:id="emp_id" layoutX="109.0" layoutY="13.0" prefHeight="26.0" prefWidth="64.0" promptText="emp_id" />
+      <TextField fx:id="emp_id" disable="true" layoutX="109.0" layoutY="13.0" prefHeight="26.0" prefWidth="64.0" promptText="emp_id" visible="false" />
       <Label fx:id="label_notification" layoutX="340.0" layoutY="331.0" prefHeight="39.0" prefWidth="193.0" textFill="#5dffc9">
          <font>
             <Font name="Candara Bold Italic" size="20.0" />
