@@ -48,7 +48,7 @@
                         </RadialGradient>
                      </textFill>
                   </Label>
-                  <TextField fx:id="emp_id" layoutX="268.0" layoutY="14.0" prefHeight="25.0" prefWidth="46.0" />
+                  <TextField fx:id="emp_id" layoutX="268.0" layoutY="14.0" opacity="0.0" prefHeight="25.0" prefWidth="46.0" />
                </children>
             </Pane>
             <Pane prefHeight="100.0" prefWidth="418.0">
@@ -63,8 +63,7 @@
             </Pane>
             <Pane prefHeight="100.0" prefWidth="438.0">
                <children>
-                  <ColorPicker layoutX="219.0" layoutY="37.0" prefHeight="28.0" prefWidth="125.0" promptText="ds" />
-                  <Label layoutX="-59.0" layoutY="38.0" prefHeight="26.0" prefWidth="117.0" text="Total products :">
+                  <Label layoutX="-8.0" layoutY="38.0" prefHeight="26.0" prefWidth="117.0" text="Total products :">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -85,10 +84,11 @@
                         </RadialGradient>
                      </textFill>
                   </Label>
-                  <Label fx:id="amount_warehouse" layoutX="66.0" layoutY="38.0" prefHeight="26.0" prefWidth="141.0" text="Amount product in warehouse:" textFill="#ff3838c0">
+                  <Label fx:id="amount_warehouse" layoutX="121.0" layoutY="37.0" prefHeight="26.0" prefWidth="141.0" text="Amount product in warehouse:" textFill="#ff3838c0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font></Label>
+                  <ColorPicker layoutX="287.0" layoutY="37.0" prefHeight="28.0" prefWidth="125.0" promptText="ds" />
                </children>
             </Pane>
          </children>
@@ -141,23 +141,24 @@
             <Image url="@../../image/icons8-go-back-48.png" />
          </image>
       </ImageView>
-      <Button layoutX="147.0" layoutY="161.0" mnemonicParsing="false" onMouseClicked="#Inventory_import" prefHeight="28.0" prefWidth="132.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Import goods" textFill="#fc6b6b">
+      <Button layoutX="147.0" layoutY="199.0" mnemonicParsing="false" onMouseClicked="#Inventory_import" prefHeight="28.0" prefWidth="132.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Import goods" textFill="#fc6b6b">
          <font>
             <Font name="Consolas" size="15.0" />
          </font>
       </Button>
-      <Button layoutX="743.0" layoutY="163.0" mnemonicParsing="false" onAction="#Delete_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Delete" />
-      <Button layoutX="627.0" layoutY="163.0" mnemonicParsing="false" onAction="#Update_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Update" />
+      <Button layoutX="741.0" layoutY="200.0" mnemonicParsing="false" onAction="#Delete_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Delete" textFill="#ff0c0c" />
+      <Button layoutX="627.0" layoutY="163.0" mnemonicParsing="false" onAction="#Update_inventory" opacity="0.0" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Update" />
       <TextField fx:id="text_product_id" layoutX="564.0" layoutY="120.0" prefHeight="25.0" prefWidth="54.0" visible="false" />
       <TextField fx:id="text_wh_id1" layoutX="637.0" layoutY="120.0" prefHeight="25.0" prefWidth="46.0" visible="false" />
 
 
 
-      <Button layoutX="515.0" layoutY="163.0" mnemonicParsing="false" onAction="#load_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Load" />
-      <Button layoutX="397.0" layoutY="163.0" mnemonicParsing="false" onAction="#export_product" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Export" />
+      <Button layoutX="611.0" layoutY="201.0" mnemonicParsing="false" onAction="#load_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Load" />
+      <Button layoutX="163.0" layoutY="150.0" mnemonicParsing="false" onAction="#export_product" opacity="0.0" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" stylesheets="@../css/application.css" text="Export" />
 
 
-      <Button layoutX="515.0" layoutY="163.0" mnemonicParsing="false" onAction="#load_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Load" />
-      <Button layoutX="397.0" layoutY="163.0" mnemonicParsing="false" onAction="#export_product" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Export" />
+      <Button layoutX="611.0" layoutY="201.0" mnemonicParsing="false" onAction="#load_inventory" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Load" textFill="#ff0303" />
+      <Button layoutX="163.0" layoutY="150.0" mnemonicParsing="false" onAction="#export_product" opacity="0.0" prefHeight="25.0" prefWidth="98.0" style="-fx-background-radius: 1em;" styleClass="Shiny" stylesheets="@../css/application.css" text="Export" textFill="RED" />
+      <TextField fx:id="text_input_detail_id" layoutX="477.0" layoutY="200.0" opacity="0.0" prefHeight="26.0" prefWidth="26.0" />
    </children>
 </AnchorPane>
