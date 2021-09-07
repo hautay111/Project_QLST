@@ -93,6 +93,11 @@
                   </VBox>
                   <Button fx:id="btn_remove" disable="true" layoutX="98.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_remove_order_row" text="Remove" />
                   <Button fx:id="btn_refresh" disable="true" layoutX="222.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_refresh_order" text="Refresh" />
+                  <Label fx:id="label_thongbao" layoutX="134.0" layoutY="214.0" prefHeight="25.0" prefWidth="288.0" textFill="RED">
+                     <font>
+                        <Font name="System Bold Italic" size="15.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Button layoutX="385.0" layoutY="30.0" mnemonicParsing="false" onAction="#add_cus" text="Register Customer" />
@@ -120,11 +125,6 @@
             <Image url="@../../image/icons8-go-back-48.png" />
          </image>
       </ImageView>
-      <Label fx:id="label_thongbao" layoutX="538.0" layoutY="18.0" prefHeight="17.0" prefWidth="288.0" textFill="RED">
-         <font>
-            <Font name="System Bold Italic" size="15.0" />
-         </font>
-      </Label>
       <Button fx:id="btn_print" disable="true" layoutX="35.0" layoutY="545.0" mnemonicParsing="false" onAction="#print_bill" prefHeight="33.0" prefWidth="59.0" text="Print" />
       <Pane layoutX="442.0" layoutY="161.0" prefHeight="116.0" prefWidth="248.0">
          <children>

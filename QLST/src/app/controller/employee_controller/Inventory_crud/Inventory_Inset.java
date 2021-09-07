@@ -325,8 +325,27 @@ public class Inventory_Inset implements Initializable{
 						e.printStackTrace();
 					}
 			      }
-		      
-		      
+		 
+			     @FXML 
+			     void Input_create(ActionEvent event) {
+			  	try {
+					conn=connectDB.ConnectDb();
+		  	    	String query= "insert into input (emp_id) VALUES (?)";
+		  			pst = conn.prepareStatement(query);
+		  			pst.setString(1, emp_id.getText());
+		  			pst.execute();
+		  			System.out.println("new input success");
+		  			label_notification.setText("Create Succeed !!!");
+		  			 if(rs.next()) {
+					    	 label_notification.setText("Create Succeed !!!");					    	 					    	    
+					    }
+			
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+        
+		}
+			     
 	    @FXML
 	    void Inset_inventory(ActionEvent event) throws SQLException {
 	    	
@@ -353,18 +372,6 @@ public class Inventory_Inset implements Initializable{
 	        	System.out.println(e);
 	        }
 	        	    
-	        
-	        		try {
-						conn=connectDB.ConnectDb();
-			  	    	String query= "insert into input (emp_id) VALUES (?)";
-			  			pst = conn.prepareStatement(query);
-			  			pst.setString(1, emp_id.getText());
-			  			pst.execute();
-			  			System.out.println("new input success");
-				
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
 	        
 
 			    try {

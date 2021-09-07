@@ -107,12 +107,17 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
-      <TextField fx:id="emp_id" layoutX="96.0" layoutY="13.0" prefHeight="26.0" prefWidth="48.0" promptText="emp_id" />
-      <Label fx:id="label_notification" layoutX="703.0" layoutY="332.0" prefHeight="39.0" prefWidth="174.0" textFill="#ffbfbf">
+      <TextField fx:id="emp_id" layoutX="109.0" layoutY="13.0" prefHeight="26.0" prefWidth="64.0" promptText="emp_id" />
+      <Label fx:id="label_notification" layoutX="340.0" layoutY="331.0" prefHeight="39.0" prefWidth="193.0" textFill="#5dffc9">
          <font>
             <Font name="Candara Bold Italic" size="20.0" />
          </font>
       </Label>
       <TextField fx:id="text_input_id" layoutX="295.0" layoutY="15.0" prefHeight="25.0" prefWidth="76.0" promptText="ID" visible="false" />
+      <Button layoutX="220.0" layoutY="338.0" mnemonicParsing="false" onAction="#Input_create" prefHeight="26.0" prefWidth="98.0" style="-fx-background-color: linear-gradient(to right, #abbaab, #ffffff);" text="Create Input" textFill="#ef2c13">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
