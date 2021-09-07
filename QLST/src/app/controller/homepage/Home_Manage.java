@@ -225,4 +225,8 @@ public class Home_Manage {
     void expiry(MouseEvent event) {
 		loadUI("run_out");
     }
+	@FXML
+    void ware_house(MouseEvent event) {
+		loadUI("ware_house");
+    }
 }

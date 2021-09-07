@@ -14,6 +14,7 @@ import app.model.ChangeShift;
 import app.model.Product;
 import app.model.Run_Out;
 import app.model.Title;
+import app.model.Ware_house;
 import app.model.search_dashboard.M1;
 import app.model.search_dashboard.M10;
 import app.model.search_dashboard.M11;
@@ -775,6 +776,36 @@ public class connectDB {
                 		rs.getString("input_price"),
                 		rs.getString("pro_name")
                 	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+
+    }
+//    --------------------------------ware_house----------------------
+    public static ObservableList<Ware_house> getDataWarehouse() {
+        Connection conn = ConnectDb();
+        ObservableList<Ware_house> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.wh_id,input_detail.input_detail_id,product.pro_id,product.pro_name,supplier.sup_name,input_detail.amount,input_detail.input_price,ware_house.date_input,input_detail.expiry FROM input_detail,ware_house,product,supplier WHERE input_detail.input_detail_id=ware_house.input_detail_id AND input_detail.pro_id=product.pro_id AND supplier.sup_id=input_detail.sup_id  AND input_detail.amount!=0 ORDER BY input_detail.expiry ASC");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Ware_house(
+                		rs.getInt("input_detail_id"),
+                		rs.getRow(), 
+                		rs.getInt("pro_id"), 
+                		rs.getString("wh_id"), 
+                		rs.getInt("amount"), 
+                		rs.getInt("input_price"), 
+                		rs.getString("pro_name"), 
+                		rs.getString("sup_name"), 
+                		rs.getString("date_input"), 
+                		rs.getString("expiry")
+                	));    
+                
                 
             }
         } catch (Exception e) {

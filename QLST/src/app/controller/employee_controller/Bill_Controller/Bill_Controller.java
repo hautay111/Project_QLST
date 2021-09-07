@@ -212,13 +212,13 @@ public void initialize(URL url, ResourceBundle rb) {
 //    image_emp.setImage(image);
 //    System.out.println(file+"/  /"+text);
 	
-//    	UpdateTable_Order_detail();
-    	id_order.setText("");
+    	UpdateTable_Order_detail();
     	showdate();
     	text_cus_id.setText("0");
         label_cus_poit.setText("0");
         label_cus_name.setText("Walk-in Guest");    	
-//        search_user_bill_order();
+        search_user_bill_order();
+        id_order.setText("");
         label_cus_point_end.setText("0");
     }
 private String imageUrl;
@@ -382,11 +382,16 @@ private void handleUpload(ActionEvent t) {
     
     @FXML
     private Label name_emp_bill;
-        
+    
+    @FXML
+//    private Label image_qrcode_emp;
+    
     public void getEmp_id(String id_emp, String name_emp) {
     	emp_id.setText(id_emp);
     	name_emp_bill.setText(name_emp);
-    	System.out.println("emp_id bill employee: "+ emp_id.getText() +"name bill employee:"+name_emp_bill.getText());
+//    	image_qrcode_emp.setText(image_emp);
+//    	image_qrcode_emp();
+//    	System.out.println("emp_id bill employee: "+ emp_id.getText() +"name bill employee:"+name_emp_bill.getText()+"   "+image_qrcode_emp.getText());
     }
 	
     @FXML
@@ -410,12 +415,10 @@ private void handleUpload(ActionEvent t) {
 					    	 label_thongbao.setText("Create Succeed !!!");
 					    	 
 					    	 btn_refresh.setDisable(false);
+					    	 btn_remove.setDisable(false);
 					    	 btn_buy_order.setDisable(false);
+					    	 btn_print.setDisable(false);
 					    	 btn_add_product.setDisable(false);
-					    	 total_bill_order.setText("");
-					    	 tienphaitrakhach.setText("");
-					    	 tienthoi.setText("");
-					    	 total_bill_pay.setText("");
 					    	    
 					    }
 					} catch (SQLException e) {
@@ -537,7 +540,7 @@ private void handleUpload(ActionEvent t) {
                 int amount = amount_stock - amount_product;
                 System.out.println(amount);
                 
-		    	 btn_remove.setDisable(false);
+                
                 if (amount_stock == 0) {
                 	label_thongbao.setText("out of stock !!!");
 				}
@@ -679,22 +682,18 @@ private void handleUpload(ActionEvent t) {
 	    	        (item) -> item.getTotal()).reduce(TotalPrice, (accumulator, _item) -> accumulator + _item);
 	      	   total_bill_order.setText((String.valueOf(TotalPrice)));
 	      	   
-	      	  	int z = 0;
-	      	  	int q = 0;	     	  	
+	      	  	double z = 0;
+	      	  	double q = 0;	     	  	
 	      	  	z = Integer.parseInt(text_discount.getText());	
 	      	  	q = 100 - z;   
 	    
-	      	  	int discount = (TotalPrice*(q/100));
+	      	  	double discount = (TotalPrice*(q/100));
 	      	  	total_bill_pay.setText(String.valueOf(discount));
 	           conn = connectDB.ConnectDb();
 	           String value1 = order_id1.getText();
 	           String value2 = total_bill_order.getText();
 	           String value3 = text_cus_id.getText();
 	           String sql = "update orders set total_price= '"+discount+"',cus_id= '"+value3+"' where order_id = '"+value1+"' ";
-		    	 btn_print.setDisable(false);
-		    	 btn_add_product.setDisable(true);
-		    	 btn_remove.setDisable(true);
-		    	 btn_buy_order.setDisable(true);
 	           pst= conn.prepareStatement(sql);
 	           pst.execute();
 	   	      } catch (Exception e) {
@@ -767,21 +766,18 @@ private void handleUpload(ActionEvent t) {
 			      	label_point_bill.setText((String.valueOf(point_bill)));
 						System.out.println(point);
 				}
-	  	  			int value = Integer.parseInt(text_cus_id.getText());	  	  			
-	  	  			
-	  	  			if (value == 0) {
-  	  						int diem=0;
+	  	  			int value = Integer.parseInt(text_cus_id.getText());
+	  	  			if (value != 0) {
+			          conn = connectDB.ConnectDb();
+			          String sql = "update orders set point= '"+label_point_bill.getText()+"', cus_id = '"+text_cus_id.getText()+"', discount = '"+text_discount.getText()+"' where order_id = '"+order_id1.getText()+"' ";
+			          pst= conn.prepareStatement(sql);
+			          pst.execute();
+	  	  			}else {
+	  	  				int diem=0;
 				          conn = connectDB.ConnectDb();
 				          String sql = "update orders set point= '"+diem+"', cus_id = '"+text_cus_id.getText()+"', discount = '"+text_discount.getText()+"' where order_id = '"+order_id1.getText()+"' ";
 				          pst= conn.prepareStatement(sql);
 				          pst.execute();
-	  	  			}else {
-	  	  				
-				          conn = connectDB.ConnectDb();
-				          String sql = "update orders set point= '"+label_point_bill.getText()+"', cus_id = '"+text_cus_id.getText()+"', discount = '"+text_discount.getText()+"' where order_id = '"+order_id1.getText()+"' ";
-				          pst= conn.prepareStatement(sql);
-				          pst.execute();
-	  	  				
 					}
 		      } catch (Exception e) {
 //		          JOptionPane.showMessageDialog(null, e);
@@ -789,17 +785,18 @@ private void handleUpload(ActionEvent t) {
 	      
 	      
 	      try {
-	    	  int z = 0;
-	   	  		z = Integer.parseInt(label_cus_poit.getText());	
+	   	  	int z = 0;
+	   	  	z = Integer.parseInt(label_cus_poit.getText());	
 	          int t = Integer.parseInt(label_cus_poit.getText());
 	          int id_cus = Integer.parseInt(text_cus_id.getText());
 	          int point = t - z;
 	          
-//		        conn = connectDB.ConnectDb();
-//		        String sql = "update customer set cus_point= '"+label_point_bill.getText()+"', last_purchase_date = '"+date_text.getText()+"' where cus_id = '"+id_cus+"' ";
-//		        pst= conn.prepareStatement(sql);
-//		        pst.execute();
-	        
+	          
+	          
+	        conn = connectDB.ConnectDb();
+	        String sql = "update customer set cus_point= '"+label_point_bill.getText()+"', last_purchase_date = '"+date_text.getText()+"' where cus_id = '"+id_cus+"' ";
+	        pst= conn.prepareStatement(sql);
+	        pst.execute();
 		      } catch (Exception e) {
 //		          JOptionPane.showMessageDialog(null, e);
 		      }
@@ -968,7 +965,6 @@ private void handleUpload(ActionEvent t) {
   }  
   
   
-  
   @FXML
   void Scanner_cash(KeyEvent event) {
   	double tienbill = Double.parseDouble(total_bill_pay.getText());	
@@ -988,8 +984,8 @@ private void handleUpload(ActionEvent t) {
   void print_bill(ActionEvent event) throws SQLException {
 
       try {
-          JasperDesign jasdi=JRXmlLoader.load("C:\\Users\\hau\\git\\Project_QLST\\QLST\\src\\app\\ui\\employee\\Invoice.jrxml");
-          String sql1s="SELECT *, SUM(quantity) AS amount , sum(total) as total1 FROM orders_detail WHERE order_id = '"+order_id1.getText()+"' GROUP BY order_id, name";
+          JasperDesign jasdi=JRXmlLoader.load("C:/java/work-space/Project_QLST/QLST/src/app/ui/employee/Bill_Order.jrxml");
+          String sql1s="SELECT *, SUM(quantity) AS amount FROM orders_detail WHERE order_id ='"+order_id1.getText()+"' GROUP BY order_id, name";
           JRDesignQuery newQuery=new JRDesignQuery();
           newQuery.setText(sql1s);
 
@@ -1000,15 +996,11 @@ private void handleUpload(ActionEvent t) {
           para.put("total",total_bill_pay.getText());
           para.put("cash",tienthoi.getText());
           para.put("tiendu",tienphaitrakhach.getText());
-          btn_refresh.setDisable(true);
-          id_order.setText("   ");
-          text_cus_code.setText("0");
-          btn_print.setDisable(true);
+          
           JasperReport js=JasperCompileManager.compileReport(jasdi);
           JasperPrint jp=JasperFillManager.fillReport(js,para,conn);
           // JasperExportManager.exportReportToHtmlFile(jp ,ore);
-//          JasperViewer.viewReport(jp);
-          JasperViewer.viewReport(jp, false);
+          JasperViewer.viewReport(jp);
       } catch (Exception e) {
           System.out.println(e);
       }
@@ -1017,13 +1009,6 @@ private void handleUpload(ActionEvent t) {
 
 	  
   }
-  
-  @FXML
-  void btn_dua_du(MouseEvent event) {
-	  tienthoi.setText(total_bill_pay.getText());
-	  tienphaitrakhach.setText("0 $");
-  }
-  
   
   @FXML
   void btn_refresh_order(ActionEvent event) {

@@ -127,7 +127,7 @@ public class account1 implements Initializable {
 	private TableColumn<Account1, String> col_pass;
 
 	@FXML
-	private TableColumn<Account1, Integer> col_status;
+	private TableColumn<Account1, String> col_status;
 	
 	@FXML
     private TableColumn<Account1, Integer> col_no;
@@ -476,7 +476,7 @@ public class account1 implements Initializable {
 		col_title.setCellValueFactory(new PropertyValueFactory<Account1, String>("title_name"));
 		col_user.setCellValueFactory(new PropertyValueFactory<Account1, String>("emp_user"));
 		col_pass.setCellValueFactory(new PropertyValueFactory<Account1, String>("emp_pass"));
-		col_status.setCellValueFactory(new PropertyValueFactory<Account1, Integer>("emp_status"));
+		col_status.setCellValueFactory(new PropertyValueFactory<Account1, String>("status1"));
 
 		dataList = connectDB.getDataAccount1();
 		table_account.setItems(dataList);
