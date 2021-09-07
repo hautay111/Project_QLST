@@ -92,7 +92,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Inventory> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.wh_id,input_detail.input_detail_id,product.pro_name,input_detail.amount,input_detail.input_price,ware_house.date_input FROM ware_house ,input_detail, product WHERE ware_house.input_detail_id=input_detail.input_detail_id");
+            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.wh_id,input_detail.pro_id, product.pro_name,input_detail.amount,input_detail.input_price,input_detail.input_detail_id,ware_house.date_input FROM ware_house ,input_detail, product WHERE ware_house.input_detail_id=input_detail.input_detail_id AND input_detail.pro_id=product.pro_id AND input_detail.amount != 0");
             ResultSet rs = ps.executeQuery();				
             
             while (rs.next()){   
