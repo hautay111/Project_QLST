@@ -17,6 +17,7 @@ import app.model.*;
 import app.controller.employee_controller.Bill_Manage;
 import app.controller.employee_controller.Inventory_employee;
 import app.controller.employee_controller.Bill_Controller.Bill_Controller;
+import app.controller.manage_controller.RollEmployee;
 import app.dao.connectDB;
 import app.model.Bill;
 import app.model.ChangeShift;
@@ -195,7 +196,35 @@ public class Home_Employee implements Initializable{
     
     @FXML
     void btn_roll_call(MouseEvent event) {
-
+//        try {
+//			Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+//			FXMLLoader loader=new FXMLLoader();
+//			loader.setLocation(getClass().getResource("../../ui/employee/RollEmployee.fxml"));							
+//			Parent parent=loader.load();
+//            RollEmployee id_emp=  loader.getController();
+//            id_emp.getEmp_id(a1,a3,a2);
+//			Scene scene=new Scene(parent);				
+//			stage.setScene(scene);
+//			stage.show();
+//        } catch (Exception ex) {
+//            System.out.println("y"+ex.getMessage());
+//        }
+        
+        
+        
+	    try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/employee/RollEmployee.fxml"));
+	                Parent root = (Parent) fxmlLoader.load();
+	              RollEmployee id_emp=  fxmlLoader.getController();
+	              id_emp.getEmp_id(a1,a3,a2);
+	                Stage stage = new Stage();
+	                stage.setScene(new Scene(root));  
+	                stage.show();             	  
+	               
+	        } catch(Exception e) {
+	        	
+	           e.printStackTrace();
+	          }
     }
     
     
@@ -402,7 +431,7 @@ public class Home_Employee implements Initializable{
 		a2=user.getText();
 		a3=title.getText();
 		
-		System.out.println(a1+" / "+a2+" / "+a3 );
+		System.out.println(a1+" / "+a2+" / "+a3);
 	}
 
 	

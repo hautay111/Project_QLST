@@ -5,8 +5,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -39,13 +44,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 public class account1 implements Initializable {
 	EncryptorAES encryptorAES = new EncryptorAES();
 
 	Connection conn = null;
-	ResultSet rs = null;
-	PreparedStatement pst = null;
+	ResultSet rs = null,rs1=null;
+	PreparedStatement pst = null,pst1=null;
 	int index = -1;
 	
 	@FXML
@@ -83,6 +89,12 @@ public class account1 implements Initializable {
 
 	@FXML
 	private TextField txt_search;
+	
+	@FXML
+    private TextField status;
+	
+	@FXML
+    private HBox a;
 
 	@FXML
 	private TableView<Account1> table_account;
@@ -142,100 +154,159 @@ public class account1 implements Initializable {
 		conn = connectDB.ConnectDb();
 		String sql = "insert into employee (emp_name,emp_email,emp_phone,emp_address,emp_birthday,emp_start_date,emp_gender,title_id,emp_user,emp_pass) "
 				+ "values(?,?,?,?,?,?,?,?,?,?)";
-		try {
-			if (pass.getText().trim().equals("")) {
-				JOptionPane.showMessageDialog(null, "Password cannot be blank!!");
-				System.out.println("trong r");
-			} else {
-				String input_text = pass.getText();
-				String enBase64 = encode(input_text);
-				String key = "65 12 12 12 12 12 12 12 12 12 12 12 12 12 12 11";
-				String encryptedString = null;
-				encryptedString = encryptorAES.encrypt(enBase64, key);
+		String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(java.time.LocalDate.now());
+		Date date1=sdf.parse(timeStamp);
+		Date date2=sdf.parse(dateofbirth.getValue().toString());
+		Date date3=sdf.parse(date_start.getValue().toString());
+		System.out.println(date2);
+		System.out.println(date3);
+		int ss=date2.compareTo(date3);
+		
+		if(ss>0) {
+			JOptionPane.showMessageDialog(null, "Date of birthday > Date Start");
+		} else {
+			try {
+				if (pass.getText().trim().equals("")) {
+					JOptionPane.showMessageDialog(null, "Password cannot be blank!!");
+					System.out.println("trong r");
+				} else {
+					String input_text = pass.getText();
+					String enBase64 = encode(input_text);
+					String key = "65 12 12 12 12 12 12 12 12 12 12 12 12 12 12 11";
+					String encryptedString = null;
+					encryptedString = encryptorAES.encrypt(enBase64, key);
 
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, name.getText());
-				pst.setString(2, email.getText());
-				pst.setString(3, phone.getText());
-				pst.setString(4, address.getText());
-				pst.setString(5, dateofbirth.getEditor().getText());
-				pst.setString(6, date_start.getEditor().getText());
-				pst.setString(7, gender.getValue());
-				pst.setInt(8, title_id);
-				pst.setString(9, user.getText());
-				pst.setString(10, encryptedString);
-				pst.execute();
-//				--------------------------------------------------
-				// Your gmail address
-				String myAccountEmail = "crmgroupapp@gmail.com";
-				// Your gmail password
-				String password = "crmapp0123123";
+					pst = conn.prepareStatement(sql);
+					pst.setString(1, name.getText());
+					pst.setString(2, email.getText());
+					pst.setString(3, phone.getText());
+					pst.setString(4, address.getText());
+					pst.setString(5, dateofbirth.getEditor().getText());
+					pst.setString(6, date_start.getEditor().getText());
+					pst.setString(7, gender.getValue());
+					pst.setInt(8, title_id);
+					pst.setString(9, user.getText());
+					pst.setString(10, encryptedString);
+					pst.execute();
+//					--------------------------------------------------
+					// Your gmail address
+					String myAccountEmail = "crmgroupapp@gmail.com";
+					// Your gmail password
+					String password = "crmapp0123123";
 
-				Properties properties = new Properties();
+					Properties properties = new Properties();
 
-				properties.put("mail.smtp.auth", "true");
-				properties.put("mail.smtp.starttls.enable", "true");
-				properties.put("mail.smtp.host", "smtp.gmail.com");
-				properties.put("mail.smtp.port", "587");
+					properties.put("mail.smtp.auth", "true");
+					properties.put("mail.smtp.starttls.enable", "true");
+					properties.put("mail.smtp.host", "smtp.gmail.com");
+					properties.put("mail.smtp.port", "587");
 
-				Session session = Session.getInstance(properties, new Authenticator() {
-					@Override
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(myAccountEmail, password);
+					Session session = Session.getInstance(properties, new Authenticator() {
+						@Override
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(myAccountEmail, password);
+						}
+					});
+
+					try {
+						System.out.println("Sending.");					
+						Message message = new MimeMessage(session);
+						message.setFrom(new InternetAddress(myAccountEmail));
+						message.setRecipient(Message.RecipientType.TO, new InternetAddress(email.getText()));
+						message.setSubject("Account:");
+						String htmlCode = "<h2>"
+								+ "			Super market group send to <i> <u>" + name.getText()+ "</u> </i> . <br> "
+								+ "        Information Account."
+								+ "    </h2>"
+								+ "    <h3>Title: <i> <u>" + title.getValue()+ "</u> </i> <br/> "
+								+ "        Start work on: <i> <u>" + date_start.getEditor().getText()+ " at 7h00 am</u> </i> <br>"
+								+ "        username:<i> <u>" + user.getText()+ "</u> </i> <br/> "
+								+ "        Password:<i> <u>" + pass.getText() + "</u> </i> "
+								+ "    </h3>"
+								+ "    <p>"
+								+ "        If you have any questions, please contact: 0252112002 . <br>"
+								+ "        wish you good day."
+								+ "    </p>";
+						message.setContent(htmlCode, "text/html; charset=utf-8");
+						Transport.send(message);
+						JOptionPane.showMessageDialog(null, "Add  And Send Successfully");
+						System.out.println("Message sent successfully");
+					} catch (Exception ex) {
+						// TODO: handle exception
+						ex.printStackTrace();
 					}
-				});
-
-				try {
-					System.out.println("Sending.");					
-					Message message = new MimeMessage(session);
-					message.setFrom(new InternetAddress(myAccountEmail));
-					message.setRecipient(Message.RecipientType.TO, new InternetAddress(email.getText()));
-					message.setSubject("Account:");
-					String htmlCode = "<h2>"
-							+ "			Super market group send to <i> <u>" + name.getText()+ "</u> </i> . <br> "
-							+ "        Information Account."
-							+ "    </h2>"
-							+ "    <h3>Title: <i> <u>" + title.getValue()+ "</u> </i> <br/> "
-							+ "        Start work on: <i> <u>" + date_start.getEditor().getText()+ " at 7h00 am</u> </i> <br>"
-							+ "        username:<i> <u>" + user.getText()+ "</u> </i> <br/> "
-							+ "        Password:<i> <u>" + pass.getText() + "</u> </i> "
-							+ "    </h3>"
-							+ "    <p>"
-							+ "        If you have any questions, please contact: 0252112002 . <br>"
-							+ "        wish you good day."
-							+ "    </p>";
-					message.setContent(htmlCode, "text/html; charset=utf-8");
-					Transport.send(message);
-					JOptionPane.showMessageDialog(null, "Add  And Send Successfully");
-					System.out.println("Message sent successfully");
-				} catch (Exception ex) {
-					// TODO: handle exception
-					ex.printStackTrace();
+//					------------------------------------------------
+//					UpdateTable1();
+					search_account();
+					reset();
+					a.setVisible(false);
 				}
-//				------------------------------------------------
-//				UpdateTable1();
-				search_account();
-				reset();
-			}
 
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e);
+			}
 		}
 
 	}
 
 	@FXML
-	void Delete(ActionEvent event) {
+	void Delete(ActionEvent event) throws SQLException {
+		//SELECT title.title_name from employee,title where employee.emp_id=20 and employee.title_id=title.title_id AND title.title_name LIKE '%security%'
+//		conn = connectDB.ConnectDb();
+//		String sql = "SELECT employee.*,title.* from employee,title where employee.emp_id=? and employee.title_id=title.title_id AND title.title_name not LIKE '%security%'";
+//		String sql1 = "select orders.order_id,orders.emp_id FROM orders WHERE orders.emp_id=?";
+//		pst = conn.prepareStatement(sql1);
+//		pst.setString(1, id.getText());
+//		rs=pst.executeQuery();
+//		String sql2 = "SELECT title.title_name from employee,title where employee.emp_id=? and employee.title_id=title.title_id AND title.title_name LIKE '%security%'";
+//		pst1 = conn.prepareStatement(sql2);
+//		pst1.setString(1, id.getText());
+//		rs1=pst1.executeQuery();
+//		try {
+//			if(rs.next()) {
+//				JOptionPane.showMessageDialog(null, "khong the xoa, nhan vien da lap order");
+//			}else {
+//				
+//				if(rs1.next()) {
+//					JOptionPane.showMessageDialog(null, "Day la tai khoan bao ve");
+//				}else {
+//					pst = conn.prepareStatement(sql);
+//					pst.setString(1, id.getText());
+//					pst.execute();
+//					JOptionPane.showMessageDialog(null, "Delete");
+////					UpdateTable1();
+//					search_account();
+//					reset();
+//					a.setVisible(false);
+//				}
+//				
+//			}
+		
 		conn = connectDB.ConnectDb();
-		String sql = "delete from employee where emp_id = ?";
+		String sql = "DELETE employee.* from employee,title where employee.emp_id=? and employee.title_id=title.title_id";
+		String sql1 = "select orders.order_id,orders.emp_id FROM orders WHERE orders.emp_id=?";
+		pst = conn.prepareStatement(sql1);
+		pst.setString(1, id.getText());
+		rs=pst.executeQuery();
+		
 		try {
-			pst = conn.prepareStatement(sql);
-			pst.setString(1, id.getText());
-			pst.execute();
-			JOptionPane.showMessageDialog(null, "Delete");
-//			UpdateTable1();
-			search_account();
-			reset();
+			if(rs.next()) {
+				JOptionPane.showMessageDialog(null, "khong the xoa, nhan vien da lap order");
+			}else {
+				
+					pst = conn.prepareStatement(sql);
+					pst.setString(1, id.getText());
+					pst.execute();
+					JOptionPane.showMessageDialog(null, "Delete");
+//					UpdateTable1();
+					search_account();
+					reset();
+					a.setVisible(false);
+				
+			}
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 		}
@@ -246,6 +317,7 @@ public class account1 implements Initializable {
 //		UpdateTable1();
 		search_account();
 		reset();
+		a.setVisible(false);
 	}
 
 	@FXML
@@ -263,14 +335,16 @@ public class account1 implements Initializable {
 				String value6 = gender.getValue();
 				Integer value7 = title_id;
 				String value8 = user.getText();
+				String value9 = status.getText();
 				String sql = "update employee set emp_name= '" + value2 + "',emp_email= '" + value3 + "',emp_phone= '"
 						+ value4 + "',emp_address= '" + value5 + "',emp_gender= '" + value6 + "',title_id='" + value7
-						+ "',emp_user= '" + value8 + "' where emp_id= '" + value1 + "' ";
+						+ "',emp_user= '" + value8 +"',emp_status= '" + value9 +"' where emp_id= '" + value1 + "' ";
 				pst = conn.prepareStatement(sql);
 				pst.execute();
 				JOptionPane.showMessageDialog(null, "Update");
 //				UpdateTable1();
 				search_account();
+				a.setVisible(false);
 				reset();
 			}
 
@@ -361,6 +435,7 @@ public class account1 implements Initializable {
 
 			return;
 		}
+		a.setVisible(true);
 		id.setText(col_id.getCellData(index).toString());
 		name.setText(col_name.getCellData(index).toString());
 		email.setText(col_email.getCellData(index).toString());
@@ -369,6 +444,7 @@ public class account1 implements Initializable {
 		gender.setValue(col_gender.getCellData(index).toString());
 		title.setValue(col_title.getCellData(index).toString());
 		user.setText(col_user.getCellData(index).toString());
+		status.setText(col_status.getCellData(index).toString());
 //        pass.setText(col_pass.getCellData(index).toString());
 	}
 
