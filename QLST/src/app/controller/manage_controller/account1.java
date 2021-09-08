@@ -170,7 +170,6 @@ public class account1 implements Initializable {
 			try {
 				if (pass.getText().trim().equals("")) {
 					JOptionPane.showMessageDialog(null, "Password cannot be blank!!");
-					System.out.println("trong r");
 				} else {
 					String input_text = pass.getText();
 					String enBase64 = encode(input_text);
@@ -293,7 +292,7 @@ public class account1 implements Initializable {
 		
 		try {
 			if(rs.next()) {
-				JOptionPane.showMessageDialog(null, "khong the xoa, nhan vien da lap order");
+				JOptionPane.showMessageDialog(null, "Can't delete because the staff has made an order.Please close the account.");
 			}else {
 				
 					pst = conn.prepareStatement(sql);

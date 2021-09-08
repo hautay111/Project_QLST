@@ -91,7 +91,7 @@ public class Login {
 				user=rs.getString("emp_name");
 				status=rs.getInt("emp_status");
 				if(status==1) {
-					JOptionPane.showMessageDialog(null, "Tai Khoan Dang Dang Nhap Tren May Khac.");	
+					JOptionPane.showMessageDialog(null, "Account is logged in on another machine");	
 				}else if(status==0){
 					
 					String sql1="Select * from title where title_id= '"+title_id+"' and title_name like '%emp%'";				
@@ -130,7 +130,7 @@ public class Login {
 					}
 					
 				}else {
-					JOptionPane.showMessageDialog(null, "Tai Khoan het han su dung");	
+					JOptionPane.showMessageDialog(null, "Account has been locked.");	
 				}
 			}else {
         		JOptionPane.showMessageDialog(null, "Check username or password.");	

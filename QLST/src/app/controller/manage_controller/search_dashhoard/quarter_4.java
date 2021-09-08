@@ -81,7 +81,7 @@ public class quarter_4 implements Initializable{
     private TableColumn<Quarter_4, Integer> col_amount;
 
     public static int amount;
-	public static int product, orders,input, sales_money1, import_money1;
+    public static int input, sales_money1, import_money1,input_price,orders,product;
 	
     @FXML
     void back(MouseEvent event) {
@@ -156,12 +156,13 @@ public class quarter_4 implements Initializable{
 		}
 		try {
 			conn = connectDB.ConnectDb();
-			String sql2 = "SELECT SUM(total) FROM input WHERE Quarter(time)=4";
+			String sql2 = "SELECT SUM(input_detail.input_price*input_detail.amount) AS 'total' FROM input_detail,input WHERE QUARTER(input.time)=4 AND input.input_id=input_detail.input_id";
 			String sql1 = "SELECT SUM(orders.total_price) FROM orders WHERE QUARTER(orders.time)=4";
+			String sql3 = "SELECT SUM(output_detail.quantity)*input_detail.input_price FROM output_detail,input_detail,ware_house,output WHERE output_detail.wh_id=ware_house.wh_id AND input_detail.input_detail_id=ware_house.input_detail_id AND QUARTER(output.time)=4 AND output_detail.output_id=output.output_id";
 			pst = conn.prepareStatement(sql2);
 			rs = pst.executeQuery();
 			if (rs.next()) {
-				import_money1=rs.getInt("SUM(total)");
+				import_money1=rs.getInt("total");
 				import_money.setText(Integer.toString(import_money1));
 				pst = conn.prepareStatement(sql1);
 				ResultSet rs1 = pst.executeQuery();
@@ -169,7 +170,12 @@ public class quarter_4 implements Initializable{
 					sales_money1=rs1.getInt("SUM(orders.total_price)");
 					sales_money.setText(Integer.toString(sales_money1));
 				}
-				input=sales_money1-import_money1;
+				pst = conn.prepareStatement(sql3);
+				ResultSet rs3 = pst.executeQuery();
+				if(rs3.next()) {
+					input_price=rs3.getInt("SUM(output_detail.quantity)*input_detail.input_price");
+				}
+				input=sales_money1-input_price;
 				money.setText(Integer.toString(input));
 				System.out.println("DT: --->" + input);
 			}
