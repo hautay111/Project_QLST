@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import app.controller.employee_controller.Bill_Manage;
+import app.controller.manage_controller.RollEmployee;
 import app.dao.connectDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -121,6 +122,27 @@ public class Home_Manage {
 //		Parent parent=loader.load();
 //		mainPane.setCenter(parent);
     }
+	
+
+    @FXML
+    void roll_manage(MouseEvent event) {
+
+	    try {
+	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../ui/manage/RollEmployee.fxml"));
+	                Parent root = (Parent) fxmlLoader.load();
+	              RollEmployee id_emp=  fxmlLoader.getController();
+	              id_emp.getEmp_id(a1,a3,a2);
+	                Stage stage = new Stage();
+	                stage.setScene(new Scene(root));  
+	                stage.show();             	  
+	               
+	        } catch(Exception e) {
+	        	
+	           e.printStackTrace();
+	          }
+    	
+    }
+	
 	
 	private static String emp_id, name,phone,email,username,title_name,date;
 	@FXML

@@ -11,6 +11,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import app.dao.connectDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +26,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -48,6 +52,10 @@ public class RollEmployee implements Initializable{
     @FXML
     private ComboBox<String> roll_combox;
     
+    @FXML
+    private TextField emp_id_scanner;
+
+    
     int index = -1;
     
     Connection conn =null;
@@ -58,14 +66,14 @@ public class RollEmployee implements Initializable{
     public void initialize(URL url, ResourceBundle rb) {
     	showdate();
     	roll_combox.setItems(list);
- 
+    	emp_id_scanner.setText(" ");
     }
     
     public void getEmp_id(String id_emp,String title,String name ) {
     	emp_id.setText(id_emp);
     	emp_name.setText(name);
     	emp_position.setText(title);
-
+    	emp_id_scanner.setText(id_emp);
     }
     
     public static  String DateFormat = "yyyy-MM-dd";
@@ -86,13 +94,11 @@ public class RollEmployee implements Initializable{
 		stage.close();	
     }
 
-    
-    
-    public void roll_combobox() {
-    	
 
-    } 
-    
+    @FXML
+    void scanner_emp(KeyEvent event) {
+    	
+    }
     @FXML
     void box_roll(ActionEvent event) {	
     	
@@ -102,32 +108,16 @@ public class RollEmployee implements Initializable{
     	
     }
     
+    
+    
+    
+    
     @FXML
     private Label date_data;
     @FXML
     void btn_ok_roll(ActionEvent event) {
     	
-//	    try {
-//	        conn=connectDB.ConnectDb();
-//	        String query1="SELECT * FROM timesheets WHERE emp_id = ? ORDER BY th_id DESC LIMIT 1";
-//			pst.setString(1, emp_id.getText());
-//			pst= conn.prepareStatement(query1);
-//		    rs=pst.executeQuery();
-//				    if(rs.next()) {
-//				    	date_data.setText(rs.getString("date"));
-//				    	
-//				    }
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//    	
-//	    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-////	    sdf.format(date_data.getText()).equals(sdf.format(date_today.getText()));
-//	    
-//	    if (sdf.format(date_data.getText()).equals(sdf.format(date_today.getText()))) {
-//			System.out.println("hello");
-//		}
+	   
 	    
     	String value = roll_combox.getSelectionModel().getSelectedItem().toString();
    		conn = connectDB.ConnectDb();

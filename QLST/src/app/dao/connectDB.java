@@ -44,7 +44,7 @@ public class connectDB {
     public static Connection ConnectDb(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/qlst","root","");
+            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/qlst_2","root","");
            // JOptionPane.showMessageDialog(null, "Connection Established");
             System.out.println("ket noi database thanh cong");
             return conn;
@@ -269,7 +269,7 @@ public class connectDB {
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
-                list.add(new Product(Integer.parseInt(rs.getString("pro_id")),rs.getRow(),rs.getString("pro_sale_price"),rs.getString("barcode"),rs.getString("pro_name"),rs.getString("pro_expiry"),rs.getString("pro_unit"),rs.getString("pro_brand"),rs.getString("pro_category")));       
+                list.add(new Product(Integer.parseInt(rs.getString("pro_id")),rs.getRow(),rs.getString("pro_sale_price"),rs.getString("barcode"),rs.getString("pro_name"),rs.getString("pro_expiry")));       
             }
         } catch (Exception e) {
         	System.out.println(e);

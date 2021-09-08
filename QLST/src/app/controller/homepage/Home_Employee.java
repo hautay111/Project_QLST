@@ -220,7 +220,7 @@ public class Home_Employee implements Initializable{
 	                Stage stage = new Stage();
 	                stage.setScene(new Scene(root));  
 	                stage.show();             	  
-	               
+	                
 	        } catch(Exception e) {
 	        	
 	           e.printStackTrace();
@@ -229,7 +229,7 @@ public class Home_Employee implements Initializable{
     
     
     @FXML
-	void home(MouseEvent event) throws IOException {
+	 void home(MouseEvent event) throws IOException {
 		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
 		FXMLLoader loader=new FXMLLoader();
 		loader.setLocation(getClass().getResource("../../ui/homepage/Home_Employee.fxml"));							
@@ -286,7 +286,7 @@ public class Home_Employee implements Initializable{
 			loader.setLocation(getClass().getResource("../../ui/employee/bill.fxml"));							
 			Parent parent=loader.load();
             Bill_Controller id_emp=  loader.getController();
-            id_emp.getEmp_id(a1,a2);
+            id_emp.getEmp_id(a1,a2,a3);
 			Scene scene=new Scene(parent);				
 			stage.setScene(scene);
 			stage.show();
@@ -433,7 +433,6 @@ public class Home_Employee implements Initializable{
 		
 		System.out.println(a1+" / "+a2+" / "+a3);
 	}
-
 	
 	
 

@@ -108,10 +108,6 @@ public class product_add implements Initializable{
 	        
 	        public void product_combobox() {
 	          ObservableList<String> list1 = FXCollections.observableArrayList("cat_name");
-//	        	
-//	          combobox_product.getItems().add ("Lựa chọn 1");
-//	          combobox_product.getItems().add ("Lựa chọn 2");
-//	          combobox_product.getItems().add ("Lựa chọn 3");
 	          
 	            String sql = " select * from unit ";
 
@@ -257,7 +253,7 @@ public class product_add implements Initializable{
 	    @FXML
 	    void btn_product_add(ActionEvent event) {
 	        conn = connectDB.ConnectDb();
-	        String sql = "insert into product (barcode,pro_name,pro_sale_price,pro_expiry,pro_unit,brand_id,pro_category,pro_brand,cat_id,unit_id)values(?,?,?,?,?,?,?,?,?,?)";
+	        String sql = "insert into product (barcode,pro_name,pro_sale_price,pro_expiry,brand_id,cat_id,unit_id)values(?,?,?,?,?,?,?)";
 	        try {
 	        	
 //	            DecimalFormat formatter = new DecimalFormat("###,###,###");
@@ -280,16 +276,9 @@ public class product_add implements Initializable{
 	            pst.setString(2, text_product_name.getText());
 	            pst.setString(3, text_product_price.getText());
 	            pst.setString(4, date.getValue().toString());
-	            String value = combobox_product.getSelectionModel().getSelectedItem().toString();
-	            String value1 = combobox_product_brand.getSelectionModel().getSelectedItem().toString();
-	            String value2 = combobox_product_category.getSelectionModel().getSelectedItem().toString();
-	            
-	            pst.setString(5, value);
-	            pst.setInt(6, brand_id);
-	            pst.setString(7, value2);
-	            pst.setString(8, value1);
-	            pst.setInt(9, category_id);
-	            pst.setInt(10, unit_id);
+	            pst.setInt(5, brand_id);
+	            pst.setInt(6, category_id);
+	            pst.setInt(7, unit_id);
 	            pst.execute();
 	            JOptionPane.showMessageDialog(null, "Users Add succes");
 	            Stage stage = (Stage) root.getScene().getWindow();

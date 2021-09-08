@@ -297,9 +297,6 @@ public class product implements Initializable{
     	col_product_name.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
     	col_product_price.setCellValueFactory(new PropertyValueFactory<Product,String>("price"));
     	col_product_expiry.setCellValueFactory(new PropertyValueFactory<Product,String>("expiry"));
-    	col_product_unit.setCellValueFactory(new PropertyValueFactory<Product,String>("unit"));
-    	col_product_brand.setCellValueFactory(new PropertyValueFactory<Product,String>("brand"));
-    	col_product_category.setCellValueFactory(new PropertyValueFactory<Product,String>("category"));
 
 	           dataList = connectDB.getDataProduct();
 	           table_product.setItems(dataList);
@@ -313,15 +310,9 @@ public class product implements Initializable{
 	       
 	       if (person.getName().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
 	        return true; // Filter matches name
-	       } else if (person.getUnit().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-	        return true; // Filter matches unit
 	       }else if (person.getBarcode().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 	        return true; // Filter matches barcode
-	       }else if (person.getCategory().toLowerCase().indexOf(lowerCaseFilter) != -1) {
-		        return true; // Filter matches category
-	       }else if (String.valueOf(person.getBrand()).indexOf(lowerCaseFilter)!=-1)
-	            return true;// Filter matches brand
-	                                   
+	       }                     
 	            else  
 	             return false; // Does not match.
 	      });
@@ -346,9 +337,6 @@ public class product implements Initializable{
     	col_product_name.setCellValueFactory(new PropertyValueFactory<Product,String>("name"));
     	col_product_price.setCellValueFactory(new PropertyValueFactory<Product,String>(("price")));
     	col_product_expiry.setCellValueFactory(new PropertyValueFactory<Product,String>("expiry"));
-    	col_product_unit.setCellValueFactory(new PropertyValueFactory<Product,String>("unit"));
-    	col_product_brand.setCellValueFactory(new PropertyValueFactory<Product,String>("brand"));
-    	col_product_category.setCellValueFactory(new PropertyValueFactory<Product,String>("category"));
     	
         
         listM = connectDB.getDataProduct();
@@ -368,9 +356,6 @@ public class product implements Initializable{
         text_product_name.setText(col_product_name.getCellData(index).toString());
         text_product_price.setText(col_product_price.getCellData(index).toString());
         text_product_expiry.setText(col_product_expiry.getCellData(index).toString());
-        text_product_unit.setText(col_product_unit.getCellData(index).toString());
-        text_product_brand.setText(col_product_brand.getCellData(index).toString());
-        text_product_category.setText(col_product_category.getCellData(index).toString());
  
     }
 

@@ -369,6 +369,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="35.0" onMouseClicked="#roll_manage" pickOnBounds="true" preserveRatio="true" styleClass="shadow">
+               <image>
+                  <Image url="@../../image/icons8-employee-50.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
          <padding>
             <Insets top="20.0" />

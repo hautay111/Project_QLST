@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 
 import app.controller.employee_controller.security;
 import app.controller.homepage.Home_Employee;
+import app.controller.homepage.Home_Manage;
 import app.dao.connectDB;
 import app.model.Bill;
 import app.model.Order_Detail;
@@ -363,14 +364,22 @@ private void handleUpload(ActionEvent t) {
 	
     }
     
+     @FXML
+    private Label name_emp_bill;
+        
+    public void getEmp_id(String id_emp, String name_emp ,String title) {
+    	emp_id.setText(id_emp);
+    	name_emp_bill.setText(name_emp);
+    	System.out.println("emp_id bill employee: "+ emp_id.getText() +"name bill employee:"+name_emp_bill.getText());
+    }   
+    
 	@FXML
 		void exit(MouseEvent event) {
 			try {
 				Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(getClass().getResource("../../../ui/homepage/Home_Employee.fxml"));
-				Parent parent;
-		
+				Parent parent;	
 				parent = loader.load();
 				Scene scene = new Scene(parent);
 				stage.setScene(scene);
@@ -378,22 +387,11 @@ private void handleUpload(ActionEvent t) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
+			
 		}
-    
-    @FXML
-    private Label name_emp_bill;
-    
-    @FXML
-//    private Label image_qrcode_emp;
-    
-    public void getEmp_id(String id_emp, String name_emp) {
-    	emp_id.setText(id_emp);
-    	name_emp_bill.setText(name_emp);
-//    	image_qrcode_emp.setText(image_emp);
-//    	image_qrcode_emp();
-//    	System.out.println("emp_id bill employee: "+ emp_id.getText() +"name bill employee:"+name_emp_bill.getText()+"   "+image_qrcode_emp.getText());
-    }
-	
+    	
     @FXML
     void new_orders(ActionEvent event) {
     	try {
@@ -415,10 +413,14 @@ private void handleUpload(ActionEvent t) {
 					    	 label_thongbao.setText("Create Succeed !!!");
 					    	 
 					    	 btn_refresh.setDisable(false);
-					    	 btn_remove.setDisable(false);
 					    	 btn_buy_order.setDisable(false);
 					    	 btn_print.setDisable(false);
 					    	 btn_add_product.setDisable(false);
+					    	 total_bill_order.setText("");
+					    	 tienphaitrakhach.setText("");
+					    	 tienthoi.setText("");
+					    	 total_bill_pay.setText("");
+					    	 text_barcode_barcode.setText("");
 					    	    
 					    }
 					} catch (SQLException e) {
@@ -488,38 +490,6 @@ private void handleUpload(ActionEvent t) {
     	if (text_amount.getText().trim().equals("")||text_name.getText().trim().equals("")) {
         	JOptionPane.showMessageDialog(null, "Please choose a product or amount");
     	}
-    	
-    	
-//        try {
-//			
-//	    	conn=connectDB.ConnectDb();
-//	    	String query1= "select * from orders_detail where order_id = ? ";
-//			pst = conn.prepareStatement(query1);
-//			pst.setString(1, order_id1.getText());
-//			pst.execute();
-//			rs=pst.executeQuery();
-//    		if (rs.next()) {
-//    			int order_detail_id = rs.getInt(1);
-//    			int amounta = rs.getInt(4);
-//    			int order_id_data = rs.getInt(2);
-//    			int order_id = Integer.parseInt(order_id1.getText());
-//    			int amountaa = Integer.parseInt(text_amount.getText());
-//    			int total_amount = amounta + amountaa;
-//    			if (order_id_data == order_id) {					
-//	            	conn = connectDB.ConnectDb();
-//	                String sql1aa = "update orders_detail set quantity= '"+total_amount+"' where order_detail_id = '"+order_detail_id+"' ";
-//	                pst= conn.prepareStatement(sql1aa);
-//	                pst.execute();
-//    				
-//				}
-//    		}
-//        	
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-    	
-    	
-    	
     	try {
 	    	conn=connectDB.ConnectDb();
 	    	String query= "Select *,sum(amount) from input_detail WHERE pro_id = ? group by pro_id=?";
@@ -589,7 +559,7 @@ private void handleUpload(ActionEvent t) {
 								    rs=pst.executeQuery();
 								    while(rs.next()) {
 								    	 id_order.setText(rs.getString("order_id"));
-								    	 
+								    	 btn_remove.setDisable(false);
 								    }		   
 					            
 							        
@@ -982,10 +952,11 @@ private void handleUpload(ActionEvent t) {
   
   @FXML
   void print_bill(ActionEvent event) throws SQLException {
-
+	  total_bill_pay.setText(total_bill_pay.getText()+" $");
+	  tienthoi.setText(tienthoi.getText()+" $");
       try {
-          JasperDesign jasdi=JRXmlLoader.load("C:/java/work-space/Project_QLST/QLST/src/app/ui/employee/Bill_Order.jrxml");
-          String sql1s="SELECT *, SUM(quantity) AS amount FROM orders_detail WHERE order_id ='"+order_id1.getText()+"' GROUP BY order_id, name";
+          JasperDesign jasdi=JRXmlLoader.load("C:\\Users\\hau\\git\\Project_QLST\\QLST\\src\\app\\ui\\employee\\Invoice.jrxml");
+          String sql1s="SELECT *, SUM(quantity) AS amount,sum(total) as total1 FROM orders_detail WHERE order_id ='"+order_id1.getText()+"' GROUP BY order_id, name";
           JRDesignQuery newQuery=new JRDesignQuery();
           newQuery.setText(sql1s);
 
@@ -996,11 +967,18 @@ private void handleUpload(ActionEvent t) {
           para.put("total",total_bill_pay.getText());
           para.put("cash",tienthoi.getText());
           para.put("tiendu",tienphaitrakhach.getText());
-          
+          btn_refresh.setDisable(true);
+          id_order.setText("   ");
+          text_cus_code.setText("0");
+          btn_print.setDisable(true);
+          total_bill_order.setText("");
+          tienthoi.setText("");
+          total_bill_pay.setText("");
+          text_barcode_barcode.setText("");
           JasperReport js=JasperCompileManager.compileReport(jasdi);
           JasperPrint jp=JasperFillManager.fillReport(js,para,conn);
           // JasperExportManager.exportReportToHtmlFile(jp ,ore);
-          JasperViewer.viewReport(jp);
+          JasperViewer.viewReport(jp,false);
       } catch (Exception e) {
           System.out.println(e);
       }
@@ -1030,16 +1008,11 @@ private void handleUpload(ActionEvent t) {
 	  
   }
   
-  
-//  while(amount_product>=0) {
-//	if (amount_product > amount_stock) {
-//		
-//         amount_product = amount_product - amount_stock;
-//        System.out.println(amount_product);
-//		
-//	}else {
-//		
-//	}
-//}   
+  @FXML
+  void btn_dua_du(MouseEvent event) {
+	  tienthoi.setText(total_bill_pay.getText());
+	  tienphaitrakhach.setText("0 $");
+  }
+
 
 }

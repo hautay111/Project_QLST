@@ -5,19 +5,15 @@ import java.text.DecimalFormat;
 public class Product {
 
 	int id,no;
-	String price,barcode,name,expiry,unit,brand,category;
+	String price,barcode,name,expiry;
 	
-	public Product(int id, int no, String price, String barcode, String name, String expiry, String unit, String brand,
-			String category) {
+	public Product(int id, int no, String price, String barcode, String name, String expiry) {
 		this.id = id;
 		this.no = no;
 		this.price = price;
 		this.barcode = barcode;
 		this.name = name;
 		this.expiry = expiry;
-		this.unit = unit;
-		this.brand = brand;
-		this.category = category;
 	}
 
 	public int getId() {
@@ -68,30 +64,5 @@ public class Product {
 		this.expiry = expiry;
 	}
 
-	public String getUnit() {
-		return unit;
-	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
-	}
-
-	public String getBrand() {
-		return brand;
-	}
-
-	public void setBrand(String brand) {
-		this.brand = brand;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	
-	
+		
 }

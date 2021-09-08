@@ -514,7 +514,6 @@ public class Inventory_employee implements Initializable{
     void export_product(ActionEvent event){
     	
     	
-    	
     }
 	
 	public static int product;
