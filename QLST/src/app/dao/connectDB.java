@@ -331,7 +331,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Quarter_1> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and QUARTER(ware_house.date_input)=1");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND QUARTER(input.time)=1 GROUP BY input_detail.pro_id ORDER BY total_amount ASC ");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -354,7 +354,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Quarter_2> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and QUARTER(ware_house.date_input)=2");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND QUARTER(input.time)=2 GROUP BY input_detail.pro_id ORDER BY total_amount ASC ");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -378,7 +378,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Quarter_3> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and QUARTER(ware_house.date_input)=3");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND QUARTER(input.time)=3 GROUP BY input_detail.pro_id ORDER BY total_amount ASC ");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -402,7 +402,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<Quarter_4> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and QUARTER(ware_house.date_input)=4");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND QUARTER(input.time)=4 GROUP BY input_detail.pro_id ORDER BY total_amount ASC ");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -425,7 +425,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M1> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=1");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=1 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -448,7 +448,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M2> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=2");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=2 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -471,7 +471,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M3> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=3");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=3 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -494,7 +494,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M4> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=4");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=4 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -517,7 +517,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M5> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=5");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=5 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -540,7 +540,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M6> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=6");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=6 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -563,7 +563,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M7> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=7");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=7 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -587,7 +587,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M8> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=8");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=8 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -610,7 +610,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M9> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=9");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=9 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -633,7 +633,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M10> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=10");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=10 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -656,7 +656,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M11> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=11");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=11 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
@@ -679,7 +679,7 @@ public class connectDB {
         Connection conn = ConnectDb();
         ObservableList<M12> list = FXCollections.observableArrayList();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT ware_house.*,product.pro_name,amount_stock+amount_input AS \"total_amount\" FROM ware_house,product WHERE amount_stock+amount_input<100 AND ware_house.pro_id=product.pro_id and MONTH(ware_house.date_input)=12");
+            PreparedStatement ps = conn.prepareStatement("SELECT SUM(input_detail.amount) AS 'total_amount',input_detail.pro_id,product.pro_name FROM input_detail,product,input WHERE input_detail.pro_id=product.pro_id AND input.input_id=input_detail.input_id AND Month(input.time)=12 GROUP BY input_detail.pro_id ORDER BY total_amount ASC");
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()){   
