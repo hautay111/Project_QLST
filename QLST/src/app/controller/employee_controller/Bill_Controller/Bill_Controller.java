@@ -955,7 +955,7 @@ private void handleUpload(ActionEvent t) {
 	  total_bill_pay.setText(total_bill_pay.getText()+" $");
 	  tienthoi.setText(tienthoi.getText()+" $");
       try {
-          JasperDesign jasdi=JRXmlLoader.load("C:\\Users\\hau\\git\\Project_QLST\\QLST\\src\\app\\ui\\employee\\Invoice.jrxml");
+          JasperDesign jasdi=JRXmlLoader.load("C:\\java\\work-space\\Project_QLST\\QLST\\src\\app\\ui\\employee\\Invoice.jrxml");
           String sql1s="SELECT *, SUM(quantity) AS amount,sum(total) as total1 FROM orders_detail WHERE order_id ='"+order_id1.getText()+"' GROUP BY order_id, name";
           JRDesignQuery newQuery=new JRDesignQuery();
           newQuery.setText(sql1s);

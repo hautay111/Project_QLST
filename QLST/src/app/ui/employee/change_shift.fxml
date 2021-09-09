@@ -60,7 +60,7 @@
                         <Image url="@../../image/icons8-go-back-48.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="96.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#Changeshift_email" prefHeight="31.0" prefWidth="110.0" style="-fx-background-color: #00BFFF; -fx-background-radius: 1em;" text="Change" textFill="#202020">
+                  <Button layoutX="96.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#Changeshift_email" prefHeight="31.0" prefWidth="110.0" style="-fx-background-color: #00BFFF; -fx-background-radius: 1em;" text="Change" textFill="#202020" visible="false">
                      <font>
                         <Font name="Consolas" size="14.0" />
                      </font>
