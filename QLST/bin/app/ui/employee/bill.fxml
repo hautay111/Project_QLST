@@ -50,7 +50,7 @@
          </font>
       </Label>
       <Button fx:id="btn_print" disable="true" layoutX="1140.0" layoutY="508.0" mnemonicParsing="false" onAction="#print_bill" prefHeight="33.0" prefWidth="90.0" text="Print" />
-      <Pane layoutX="31.0" layoutY="444.0" prefHeight="91.0" prefWidth="248.0">
+      <Pane layoutX="430.0" layoutY="39.0" prefHeight="91.0" prefWidth="248.0">
          <children>
             <HBox layoutY="2.0" prefHeight="25.0" prefWidth="248.0">
                <children>
@@ -83,7 +83,7 @@
             <Button layoutX="72.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleUpload" text="Button" visible="false" />
          </children>
       </Pane>
-      <Pane layoutX="360.0" layoutY="121.0" prefHeight="323.0" prefWidth="357.0">
+      <Pane layoutX="360.0" layoutY="173.0" prefHeight="323.0" prefWidth="357.0">
          <children>
             <VBox layoutX="11.0" layoutY="14.0" prefHeight="294.0" prefWidth="335.0" spacing="3.0">
                <children>
@@ -165,23 +165,23 @@
                         <Insets bottom="3.0" left="14.0" right="1.0" top="4.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="40.0" prefWidth="335.0" spacing="1.0">
-                     <children>
-                        <Button fx:id="btn_add_product" disable="true" mnemonicParsing="false" onAction="#Add_product_order" prefHeight="31.0" prefWidth="118.0" style="-fx-background-color: #3F8A7B;" text="Add To Order" textFill="RED">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <padding>
-                              <Insets left="12.0" top="1.0" />
-                           </padding>
-                        </Button>
-                     </children>
-                     <padding>
-                        <Insets left="117.0" />
-                     </padding>
-                  </HBox>
                </children>
             </VBox>
+            <HBox layoutX="-92.0" layoutY="298.0" prefHeight="40.0" prefWidth="335.0" spacing="1.0">
+               <children>
+                  <Button fx:id="btn_add_product" disable="true" mnemonicParsing="false" onAction="#Add_product_order" prefHeight="31.0" prefWidth="118.0" style="-fx-background-color: #3F8A7B;" text="Add To Order" textFill="RED">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="12.0" top="1.0" />
+                     </padding>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="117.0" />
+               </padding>
+            </HBox>
          </children>
       </Pane>
       <VBox layoutX="745.0" layoutY="409.0" prefHeight="124.0" prefWidth="275.0">
@@ -246,13 +246,13 @@
          </children>
       </VBox>
       <PerspectiveCamera fieldOfView="-7.9" layoutX="351.0" layoutY="500.0" />
-      <Label fx:id="label_thongbao" layoutX="21.0" layoutY="409.0" prefHeight="25.0" prefWidth="281.0" textFill="RED">
+      <Label fx:id="label_thongbao" layoutX="25.0" layoutY="496.0" prefHeight="25.0" prefWidth="281.0" textFill="RED">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
       <Button fx:id="btn_buy_order" disable="true" layoutX="745.0" layoutY="367.0" mnemonicParsing="false" onAction="#Buy_order" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: #3F8A7B;" text="Buy" />
-      <Pane layoutX="14.0" layoutY="14.0" prefHeight="287.0" prefWidth="335.0">
+      <Pane layoutX="14.0" layoutY="68.0" prefHeight="287.0" prefWidth="335.0">
          <children>
             <VBox layoutX="11.0" layoutY="60.0" prefHeight="207.0" prefWidth="335.0" spacing="12.0">
                <children>
@@ -336,10 +336,10 @@
             <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#add_cus" style="-fx-background-color: #FFFFD0;" text="Register Customer" />
          </children>
       </Pane>
-      <Button fx:id="btn_create_order" layoutX="31.0" layoutY="314.0" mnemonicParsing="false" onAction="#new_orders" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Create Order" />
-      <Button layoutX="173.0" layoutY="314.0" mnemonicParsing="false" onAction="#btn_view_order" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="View Order" />
-      <Button fx:id="btn_remove" disable="true" layoutX="31.0" layoutY="367.0" mnemonicParsing="false" onAction="#btn_remove_order_row" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Remove Product" />
-      <TableView fx:id="table_order" layoutX="745.0" layoutY="26.0" onMouseClicked="#select_order_row" prefHeight="330.0" prefWidth="450.0" style="-fx-background-color: #3EA6FF;">
+      <Button fx:id="btn_create_order" layoutX="31.0" layoutY="370.0" mnemonicParsing="false" onAction="#new_orders" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Create Order" />
+      <Button layoutX="164.0" layoutY="370.0" mnemonicParsing="false" onAction="#btn_view_order" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="View Order" />
+      <Button fx:id="btn_remove" disable="true" layoutX="31.0" layoutY="424.0" mnemonicParsing="false" onAction="#btn_remove_order_row" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Remove Product" />
+      <TableView fx:id="table_order" layoutX="745.0" layoutY="69.0" onMouseClicked="#select_order_row" prefHeight="287.0" prefWidth="450.0" style="-fx-background-color: #3EA6FF;">
          <columns>
             <TableColumn fx:id="col_bill_no" prefWidth="75.0" text="No." visible="false" />
             <TableColumn fx:id="col_bill_id" prefWidth="75.0" text="ID Order" visible="false" />
@@ -367,6 +367,26 @@
             </Lighting>
          </effect>
       </TableView>
-      <Button fx:id="btn_refresh" disable="true" layoutX="173.0" layoutY="367.0" mnemonicParsing="false" onAction="#btn_refresh_order" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Delete Order" />
+      <Button fx:id="btn_refresh" disable="true" layoutX="164.0" layoutY="424.0" mnemonicParsing="false" onAction="#btn_refresh_order" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Delete Order" />
+      <Label layoutX="85.0" layoutY="17.0" prefHeight="45.0" prefWidth="143.0" text="Customer" textFill="#40ff00">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label layoutX="404.0" layoutY="128.0" prefHeight="45.0" prefWidth="268.0" text="Barcode Reader Product" textFill="#2fff00">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="430.0" layoutY="7.0" prefHeight="27.0" prefWidth="182.0" text="Infomation Employee" textFill="#37ff00">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="918.0" layoutY="24.0" prefHeight="30.0" prefWidth="144.0" text="Table Bill Check" textFill="#04ff47">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

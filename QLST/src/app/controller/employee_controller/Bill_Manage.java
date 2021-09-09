@@ -136,15 +136,7 @@ public class Bill_Manage implements Initializable{
     	emp_id.setText(id_emp);
     	emp_tille_name.setText(title_name);
     }
-    
-//    public void getEmp1(String id_emp1, String title_name1) {
-//    	System.out.println("emp_id bill employee: "+ id_emp1);
-//    	System.out.println("emp_id bill employee: "+ title_name1);
-//    	emp_id.setText(id_emp1);
-//    	emp_tille_name.setText(title_name1);
-//    }
-    
-    
+
     @FXML
     void btn_delete(ActionEvent event) {
     	if(emp_tille_name.getText().trim().equals("emp")) {
@@ -173,11 +165,10 @@ public class Bill_Manage implements Initializable{
 	                    pst.setString(1, text_id.getText());
 	                    pst.execute();
 	                	UpdateTable_bill();
-	                	search_user_bill_order();
-	                	search_user_bill();
 	                    JOptionPane.showMessageDialog(null, "Delete");
 	                } catch (Exception e) {
 	                    JOptionPane.showMessageDialog(null, e);
+	                    
 	                }
     	}
     }
@@ -237,11 +228,7 @@ public class Bill_Manage implements Initializable{
     	col_total.setCellValueFactory(new PropertyValueFactory<Bill_Mange,Integer>("total_price"));
     	col_point.setCellValueFactory(new PropertyValueFactory<Bill_Mange,Integer>("point"));
     	col_discount.setCellValueFactory(new PropertyValueFactory<Bill_Mange,Integer>("discount"));
-
     	
-    	
-
-
         listM = connectDB.getBill_manage();
         table_order.setItems(listM);
     }

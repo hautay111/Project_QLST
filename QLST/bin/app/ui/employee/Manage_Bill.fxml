@@ -31,7 +31,7 @@
             </Label>
             <DatePicker fx:id="text_search_date" layoutX="916.0" layoutY="34.0" />
             <Button layoutX="1099.0" layoutY="34.0" mnemonicParsing="false" onAction="#btn_search_date" text="Search by Date" />
-            <TextField fx:id="text_id" disable="true" layoutX="322.0" layoutY="22.0" prefHeight="25.0" prefWidth="55.0" />
+            <TextField fx:id="text_id" layoutX="322.0" layoutY="22.0" prefHeight="25.0" prefWidth="55.0" visible="false" />
             <Label fx:id="emp_id" layoutX="240.0" layoutY="23.0" prefHeight="17.0" prefWidth="63.0" text="Label" textFill="WHITE" visible="false" />
             <Label fx:id="emp_tille_name" layoutX="169.0" layoutY="22.0" prefHeight="17.0" prefWidth="89.0" text="Label" textFill="WHITE" visible="false" />
             <Button layoutX="422.0" layoutY="47.0" mnemonicParsing="false" onAction="#load" text="Refresh" />

@@ -183,22 +183,13 @@ public class product implements Initializable{
     @FXML
     private TextField text_product_expiry;
 
-    @FXML
-    private TextField text_product_brand;
-
-    @FXML
-    private TextField text_product_unit;
 
     @FXML
     private TextField search_user_product;
-    
 
     @FXML
     private TextField text_product_barcode;
-
-    @FXML
-    private TextField text_product_category;
-
+    
     @FXML
     private BorderPane main;
 
@@ -365,10 +356,7 @@ public class product implements Initializable{
     	text_product_name.setText("");
     	text_product_price.setText("");
     	text_product_expiry.setText("");
-    	text_product_unit.setText("");
-    	text_product_brand.setText("");
     	text_product_barcode.setText("");
-    	text_product_category.setText("");
     	UpdateTable_product();
     }
 		 
@@ -407,7 +395,7 @@ public class product implements Initializable{
                 btn_product_reset();
 //                showamount();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e);
+            	JOptionPane.showMessageDialog(null, "Products that have been sold cannot be deleted");
             }
     }
     
@@ -415,33 +403,23 @@ public class product implements Initializable{
     void product_edit(MouseEvent event) {
         try {
         	
-//            DecimalFormat formatter = new DecimalFormat("###,###,###");           
-//            double money = Double.parseDouble(text_product_price.getText());            
-//            String moneyString = formatter.format(money);
-//            System.out.println(moneyString);
-        	
-        	
             conn = connectDB.ConnectDb();
             String value1 = text_product_id.getText();
             String value2 = text_product_name.getText();
             String value3 = text_product_price.getText();
             String value4 = text_product_expiry.getText();
-            String value5 = text_product_unit.getText();
-            String value6 = text_product_brand.getText();
-            String value7 = text_product_category.getText();
             String value8 = text_product_barcode.getText();
 
             String sql = "update product set pro_name= '"+value2+"',pro_sale_price= '"+
-            		value3+"',pro_expiry= '"+value4+"',pro_unit= '"+value5+"',pro_brand= '"+value6+"',pro_category= '"+value7+"',barcode= '"+value8+"' where pro_id = '"+value1+"' ";
+            		value3+"',pro_expiry= '"+value4+"',barcode= '"+value8+"' where pro_id = '"+value1+"' ";
             pst= conn.prepareStatement(sql);
             pst.execute();
             JOptionPane.showMessageDialog(null, "Update");
-//            UpdateTable_product();
             search_user_product();
             btn_product_reset();
-//            showamount();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error Update!");
+            System.out.println(e);
         }
     }
     
@@ -453,10 +431,7 @@ public class product implements Initializable{
     	text_product_name.setText("");
     	text_product_price.setText("");
     	text_product_expiry.setText("");
-    	text_product_unit.setText("");
-    	text_product_brand.setText("");
     	text_product_barcode.setText("");
-    	text_product_category.setText("");
     	
     }
 
@@ -545,13 +520,6 @@ public class product implements Initializable{
 				  wsheet.addCell(label);
 				  label = new Label(i++, j, rs.getString("pro_expiry"));
 				  wsheet.addCell(label);
-				  label = new Label(i++, j, rs.getString("pro_unit"));
-				  wsheet.addCell(label);
-				  label = new Label(i++, j, rs.getString("pro_brand"));
-				  wsheet.addCell(label);
-				  label = new Label(i++, j, rs.getString("pro_category"));
-				  wsheet.addCell(label);
-
 				j++;
 			}
         wworkbook.write();
