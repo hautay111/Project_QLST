@@ -20,91 +20,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="main" minHeight="-Infinity" prefHeight="714.0" prefWidth="1352.0" style="-fx-background-color: #2F2B43;" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Bill_Controller.Bill_Controller">
+<AnchorPane fx:id="main" minHeight="-Infinity" prefHeight="564.0" prefWidth="1251.0" style="-fx-background-color: #2F2B43;" stylesheets="@../css/application.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.employee_controller.Bill_Controller.Bill_Controller">
    <children>
-      <AnchorPane layoutX="763.0" layoutY="14.0" prefHeight="305.0" prefWidth="549.0">
-         <children>
-            <Pane layoutX="54.0" layoutY="14.0" prefHeight="278.0" prefWidth="477.0">
-               <children>
-                  <VBox layoutX="8.0" layoutY="14.0" prefHeight="207.0" prefWidth="335.0" spacing="12.0">
-                     <children>
-                        <HBox prefHeight="35.0" prefWidth="277.0">
-                           <children>
-                              <Label prefHeight="32.0" prefWidth="157.0" text="Customer's code :" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="text_cus_code" onKeyTyped="#handleScanCustomer" prefHeight="34.0" prefWidth="144.0" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="32.0" prefWidth="293.0">
-                           <children>
-                              <Label prefHeight="30.0" prefWidth="78.0" text="Name :" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="label_cus_name" prefHeight="30.0" prefWidth="214.0" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="32.0" prefWidth="293.0">
-                           <children>
-                              <Label prefHeight="30.0" prefWidth="78.0" text="Point :" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="label_cus_poit" prefHeight="30.0" prefWidth="141.0" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="label_show_discount" prefHeight="39.0" prefWidth="118.0" text=".  .  .  .  " textFill="WHITE" />
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="32.0" prefWidth="293.0">
-                           <children>
-                              <Label prefHeight="30.0" prefWidth="116.0" text="Remaining :" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="label_cus_point_end" prefHeight="30.0" prefWidth="214.0" textFill="WHITE">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <VBox prefHeight="45.0" prefWidth="335.0" spacing="1.0">
-                           <children>
-                              <Button fx:id="btn_create_order" mnemonicParsing="false" onAction="#new_orders" prefHeight="40.0" prefWidth="88.0" style="-fx-background-color: #FFFFD0;" text="Create Order" />
-                           </children>
-                           <padding>
-                              <Insets left="136.0" top="1.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </VBox>
-                  <Button fx:id="btn_remove" disable="true" layoutX="98.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_remove_order_row" style="-fx-background-color: #FFFFD0;" text="Remove" />
-                  <Button fx:id="btn_refresh" disable="true" layoutX="222.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_refresh_order" style="-fx-background-color: #FFFFD0;" text="Refresh" />
-                  <Button layoutX="322.0" layoutY="17.0" mnemonicParsing="false" onAction="#add_cus" style="-fx-background-color: #FFFFD0;" text="Register Customer" />
-                  <Button fx:id="btn_remove" disable="true" layoutX="98.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_remove_order_row" text="Remove" />
-                  <Button fx:id="btn_refresh" disable="true" layoutX="222.0" layoutY="239.0" mnemonicParsing="false" onAction="#btn_refresh_order" text="Refresh" />
-                  <Label fx:id="label_thongbao" layoutX="134.0" layoutY="214.0" prefHeight="25.0" prefWidth="288.0" textFill="RED">
-                     <font>
-                        <Font name="System Bold Italic" size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
       <VBox layoutX="253.0" layoutY="-51.0" prefHeight="139.0" prefWidth="37.0" rotate="88.8" visible="false">
          <children>
             <Label fx:id="image_qrcode_emp" text="Label" />
@@ -122,7 +39,7 @@
             </Label>
          </children>
       </VBox>
-      <ImageView fitHeight="35.0" fitWidth="52.0" layoutX="1312.0" layoutY="9.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" rotate="-178.6">
+      <ImageView fitHeight="35.0" fitWidth="52.0" layoutX="1212.0" layoutY="7.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true" rotate="180.0">
          <image>
             <Image url="@../../image/icons8-go-back-48.png" />
          </image>
@@ -132,9 +49,8 @@
             <Font name="System Bold Italic" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="btn_print" disable="true" layoutX="35.0" layoutY="545.0" mnemonicParsing="false" onAction="#print_bill" prefHeight="33.0" prefWidth="59.0" style="-fx-background-color: #3F8A7B;" text="Print" />
-      <Button fx:id="btn_print" disable="true" layoutX="35.0" layoutY="545.0" mnemonicParsing="false" onAction="#print_bill" prefHeight="33.0" prefWidth="59.0" text="Print" />
-      <Pane layoutX="442.0" layoutY="161.0" prefHeight="116.0" prefWidth="248.0">
+      <Button fx:id="btn_print" disable="true" layoutX="1140.0" layoutY="508.0" mnemonicParsing="false" onAction="#print_bill" prefHeight="33.0" prefWidth="90.0" text="Print" />
+      <Pane layoutX="31.0" layoutY="444.0" prefHeight="91.0" prefWidth="248.0">
          <children>
             <HBox layoutY="2.0" prefHeight="25.0" prefWidth="248.0">
                <children>
@@ -167,12 +83,7 @@
             <Button layoutX="72.0" layoutY="299.0" mnemonicParsing="false" onAction="#handleUpload" text="Button" visible="false" />
          </children>
       </Pane>
-      <ImageView fitHeight="150.0" fitWidth="275.0" layoutX="428.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../image/FMI%20Supermarket%20Employee%20Day%20banner_1.png" />
-         </image>
-      </ImageView>
-      <Pane layoutX="14.0" layoutY="18.0" prefHeight="368.0" prefWidth="357.0">
+      <Pane layoutX="360.0" layoutY="121.0" prefHeight="323.0" prefWidth="357.0">
          <children>
             <VBox layoutX="11.0" layoutY="14.0" prefHeight="294.0" prefWidth="335.0" spacing="3.0">
                <children>
@@ -254,24 +165,9 @@
                         <Insets bottom="3.0" left="14.0" right="1.0" top="4.0" />
                      </padding>
                   </HBox>
-                  <HBox prefHeight="44.0" prefWidth="374.0" spacing="26.0">
+                  <HBox prefHeight="40.0" prefWidth="335.0" spacing="1.0">
                      <children>
-                        <Label prefHeight="32.0" prefWidth="84.0" text="Discount :" textFill="#dddddd">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="text_discount" prefHeight="32.0" prefWidth="23.0" text="0" textFill="#dddddd">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="33.0" prefWidth="37.0" text="( % ) " textFill="#dddddd">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                        <Button fx:id="btn_add_product" disable="true" mnemonicParsing="false" onAction="#Add_product_order" prefHeight="31.0" prefWidth="74.0" style="-fx-background-color: #3F8A7B;" text="Add" textFill="RED">
+                        <Button fx:id="btn_add_product" disable="true" mnemonicParsing="false" onAction="#Add_product_order" prefHeight="31.0" prefWidth="118.0" style="-fx-background-color: #3F8A7B;" text="Add To Order" textFill="RED">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -281,15 +177,14 @@
                         </Button>
                      </children>
                      <padding>
-                        <Insets bottom="3.0" left="13.0" right="1.0" top="8.0" />
+                        <Insets left="117.0" />
                      </padding>
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="btn_buy_order" disable="true" layoutX="26.0" layoutY="312.0" mnemonicParsing="false" onAction="#Buy_order" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: #3F8A7B;" text="Buy" />
          </children>
       </Pane>
-      <VBox layoutX="35.0" layoutY="400.0" prefHeight="139.0" prefWidth="275.0">
+      <VBox layoutX="745.0" layoutY="409.0" prefHeight="124.0" prefWidth="275.0">
          <children>
             <HBox prefHeight="26.0" prefWidth="233.0">
                <children>
@@ -350,7 +245,101 @@
             </HBox>
          </children>
       </VBox>
-      <TableView fx:id="table_order" layoutX="393.0" layoutY="357.0" onMouseClicked="#select_order_row" prefHeight="328.0" prefWidth="740.0" style="-fx-background-color: #3EA6FF;">
+      <PerspectiveCamera fieldOfView="-7.9" layoutX="351.0" layoutY="500.0" />
+      <Label fx:id="label_thongbao" layoutX="21.0" layoutY="409.0" prefHeight="25.0" prefWidth="281.0" textFill="RED">
+         <font>
+            <Font name="System Bold Italic" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_buy_order" disable="true" layoutX="745.0" layoutY="367.0" mnemonicParsing="false" onAction="#Buy_order" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: #3F8A7B;" text="Buy" />
+      <Pane layoutX="14.0" layoutY="14.0" prefHeight="287.0" prefWidth="335.0">
+         <children>
+            <VBox layoutX="11.0" layoutY="60.0" prefHeight="207.0" prefWidth="335.0" spacing="12.0">
+               <children>
+                  <HBox prefHeight="35.0" prefWidth="277.0">
+                     <children>
+                        <Label prefHeight="32.0" prefWidth="157.0" text="Customer's code :" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="text_cus_code" onKeyTyped="#handleScanCustomer" prefHeight="34.0" prefWidth="144.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="32.0" prefWidth="293.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="78.0" text="Name :" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_cus_name" prefHeight="30.0" prefWidth="214.0" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="32.0" prefWidth="293.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="78.0" text="Point :" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_cus_poit" prefHeight="30.0" prefWidth="141.0" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_show_discount" prefHeight="39.0" prefWidth="118.0" text=".  .  .  .  " textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="32.0" prefWidth="293.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="116.0" text="Remaining :" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_cus_point_end" prefHeight="30.0" prefWidth="214.0" textFill="WHITE">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="44.0" prefWidth="374.0" spacing="26.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="96.0" text="Discount :" textFill="#dddddd">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="text_discount" prefHeight="32.0" prefWidth="23.0" text="0" textFill="#dddddd">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="33.0" prefWidth="37.0" text="( % ) " textFill="#dddddd">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="3.0" left="-1.0" right="1.0" top="8.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <Button layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onAction="#add_cus" style="-fx-background-color: #FFFFD0;" text="Register Customer" />
+         </children>
+      </Pane>
+      <Button fx:id="btn_create_order" layoutX="31.0" layoutY="314.0" mnemonicParsing="false" onAction="#new_orders" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Create Order" />
+      <Button layoutX="173.0" layoutY="314.0" mnemonicParsing="false" onAction="#btn_view_order" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="View Order" />
+      <Button fx:id="btn_remove" disable="true" layoutX="31.0" layoutY="367.0" mnemonicParsing="false" onAction="#btn_remove_order_row" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Remove Product" />
+      <TableView fx:id="table_order" layoutX="745.0" layoutY="26.0" onMouseClicked="#select_order_row" prefHeight="330.0" prefWidth="450.0" style="-fx-background-color: #3EA6FF;">
          <columns>
             <TableColumn fx:id="col_bill_no" prefWidth="75.0" text="No." visible="false" />
             <TableColumn fx:id="col_bill_id" prefWidth="75.0" text="ID Order" visible="false" />
@@ -378,6 +367,6 @@
             </Lighting>
          </effect>
       </TableView>
-      <PerspectiveCamera fieldOfView="-7.9" layoutX="351.0" layoutY="500.0" />
+      <Button fx:id="btn_refresh" disable="true" layoutX="173.0" layoutY="367.0" mnemonicParsing="false" onAction="#btn_refresh_order" prefHeight="26.0" prefWidth="108.0" style="-fx-background-color: #FFFFD0;" text="Delete Order" />
    </children>
 </AnchorPane>

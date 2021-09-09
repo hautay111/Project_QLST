@@ -162,13 +162,13 @@
 				<text><![CDATA[Price]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="130" y="0" width="40" height="20" uuid="0cfd02e2-566a-4fe5-b4a4-216741e53c0b">
+				<reportElement x="130" y="0" width="50" height="20" uuid="0cfd02e2-566a-4fe5-b4a4-216741e53c0b">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="64c503d5-1126-481c-a814-819e7dfbc52f"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Amount]]></text>
+				<text><![CDATA[Quantity]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="180" y="0" width="50" height="20" uuid="15ede12f-9695-40cf-a452-624c07c37882">

@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import net.sf.jasperreports.engine.xml.JRXmlDigesterFactory;
 import javax.swing.JOptionPane;
 
+import app.controller.employee_controller.Bill_Manage;
 import app.controller.employee_controller.security;
 import app.controller.homepage.Home_Employee;
 import app.controller.homepage.Home_Manage;
@@ -366,11 +367,15 @@ private void handleUpload(ActionEvent t) {
     
      @FXML
     private Label name_emp_bill;
-        
+    private String a ,b;
     public void getEmp_id(String id_emp, String name_emp ,String title) {
     	emp_id.setText(id_emp);
     	name_emp_bill.setText(name_emp);
     	System.out.println("emp_id bill employee: "+ emp_id.getText() +"name bill employee:"+name_emp_bill.getText());
+    	
+    	a = emp_id.getText();
+    	b=name_emp_bill.getText();
+    	
     }   
     
 	@FXML
@@ -1006,6 +1011,26 @@ private void handleUpload(ActionEvent t) {
 			 e.printStackTrace();
 			}
 	  
+  }
+  
+  
+  @FXML
+  void btn_view_order(ActionEvent event) {
+  	try {
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		FXMLLoader loader=new FXMLLoader();
+		loader.setLocation(getClass().getResource("../../../ui/employee/Manage_Bill.fxml"));							
+		Parent parent=loader.load();
+//		Bill_Manage id_emp=  loader.getController();
+//		id_emp.getEmp1(a,b);
+		Scene scene=new Scene(parent);				
+		stage.setScene(scene);
+		stage.show();
+		
+
+	    } catch (Exception ex) {
+	        System.out.println("y"+ex.getMessage());
+	    }
   }
   
   @FXML

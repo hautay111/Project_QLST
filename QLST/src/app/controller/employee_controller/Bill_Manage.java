@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -100,6 +101,9 @@ public class Bill_Manage implements Initializable{
 
     @FXML
     private Label emp_tille_name;
+    
+    @FXML
+    private Button btn_delete_btn;
 
     int index = -1;
     
@@ -133,6 +137,14 @@ public class Bill_Manage implements Initializable{
     	emp_tille_name.setText(title_name);
     }
     
+//    public void getEmp1(String id_emp1, String title_name1) {
+//    	System.out.println("emp_id bill employee: "+ id_emp1);
+//    	System.out.println("emp_id bill employee: "+ title_name1);
+//    	emp_id.setText(id_emp1);
+//    	emp_tille_name.setText(title_name1);
+//    }
+    
+    
     @FXML
     void btn_delete(ActionEvent event) {
     	if(emp_tille_name.getText().trim().equals("emp")) {
@@ -140,6 +152,7 @@ public class Bill_Manage implements Initializable{
     	}
     	
     	if(emp_tille_name.getText().trim().equals("emp_security") || emp_tille_name.getText().trim().equals("mana")) {
+    		btn_delete_btn.setDisable(false);
 	        conn = connectDB.ConnectDb();
 	        String sql = "delete from orders_detail where order_id = ?";
 	            try {
