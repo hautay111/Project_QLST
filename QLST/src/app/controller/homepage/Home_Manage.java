@@ -251,4 +251,8 @@ public class Home_Manage {
     void ware_house(MouseEvent event) {
 		loadUI("ware_house");
     }
+	@FXML
+    void sup_unit(MouseEvent event) {
+		loadUI("sup_unit");
+    }
 }

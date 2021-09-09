@@ -13,7 +13,9 @@ import app.model.ChangeShift;
 
 import app.model.Product;
 import app.model.Run_Out;
+import app.model.Supplier;
 import app.model.Title;
+import app.model.Unit;
 import app.model.Ware_house;
 import app.model.search_dashboard.M1;
 import app.model.search_dashboard.M10;
@@ -44,7 +46,7 @@ public class connectDB {
     public static Connection ConnectDb(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/qlst_2","root","");
+            Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/qlst","root","");
            // JOptionPane.showMessageDialog(null, "Connection Established");
             System.out.println("ket noi database thanh cong");
             return conn;
@@ -815,5 +817,49 @@ public class connectDB {
 
     }
 
-    
+    //---------------------Supplier-Unit-------------------------------
+    public static ObservableList<Supplier> getDataSupplier() {
+        Connection conn = ConnectDb();
+        ObservableList<Supplier> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM supplier");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Supplier(
+                		rs.getRow(), 
+                		rs.getInt("sup_id"), 
+                		rs.getString("sup_name"), 
+                		rs.getString("sup_address"),
+                		rs.getString("sup_phone")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	}    
+    public static ObservableList<Unit> getDataUint() {
+        Connection conn = ConnectDb();
+        ObservableList<Unit> list = FXCollections.observableArrayList();
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM unit");
+            ResultSet rs = ps.executeQuery();
+            
+            while (rs.next()){   
+                list.add(new Unit(
+                		rs.getRow(), 
+                		rs.getInt("unit_id"),
+                		rs.getString("unit_name")
+                	));    
+                
+            }
+        } catch (Exception e) {
+        	System.out.println(e);
+        }
+        return list;
+        
+	}
 }
