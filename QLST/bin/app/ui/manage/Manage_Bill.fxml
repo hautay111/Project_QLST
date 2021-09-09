@@ -35,7 +35,7 @@
             <Label fx:id="emp_id" layoutX="240.0" layoutY="23.0" prefHeight="17.0" prefWidth="63.0" text="Label" textFill="WHITE" visible="false" />
             <Label fx:id="emp_tille_name" layoutX="169.0" layoutY="22.0" prefHeight="17.0" prefWidth="89.0" text="Label" textFill="WHITE" visible="false" />
             <Button layoutX="422.0" layoutY="47.0" mnemonicParsing="false" onAction="#load" text="Refresh" />
-            <Button layoutX="506.0" layoutY="47.0" mnemonicParsing="false" onAction="#btn_delete" text="Delete" />
+            <Button layoutX="506.0" layoutY="47.0" mnemonicParsing="false" onAction="#btn_delete" text="Delete" visible="false" />
          </children>
       </Pane>
    </top>
